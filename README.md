@@ -104,6 +104,14 @@ User Input
 - **Status Monitor** — Real-time connection status
 - **Path Safety** — Sandboxed to `projects/` directory (prevents breakouts)
 
+### Advanced Features (NEW) 🚀
+- **List Files** — Display directory structure recursively
+- **Python Execution** — Run Python code directly
+- **Bash Commands** — Execute shell/bash commands
+- **JavaScript Execution** — Run Node.js scripts (requires Node.js)
+- **Process Monitoring** — Get system process info (CPU, memory)
+- **Progress Bars** — Visual feedback for long operations
+
 ### What Works But Needs Improvement ⚠️
 - **JSON Parsing** — Regex-based fallback, sometimes LLM outputs malformed JSON
 - **Long Running Tasks** — 30s timeout may cut off complex operations
@@ -124,7 +132,13 @@ User Input
 
 ---
 
-## 📖 Usage Examples
+## 🎯 Advanced Features  
+
+The agent now supports powerful actions including file browsing, code execution (Python, Bash, JavaScript), system monitoring, and more!
+
+**See [ADVANCED_FEATURES.md](ADVANCED_FEATURES.md) for complete documentation.**
+
+---
 
 ### Example 1: Write Python Code
 ```
