@@ -132,6 +132,24 @@ User Input
 
 ---
 
+## 📚 Documentation & Resources
+
+### Getting Started
+- **[INSTALL.md](INSTALL.md)** — Detailed setup instructions for all platforms
+- **[TEST_WEB_UI.md](TEST_WEB_UI.md)** — Quick test scenarios for new features ⭐
+- **[USAGE_EXAMPLES.md](USAGE_EXAMPLES.md)** — 50+ practical examples for all 10 action types ⭐
+
+### Feature Documentation
+- **[ADVANCED_FEATURES.md](ADVANCED_FEATURES.md)** — Complete reference for all 10 actions
+- **[AGENT_DCODE_README.md](vsc-agent/dcode/AGENT_DCODE_README.md)** — VS Code extension guide
+
+### Troubleshooting & Development
+- **[DEBUG.md](vsc-agent/dcode/DEBUG.md)** — Debugging VS Code extension
+- **[PROJECT_LOG.md](PROJECT_LOG.md)** — Development history and decisions
+- **[RELEASE_v0.1.0.md](RELEASE_v0.1.0.md)** — Release notes and version info
+
+---
+
 ## 🎯 Advanced Features  
 
 The agent now supports powerful actions including file browsing, code execution (Python, Bash, JavaScript), system monitoring, and more!
