@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DCode - Offline AI Coder</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <h1>🤖 DCode</h1>
+                <p class="subtitle">Offline AI Agent - Local Code Generation</p>
+                <div class="status" id="status">
+                    <span class="status-dot online"></span>
+                    <span id="status-text">Online</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Chat Area -->
+        <div class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+                <div class="message system">
+                    <p>👋 Welcome! I'm DCode, your offline AI coding assistant.</p>
+                    <p>Ask me to write code, refactor files, run commands, and more!</p>
+                    <p><small>Using: qwen2.5-coder:7b</small></p>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="input-area">
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="userInput" 
+                        class="chat-input" 
+                        placeholder="Write a fibonacci function in Python..." 
+                        autocomplete="off"
+                    >
+                    <button id="sendBtn" class="send-btn" title="Send (Enter or Ctrl+Enter)">
+                        ➤
+                    </button>
+                </div>
+
+                <div class="controls">
+                    <button id="clearBtn" class="btn-secondary" title="Clear chat history">
+                        🗑 Clear
+                    </button>
+                    <button id="refreshBtn" class="btn-secondary" title="Refresh status">
+                        🔄 Status
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>💻 Running locally • 🔒 Your data stays on your machine • ⚡ Powered by Ollama</p>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

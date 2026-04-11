@@ -1,0 +1,26 @@
+﻿{
+  "name": "dcode",
+  "displayName": "DCode",
+  "description": "Personal Offline AI Coding Agent",
+  "version": "1.0.0",
+  "publisher": "dishant",
+  "engines": { "vscode": "^1.80.0" },
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        { "id": "dcode-sidebar", "title": "DCode", "icon": "media/icon.svg" }
+      ]
+    },
+    "views": {
+      "dcode-sidebar": [
+        { "type": "webview", "id": "dcode-chat", "name": "DCode Assistant" }
+      ]
+    }
+  },
+  "scripts": {
+    "compile": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
+    "watch": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --watch",
+    "vscode:prepublish": "npm run compile"
+  }
+}
