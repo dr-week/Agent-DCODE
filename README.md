@@ -6,9 +6,18 @@ A **fully offline** AI coding assistant that runs local models. No cloud depende
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
----
+## 🎯 VS Code Extension (NEW)
 
-## 🚀 Quick Start
+**Agent-DCODE** — Minimal VS Code extension for sending code to OpenAI.
+
+- **Location:** `vsc-agent/dcode/`
+- **Setup:** Get OpenAI API key → Add to VS Code settings (`dcode.apiKey`)
+- **Usage:** Select code → "Send to DCODE AI" or use sidebar chat
+- **Size:** ~300 lines of TypeScript, fully compiled & ready
+
+See [AGENT_DCODE_README.md](vsc-agent/dcode/AGENT_DCODE_README.md) for details.
+
+---
 
 ### Prerequisites
 - **Python 3.10+**

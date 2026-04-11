@@ -1,33 +1,54 @@
-# dcode README
+# Agent-DCODE - VS Code Extension
 
-This is the README for your extension "dcode". After writing up a brief description, we recommend including the following sections.
+Minimal VS Code extension to send code to OpenAI API and get AI-powered responses instantly.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+- **Send Code to AI** — Right-click or use command palette to submit code for analysis
+- **Sidebar Chat** — Interactive chat interface for asking questions
+- **Real-time Responses** — Get instant AI feedback without leaving VS Code
+- **Simple Setup** — Just add your OpenAI API key and you're ready
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+- VS Code 1.110+
+- OpenAI API key ([get one here](https://platform.openai.com/api-keys))
+
+## Installation
+
+1. Download `agent-dcode-0.1.0.vsix`
+2. Open VS Code
+3. Go to Extensions (Ctrl+Shift+X)
+4. Click "..." menu → "Install from VSIX"
+5. Select the downloaded file
+
+## Setup
+
+1. Open VS Code Settings (Ctrl+,)
+2. Search for "dcode.apiKey"
+3. Paste your OpenAI API key
+
+## Usage
+
+### Via Command
+- Select code in editor
+- Press Ctrl+Shift+P → "Send to DCODE AI"
+- See response in notification
+
+### Via Sidebar Chat
+- Click DCODE AI icon in activity bar
+- Type your question
+- Get instant response
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+- `dcode.apiKey` — Your OpenAI API key (required)
 
 ## Known Issues
+
+- Requires active internet (connects to OpenAI)
+- Limited to 5000 characters per response
+- No conversation history between sessions
 
 Calling out known issues can help limit users opening duplicate issues against your extension.
 
