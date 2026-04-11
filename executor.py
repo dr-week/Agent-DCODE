@@ -3,6 +3,8 @@ import subprocess
 import json
 import psutil
 import time
+from io import StringIO
+import sys
 
 BASE_DIR = os.path.abspath("projects")
 
@@ -19,41 +21,52 @@ def safe_path(path):
 
 
 def execute_actions(actions):
+    """Execute actions and capture output"""
+    results = []
     for a in actions:
         t = a.get("type")
+        output = ""
 
         if t == "write_file":
-            write_file(a)
+            output = write_file(a)
 
         elif t == "append_file":
-            append_file(a)
+            output = append_file(a)
 
         elif t == "read_file":
-            read_file(a)
+            output = read_file(a)
 
         elif t == "run_command":
-            run_cmd(a)
+            output = run_cmd(a)
 
         elif t == "list_files":
-            list_files(a)
+            output = list_files(a)
 
         elif t == "run_python":
-            run_python(a)
+            output = run_python(a)
 
         elif t == "run_bash":
-            run_bash(a)
+            output = run_bash(a)
 
         elif t == "run_js":
-            run_js(a)
+            output = run_js(a)
 
         elif t == "get_processes":
-            get_processes(a)
+            output = get_processes(a)
 
         elif t == "show_progress":
-            show_progress(a)
+            output = show_progress(a)
 
         else:
-            print("[UNKNOWN ACTION]", t)
+            output = f"[UNKNOWN ACTION] {t}"
+            print(output)
+        
+        # Collect result
+        result = a.copy()
+        result["output"] = output
+        results.append(result)
+    
+    return results
 
 
 def write_file(a):
@@ -62,15 +75,18 @@ def write_file(a):
 
     full = safe_path(path)
     if not full:
-        print("[BLOCKED PATH]", path)
-        return
+        msg = f"[BLOCKED PATH] {path}"
+        print(msg)
+        return msg
 
     os.makedirs(os.path.dirname(full), exist_ok=True)
 
     with open(full, "w", encoding="utf-8") as f:
         f.write(content)
 
-    print("[CREATED]", full)
+    msg = f"[CREATED] {full}"
+    print(msg)
+    return msg
 
 
 def append_file(a):
@@ -79,8 +95,9 @@ def append_file(a):
 
     full = safe_path(path)
     if not full:
-        print("[APPEND ERROR]", path)
-        return
+        msg = f"[APPEND ERROR] {path}"
+        print(msg)
+        return msg
 
     # 🔥 fix escaped newline
     content = content.replace("\\n", "\n")
@@ -88,21 +105,25 @@ def append_file(a):
     with open(full, "a", encoding="utf-8") as f:
         f.write("\n" + content.strip())
 
-    print("[APPENDED]", full)
+    msg = f"[APPENDED] {full}"
+    print(msg)
+    return msg
 
 def read_file(a):
     path = a.get("path")
 
     full = safe_path(path)
     if not full or not os.path.exists(full):
-        print("[READ ERROR]", path)
-        return
+        msg = f"[READ ERROR] {path}"
+        print(msg)
+        return msg
 
     with open(full, "r", encoding="utf-8") as f:
         content = f.read()
 
     print("[READ SUCCESS]")
     print(content)
+    return content
 
 
 def run_cmd(a):
@@ -121,11 +142,16 @@ def run_cmd(a):
             timeout=30
         )
 
+        output = f"{r.stdout}\n{r.stderr}" if r.stderr else r.stdout
         print("[OUT]\n", r.stdout)
-        print("[ERR]\n", r.stderr)
+        if r.stderr:
+            print("[ERR]\n", r.stderr)
+        return output
 
     except subprocess.TimeoutExpired:
-        print("[TIMEOUT]")
+        msg = "[TIMEOUT]"
+        print(msg)
+        return msg
 
 
 def list_files(a):
@@ -135,9 +161,12 @@ def list_files(a):
 
     full = safe_path(path) if path != "projects" else BASE_DIR
     if not full or not os.path.isdir(full):
-        print("[LIST ERROR]", path)
-        return
+        msg = f"[LIST ERROR] {path}"
+        print(msg)
+        return msg
 
+    output_lines = []
+    
     def tree(directory, prefix="", depth=0):
         if depth > max_depth:
             return
@@ -149,37 +178,56 @@ def list_files(a):
                 path = os.path.join(directory, item)
                 is_last = i == len(items) - 1
                 current_prefix = "└── " if is_last else "├── "
-                print(prefix + current_prefix + item)
+                line = prefix + current_prefix + item
+                output_lines.append(line)
+                print(line)
                 if os.path.isdir(path):
                     next_prefix = prefix + ("    " if is_last else "│   ")
                     tree(path, next_prefix, depth + 1)
         except PermissionError:
             pass
 
-    print(f"[FILE TREE] {full}")
+    header = f"[FILE TREE] {full}"
+    print(header)
+    output_lines.insert(0, header)
     tree(full)
+    
+    return "\n".join(output_lines)
 
 
 def run_python(a):
     """Execute Python code"""
     code = a.get("code", "")
     if not code:
-        print("[PYTHON ERROR] No code provided")
-        return
+        msg = "[PYTHON ERROR] No code provided"
+        print(msg)
+        return msg
 
     print("[PYTHON]")
+    output = StringIO()
+    old_stdout = sys.stdout
+    
     try:
+        sys.stdout = output
         exec(code)
+        sys.stdout = old_stdout
+        result = output.getvalue()
+        print(result)
+        return result
     except Exception as e:
-        print(f"[PYTHON ERROR] {e}")
+        sys.stdout = old_stdout
+        msg = f"[PYTHON ERROR] {e}"
+        print(msg)
+        return msg
 
 
 def run_bash(a):
     """Execute bash/shell command"""
     cmd = a.get("command", "")
     if not cmd:
-        print("[BASH ERROR] No command provided")
-        return
+        msg = "[BASH ERROR] No command provided"
+        print(msg)
+        return msg
 
     print(f"[BASH] {cmd}")
     try:
@@ -190,22 +238,28 @@ def run_bash(a):
             text=True,
             timeout=30
         )
-        if result.stdout:
-            print(result.stdout)
+        output = f"{result.stdout}"
         if result.stderr:
-            print("[STDERR]", result.stderr)
+            output += f"\n[STDERR] {result.stderr}"
+        print(output)
+        return output
     except subprocess.TimeoutExpired:
-        print("[BASH TIMEOUT]")
+        msg = "[BASH TIMEOUT]"
+        print(msg)
+        return msg
     except Exception as e:
-        print(f"[BASH ERROR] {e}")
+        msg = f"[BASH ERROR] {e}"
+        print(msg)
+        return msg
 
 
 def run_js(a):
     """Execute JavaScript code (via Node.js)"""
     code = a.get("code", "")
     if not code:
-        print("[JS ERROR] No code provided")
-        return
+        msg = "[JS ERROR] No code provided"
+        print(msg)
+        return msg
 
     print("[JAVASCRIPT]")
     try:
@@ -215,16 +269,23 @@ def run_js(a):
             text=True,
             timeout=10
         )
-        if result.stdout:
-            print(result.stdout)
+        output = f"{result.stdout}"
         if result.stderr:
-            print("[JS ERROR]", result.stderr)
+            output += f"\n[JS ERROR] {result.stderr}"
+        print(output)
+        return output
     except FileNotFoundError:
-        print("[JS ERROR] Node.js not installed")
+        msg = "[JS ERROR] Node.js not installed"
+        print(msg)
+        return msg
     except subprocess.TimeoutExpired:
-        print("[JS TIMEOUT]")
+        msg = "[JS TIMEOUT]"
+        print(msg)
+        return msg
     except Exception as e:
-        print(f"[JS ERROR] {e}")
+        msg = f"[JS ERROR] {e}"
+        print(msg)
+        return msg
 
 
 def get_processes(a):
@@ -233,6 +294,8 @@ def get_processes(a):
     limit = a.get("limit", 10)
 
     print("[PROCESSES]")
+    output_lines = ["[PROCESSES]", "PID\tName\tCPU%\tMEM%"]
+    
     try:
         processes = []
         for proc in psutil.process_iter(['pid', 'name', 'cpu_percent', 'memory_percent']):
@@ -247,11 +310,16 @@ def get_processes(a):
         else:
             processes.sort(key=lambda x: x.get('memory_percent', 0), reverse=True)
 
-        print(f"PID\tName\tCPU%\tMEM%")
         for p in processes[:limit]:
-            print(f"{p['pid']}\t{p['name'][:10]}\t{p.get('cpu_percent', 0):.1f}\t{p.get('memory_percent', 0):.1f}")
+            line = f"{p['pid']}\t{p['name'][:10]}\t{p.get('cpu_percent', 0):.1f}\t{p.get('memory_percent', 0):.1f}"
+            output_lines.append(line)
+            print(line)
+            
+        return "\n".join(output_lines)
     except Exception as e:
-        print(f"[PROCESS ERROR] {e}")
+        msg = f"[PROCESS ERROR] {e}"
+        print(msg)
+        return msg
 
 
 def show_progress(a):
@@ -260,10 +328,17 @@ def show_progress(a):
     delay = a.get("delay", 0.1)
 
     print(f"[PROGRESS] Running {steps} steps...")
+    output_lines = [f"[PROGRESS] Running {steps} steps..."]
+    
     for i in range(steps + 1):
         percent = (i / steps) * 100
         filled = int(percent / 2)
         bar = "█" * filled + "░" * (50 - filled)
-        print(f"\r[{bar}] {percent:.0f}%", end="", flush=True)
+        line = f"[{bar}] {percent:.0f}%"
+        output_lines.append(line)
+        print(f"\r{line}", end="", flush=True)
         time.sleep(delay)
+    
     print("\n[PROGRESS COMPLETE]")
+    output_lines.append("[PROGRESS COMPLETE]")
+    return "\n".join(output_lines)

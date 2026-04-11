@@ -329,3 +329,160 @@ body {
         font-size: 12px;
     }
 }
+
+/* Action Output Formatting */
+.message.action-output {
+    justify-content: flex-start;
+    margin: 12px 0;
+}
+
+.action-container {
+    background: #f5f5f5;
+    border-left: 4px solid #667eea;
+    border-radius: 4px;
+    padding: 12px;
+    max-width: 80%;
+    width: 100%;
+}
+
+.action-header {
+    font-size: 12px;
+    font-weight: 600;
+    color: #667eea;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.action-content {
+    font-family: 'Monaco', 'Courier New', 'Source Code Pro', monospace;
+    font-size: 12px;
+    color: #333;
+}
+
+.action-content code {
+    background: #e8e8e8;
+    padding: 2px 6px;
+    border-radius: 3px;
+    color: #c60;
+}
+
+.action-content pre {
+    background: #2d2d2d;
+    color: #f8f8f2;
+    padding: 12px;
+    border-radius: 4px;
+    overflow-x: auto;
+    margin: 8px 0 0 0;
+    line-height: 1.4;
+    max-height: 250px;
+}
+
+.action-content .command-box {
+    background: #f0f0f0;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border-left: 3px solid #4ade80;
+    margin-bottom: 8px;
+}
+
+.action-content .command-box code {
+    background: transparent;
+    color: #333;
+    padding: 0;
+}
+
+.code-block {
+    background: #2d2d2d !important;
+    color: #f8f8f2 !important;
+}
+
+.file-tree {
+    background: #f8f9fa !important;
+    color: #333 !important;
+    border: 1px solid #ddd;
+    white-space: pre;
+}
+
+/* Process Table Styling */
+.process-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    margin: 8px 0 0 0;
+}
+
+.process-table thead {
+    background: #667eea;
+    color: white;
+    font-weight: 600;
+}
+
+.process-table th,
+.process-table td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 12px;
+    font-family: 'Monaco', 'Courier New', monospace;
+}
+
+.process-table tbody tr:hover {
+    background: #f5f5f5;
+}
+
+.process-table tbody tr:nth-child(odd) {
+    background: #fafafa;
+}
+
+/* Progress Display */
+.progress-display {
+    background: white;
+    padding: 12px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-family: monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* Action-specific colors */
+.action-list_files .action-header {
+    color: #4ade80;
+    border-left-color: #4ade80;
+}
+
+.action-run_python .action-header,
+.action-run_bash .action-header,
+.action-run_js .action-header {
+    color: #f59e0b;
+    border-left-color: #f59e0b;
+}
+
+.action-get_processes .action-header {
+    color: #06b6d4;
+    border-left-color: #06b6d4;
+}
+
+.action-show_progress .action-header {
+    color: #8b5cf6;
+    border-left-color: #8b5cf6;
+}
+
+.action-write_file .action-header,
+.action-append_file .action-header {
+    color: #ec4899;
+    border-left-color: #ec4899;
+}
+
+.action-read_file .action-header {
+    color: #06b6d4;
+    border-left-color: #06b6d4;
+}
+
+.action-run_command .action-header {
+    color: #f59e0b;
+    border-left-color: #f59e0b;
+}

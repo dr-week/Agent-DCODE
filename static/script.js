@@ -57,12 +57,11 @@ async function sendMessage() {
         if (data.success) {
             addMessage(data.message, "assistant");
             
-            // Show execution details if available
+            // Show execution details if available with rich formatting
             if (data.details.actions && data.details.actions.length > 0) {
-                const actionList = data.details.actions
-                    .map((a, i) => `${i + 1}. ${a.type}: ${a.path || a.command || ""}`)
-                    .join("\n");
-                addMessage(`Actions executed:\n${actionList}`, "system");
+                for (const action of data.details.actions) {
+                    renderActionOutput(action);
+                }
             }
         } else {
             addMessage(`Error: ${data.message || "Unknown error"}`, "error");
@@ -159,6 +158,95 @@ async function loadChatHistory() {
     } catch (error) {
         console.error("Error loading history:", error);
     }
+}
+
+// Rich action output renderer
+function renderActionOutput(action) {
+    const type = action.type;
+    const messageId = Date.now().toString();
+    const messageDiv = document.createElement("div");
+    messageDiv.className = `message action-output action-${type}`;
+    messageDiv.setAttribute("data-id", messageId);
+
+    const container = document.createElement("div");
+    container.className = "action-container";
+
+    // Action header
+    const header = document.createElement("div");
+    header.className = "action-header";
+    header.innerHTML = `<strong>📋 ${type.toUpperCase()}</strong>`;
+    container.appendChild(header);
+
+    // Action-specific rendering
+    const content = document.createElement("div");
+    content.className = "action-content";
+
+    switch (type) {
+        case "write_file":
+        case "append_file":
+            content.innerHTML = `<code>${action.path || ""}</code>`;
+            break;
+
+        case "read_file":
+            content.innerHTML = `<pre>${escapeHtml(action.output || "")}</pre>`;
+            break;
+
+        case "run_command":
+        case "run_bash":
+            content.innerHTML = `<div class="command-box"><code>$ ${escapeHtml(action.command || "")}</code></div>
+                                <pre class="output">${escapeHtml(action.output || "")}</pre>`;
+            break;
+
+        case "run_python":
+            content.innerHTML = `<pre class="code-block">${escapeHtml(action.output || "")}</pre>`;
+            break;
+
+        case "run_js":
+            content.innerHTML = `<pre class="code-block">${escapeHtml(action.output || "")}</pre>`;
+            break;
+
+        case "list_files":
+            content.innerHTML = `<pre class="file-tree">${escapeHtml(action.output || "")}</pre>`;
+            break;
+
+        case "get_processes":
+            if (action.output) {
+                const lines = action.output.split("\n").filter(l => l.trim());
+                let html = "<table class='process-table'>";
+                lines.forEach((line, i) => {
+                    if (i === 0) {
+                        html += `<thead><tr><th>${line.replace(/\t/g, "</th><th>")}</th></tr></thead>`;
+                    } else {
+                        html += `<tr><td>${line.replace(/\t/g, "</td><td>")}</td></tr>`;
+                    }
+                });
+                html += "</table>";
+                content.innerHTML = html;
+            }
+            break;
+
+        case "show_progress":
+            content.innerHTML = `<div class="progress-display">${escapeHtml(action.output || "")}</div>`;
+            break;
+
+        default:
+            content.textContent = JSON.stringify(action);
+    }
+
+    container.appendChild(content);
+    messageDiv.appendChild(container);
+    chatMessages.appendChild(messageDiv);
+
+    // Scroll to bottom
+    setTimeout(() => {
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }, 0);
+}
+
+function escapeHtml(text) {
+    const div = document.createElement("div");
+    div.textContent = text;
+    return div.innerHTML;
 }
 
 // Refresh status every 5 seconds

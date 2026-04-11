@@ -21,8 +21,8 @@ def run_agent(user_input):
             
             if data:
                 actions = data.get("actions", [])
-                execute_actions(actions)
-                return {"success": True, "actions": actions, "raw": response}
+                results = execute_actions(actions)  # Now returns results with output
+                return {"success": True, "actions": results, "raw": response}
             
         except Exception as e:
             print(f"[ATTEMPT {attempt+1} ERROR]", str(e))
