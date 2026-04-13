@@ -3,6 +3,8 @@ from flask_cors import CORS
 from ollama_client import ask_llm
 from parser import extract_json
 from executor import execute_actions
+from agent import execute_task
+from context_handler import prepare_agent_context, format_context_for_llm
 import os
 import threading
 
@@ -11,6 +13,7 @@ CORS(app)
 
 # Store chat history
 chat_history = []
+agent_log = []
 
 def run_agent(user_input):
     """Run the agent with retry logic"""
@@ -85,6 +88,95 @@ def api_status():
         "model": "qwen2.5-coder:7b",
         "messages": len(chat_history)
     })
+
+
+@app.route("/api/agent/execute", methods=["POST"])
+def agent_execute():
+    """
+    Codex-like agent endpoint.
+    
+    Request:
+    {
+        "task": "Build a login system",
+        "selected_code": "optional selected code",
+        "active_file": "optional current file",
+        "mode": "plan" | "execute" (default: execute)
+    }
+    
+    Response:
+    {
+        "success": true,
+        "task": "...",
+        "plan": [...],
+        "actions": [...],
+        "results": [...],
+        "execution_time": 1.23
+    }
+    """
+    import time
+    
+    data = request.json
+    task = data.get("task", "").strip()
+    
+    if not task:
+        return jsonify({"error": "Task is required"}), 400
+    
+    selected_code = data.get("selected_code")
+    active_file = data.get("active_file")
+    
+    try:
+        start_time = time.time()
+        
+        # Prepare context for efficient prompt
+        context = prepare_agent_context(
+            task=task,
+            selected_code=selected_code,
+            active_file=active_file
+        )
+        
+        # Execute agent task (single-cycle: plan → action → result)
+        result = execute_task(task, context)
+        
+        execution_time = time.time() - start_time
+        
+        # Log execution
+        agent_log.append({
+            "task": task,
+            "success": result.get("success"),
+            "time": execution_time,
+            "actions_count": len(result.get("actions", []))
+        })
+        
+        return jsonify({
+            "success": result.get("success"),
+            "task": task,
+            "plan": result.get("plan", []),
+            "actions_count": len(result.get("actions", [])),
+            "actions": result.get("actions", []),
+            "results": result.get("results", []),
+            "error": result.get("error"),
+            "execution_time": round(execution_time, 2)
+        })
+        
+    except Exception as e:
+        return jsonify({
+            "error": str(e),
+            "success": False
+        }), 500
+
+
+@app.route("/api/agent/log", methods=["GET"])
+def agent_log_endpoint():
+    """Get agent execution log"""
+    return jsonify({"log": agent_log})
+
+
+@app.route("/api/agent/clear", methods=["POST"])
+def agent_clear():
+    """Clear agent log"""
+    global agent_log
+    agent_log = []
+    return jsonify({"message": "Agent log cleared"})
 
 
 if __name__ == "__main__":

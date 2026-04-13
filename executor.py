@@ -8,6 +8,22 @@ import sys
 
 BASE_DIR = os.path.abspath("projects")
 
+# Action type registry for structured mapping
+ACTION_HANDLERS = {
+    "write_file": "write_file",
+    "create_file": "write_file",
+    "append_file": "append_file",
+    "read_file": "read_file",
+    "run_command": "run_cmd",
+    "run_bash": "run_bash",
+    "list_files": "list_files",
+    "run_python": "run_python",
+    "run_js": "run_js",
+    "get_processes": "get_processes",
+    "show_progress": "show_progress",
+}
+
+
 def safe_path(path):
     if path.startswith("projects/"):
         path = path.replace("projects/", "", 1)
@@ -27,39 +43,22 @@ def execute_actions(actions):
         t = a.get("type")
         output = ""
 
-        if t == "write_file":
-            output = write_file(a)
-
-        elif t == "append_file":
-            output = append_file(a)
-
-        elif t == "read_file":
-            output = read_file(a)
-
-        elif t == "run_command":
-            output = run_cmd(a)
-
-        elif t == "list_files":
-            output = list_files(a)
-
-        elif t == "run_python":
-            output = run_python(a)
-
-        elif t == "run_bash":
-            output = run_bash(a)
-
-        elif t == "run_js":
-            output = run_js(a)
-
-        elif t == "get_processes":
-            output = get_processes(a)
-
-        elif t == "show_progress":
-            output = show_progress(a)
-
-        else:
+        # Map action type to handler
+        handler_name = ACTION_HANDLERS.get(t)
+        if not handler_name:
             output = f"[UNKNOWN ACTION] {t}"
             print(output)
+        else:
+            # Call handler function
+            handler = globals().get(handler_name)
+            if handler:
+                try:
+                    output = handler(a)
+                except Exception as e:
+                    output = f"[ERROR in {t}] {str(e)}"
+                    print(output)
+            else:
+                output = f"[HANDLER NOT FOUND] {handler_name}"
         
         # Collect result
         result = a.copy()
@@ -177,12 +176,15 @@ def list_files(a):
                     continue
                 path = os.path.join(directory, item)
                 is_last = i == len(items) - 1
-                current_prefix = "└── " if is_last else "├── "
+                current_prefix = "+-- " if is_last else "|-- "
                 line = prefix + current_prefix + item
                 output_lines.append(line)
-                print(line)
+                try:
+                    print(line, flush=True)
+                except UnicodeEncodeError:
+                    print(line.encode('utf-8', errors='replace').decode('utf-8'), flush=True)
                 if os.path.isdir(path):
-                    next_prefix = prefix + ("    " if is_last else "│   ")
+                    next_prefix = prefix + ("    " if is_last else "|   ")
                     tree(path, next_prefix, depth + 1)
         except PermissionError:
             pass

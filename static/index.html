@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DCode - Offline AI Coder</title>
+    <title>DCode - Codex Agent</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
@@ -11,8 +11,8 @@
         <!-- Header -->
         <div class="header">
             <div class="header-content">
-                <h1>🤖 DCode</h1>
-                <p class="subtitle">Offline AI Agent - Local Code Generation</p>
+                <h1>🤖 DCode Agent</h1>
+                <p class="subtitle">Autonomous AI Coding Agent - Plan → Execute → Result</p>
                 <div class="status" id="status">
                     <span class="status-dot online"></span>
                     <span id="status-text">Online</span>
@@ -20,45 +20,103 @@
             </div>
         </div>
 
-        <!-- Main Chat Area -->
-        <div class="chat-container">
-            <div class="chat-messages" id="chatMessages">
-                <div class="message system">
-                    <p>👋 Welcome! I'm DCode, your offline AI coding assistant.</p>
-                    <p>Ask me to write code, refactor files, run commands, and more!</p>
-                    <p><small>Using: qwen2.5-coder:7b</small></p>
+        <!-- Mode Selector -->
+        <div class="mode-selector">
+            <button class="mode-btn active" data-mode="agent" id="modeAgent">🎯 Agent Mode</button>
+            <button class="mode-btn" data-mode="chat" id="modeChat">💬 Chat Mode</button>
+        </div>
+
+        <!-- AGENT MODE -->
+        <div class="mode-content" id="agentMode" style="display: block;">
+            <div class="agent-container">
+                <!-- Task Input -->
+                <div class="task-input-section">
+                    <h3>🎯 Task</h3>
+                    <textarea 
+                        id="agentTask" 
+                        class="task-input" 
+                        placeholder="E.g., Build a login system with user authentication..."
+                        rows="3"
+                    ></textarea>
+                    <div class="agent-controls">
+                        <button id="executeBtn" class="btn-primary">Execute Task</button>
+                        <button id="clearAgentBtn" class="btn-secondary">Clear</button>
+                    </div>
+                </div>
+
+                <!-- Agent Workflow Display -->
+                <div class="agent-workflow" id="agentWorkflow" style="display: none;">
+                    <!-- Plan Phase -->
+                    <div class="phase">
+                        <h4>📋 Plan</h4>
+                        <div class="plan-steps" id="planSteps"></div>
+                    </div>
+
+                    <!-- Actions Phase -->
+                    <div class="phase">
+                        <h4>⚙️ Actions</h4>
+                        <div class="actions-list" id="actionsList"></div>
+                    </div>
+
+                    <!-- Results Phase -->
+                    <div class="phase">
+                        <h4>✅ Results</h4>
+                        <div class="results-list" id="resultsList"></div>
+                    </div>
+
+                    <!-- Execution Info -->
+                    <div class="execution-info" id="executionInfo"></div>
+                </div>
+
+                <!-- Loading Spinner -->
+                <div class="loading-spinner" id="loadingSpinner" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Executing task...</p>
                 </div>
             </div>
+        </div>
 
-            <!-- Input Area -->
-            <div class="input-area">
-                <div class="input-wrapper">
-                    <input 
-                        type="text" 
-                        id="userInput" 
-                        class="chat-input" 
-                        placeholder="Write a fibonacci function in Python..." 
-                        autocomplete="off"
-                    >
-                    <button id="sendBtn" class="send-btn" title="Send (Enter or Ctrl+Enter)">
-                        ➤
-                    </button>
+        <!-- CHAT MODE -->
+        <div class="mode-content" id="chatMode" style="display: none;">
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message system">
+                        <p>👋 Welcome! I'm DCode, your offline AI coding assistant.</p>
+                        <p>Ask me to write code, refactor files, run commands, and more!</p>
+                        <p><small>Using: qwen2.5-coder:7b</small></p>
+                    </div>
                 </div>
 
-                <div class="controls">
-                    <button id="clearBtn" class="btn-secondary" title="Clear chat history">
-                        🗑 Clear
-                    </button>
-                    <button id="refreshBtn" class="btn-secondary" title="Refresh status">
-                        🔄 Status
-                    </button>
+                <!-- Input Area -->
+                <div class="input-area">
+                    <div class="input-wrapper">
+                        <input 
+                            type="text" 
+                            id="userInput" 
+                            class="chat-input" 
+                            placeholder="Write a fibonacci function in Python..." 
+                            autocomplete="off"
+                        >
+                        <button id="sendBtn" class="send-btn" title="Send (Enter)">
+                            ➤
+                        </button>
+                    </div>
+
+                    <div class="controls">
+                        <button id="clearBtn" class="btn-secondary" title="Clear chat">
+                            🗑 Clear
+                        </button>
+                        <button id="refreshBtn" class="btn-secondary" title="Refresh">
+                            🔄 Status
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Footer -->
         <div class="footer">
-            <p>💻 Running locally • 🔒 Your data stays on your machine • ⚡ Powered by Ollama</p>
+            <p>💻 Running locally • 🔒 Your data stays private • ⚡ Powered by Ollama</p>
         </div>
     </div>
 

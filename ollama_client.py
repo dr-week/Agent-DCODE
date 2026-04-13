@@ -60,3 +60,22 @@ def ask_llm(user_input):
     })
 
     return res.json()["response"]
+
+
+def ask_llm_structured(prompt):
+    """
+    Single structured API call for agent (planning or action generation).
+    Optimized for minimal tokens and single response.
+    """
+    res = requests.post(OLLAMA_URL, json={
+        "model": MODEL,
+        "prompt": prompt,
+        "stream": False,
+        "format": "json",
+        "options": {
+            "temperature": 0,
+            "num_predict": 1000  # Limit output tokens for efficiency
+        }
+    })
+
+    return res.json()["response"]

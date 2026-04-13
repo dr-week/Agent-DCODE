@@ -25,6 +25,11 @@
         "command": "dcode.sendToAI",
         "title": "Send to DCODE AI",
         "category": "DCODE"
+      },
+      {
+        "command": "dcode.agent",
+        "title": "Open Agent Mode",
+        "category": "DCODE"
       }
     ],
     "viewsContainers": {

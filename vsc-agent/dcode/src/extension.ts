@@ -1,34 +1,31 @@
 import * as vscode from "vscode";
 import { sendCodeToAI, sendMessageToAI } from "./api/openai";
+import { executeAgentTask, applyCodeChanges } from "./api/agent-api";
 import { getWebviewContent } from "./webview/chat";
+import { getAgentWebviewContent } from "./webview/agent";
 
-let sidebarWebview: vscode.Webview | null = null;
+let chatWebview: vscode.Webview | null = null;
+let agentWebview: vscode.Webview | null = null;
 
 export function activate(context: vscode.ExtensionContext) {
-	// Command: Send selected code to AI
-	const sendToAICmd = vscode.commands.registerCommand("dcode.sendToAI", async () => {
-		const editor = vscode.window.activeTextEditor;
-		if (!editor) {
-			vscode.window.showWarningMessage("No active editor");
-			return;
-		}
+	// Chat Mode
+	const chatProvider = new ChatWebviewProvider(context.extensionUri);
+	const chatView = vscode.window.registerWebviewViewProvider("dcode.sidebar", chatProvider);
 
-		const selectedText = editor.document.getText(editor.selection);
-		const code = selectedText || editor.document.getText();
+	// Agent Mode
+	const agentCmd = vscode.commands.registerCommand("dcode.agent", async () => {
+		const panel = vscode.window.createWebviewPanel("agentMode", "DCODE Agent", vscode.ViewColumn.Beside, {
+			enableScripts: true,
+			localResourceRoots: [context.extensionUri],
+		});
 
-		if (!code.trim()) {
-			vscode.window.showWarningMessage("No code selected or found");
-			return;
-		}
+		panel.webview.html = getAgentWebviewContent(panel.webview);
+		agentWebview = panel.webview;
 
-		await sendToAI(code, "code");
+		panel.webview.onDidReceiveMessage((message) => handleAgentMessage(message, panel.webview));
 	});
 
-	// Sidebar Webview
-	const provider = new ChatWebviewProvider(context.extensionUri);
-	const sidebarView = vscode.window.registerWebviewViewProvider("dcode.sidebar", provider);
-
-	context.subscriptions.push(sendToAICmd, sidebarView);
+	context.subscriptions.push(agentCmd, chatView);
 }
 
 class ChatWebviewProvider implements vscode.WebviewViewProvider {
@@ -45,13 +42,31 @@ class ChatWebviewProvider implements vscode.WebviewViewProvider {
 		};
 
 		webviewView.webview.html = getWebviewContent(webviewView.webview);
-		sidebarWebview = webviewView.webview;
+		chatWebview = webviewView.webview;
 
 		webviewView.webview.onDidReceiveMessage((message) => {
 			if (message.command === "sendMessage") {
 				sendToAI(message.text, "message", webviewView.webview);
 			}
 		});
+	}
+}
+
+async function handleAgentMessage(message: any, webview: vscode.Webview) {
+	if (message.command === "getSelectedCode") {
+		const editor = vscode.window.activeTextEditor;
+		const code = editor ? editor.document.getText(editor.selection) || editor.document.getText() : undefined;
+		webview.postMessage({ command: "selectedCode", code });
+	} else if (message.command === "agentResponse") {
+		const response = message.data;
+		if (response.success && response.results) {
+			try {
+				await applyCodeChanges(response.results);
+				vscode.window.showInformationMessage("✅ Task completed. Files updated.");
+			} catch (error: any) {
+				console.error("Failed to apply changes:", error);
+			}
+		}
 	}
 }
 
@@ -71,7 +86,7 @@ async function sendToAI(userInput: string, type: "code" | "message", webview?: v
 		const response =
 			type === "code" ? await sendCodeToAI(userInput, apiKey) : await sendMessageToAI(userInput, apiKey);
 
-		const targetWebview = webview || sidebarWebview;
+		const targetWebview = webview || chatWebview;
 		if (targetWebview) {
 			targetWebview.postMessage({ type: "response", data: { response: response.substring(0, 5000) } });
 		} else {
@@ -79,7 +94,7 @@ async function sendToAI(userInput: string, type: "code" | "message", webview?: v
 		}
 	} catch (error: any) {
 		const errorMsg = error.message || "AI request failed";
-		const targetWebview = webview || sidebarWebview;
+		const targetWebview = webview || chatWebview;
 		if (targetWebview) {
 			targetWebview.postMessage({ type: "response", data: { error: errorMsg } });
 		} else {
