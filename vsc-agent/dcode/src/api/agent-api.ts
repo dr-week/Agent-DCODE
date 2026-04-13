@@ -27,7 +27,7 @@ export async function executeAgentTask(task: string, code?: string): Promise<Age
 			throw new Error(`API error: ${response.statusText}`);
 		}
 
-		return await response.json();
+		return await response.json() as AgentResponse;
 	} catch (error) {
 		throw new Error(`Failed to execute task: ${error instanceof Error ? error.message : String(error)}`);
 	}
