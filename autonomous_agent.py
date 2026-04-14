@@ -1,6 +1,7 @@
 """
 Autonomous Coding Agent Loop
 Continuously generates, executes, and refines code until goal is complete.
+With real-time transparency tracking for VS Code UI updates.
 """
 
 import json
@@ -12,6 +13,7 @@ from ollama_client import ask_llm_structured
 from parser import extract_json
 from executor import execute_actions
 from logger import write_log, get_last_state, read_logs
+from transparency import create_new_session, get_tracker
 
 
 class ModelType(Enum):
@@ -52,6 +54,10 @@ class AutonomousAgent:
         Returns:
             dict with final_state, iterations, success, result
         """
+        # ===== TRANSPARENCY: Start new tracking session =====
+        tracker = create_new_session()
+        tracker.start_execution(goal, plan_steps=["Plan", "Generate", "Execute", "Verify"])
+        
         self.success_criteria = success_criteria or f"Goal: {goal}"
         result = {
             "goal": goal,
@@ -73,37 +79,88 @@ class AutonomousAgent:
 
         while self.iteration < self.max_iterations:
             self.iteration += 1
+            # ===== TRANSPARENCY: Update progress for this iteration =====
+            progress = int(10 + (self.iteration / self.max_iterations) * 80)
+            tracker.progress = progress
+            
             print(f"\n🔄 [Iteration {self.iteration}/{self.max_iterations}]")
 
             # Step 1: Plan next steps
+            # ===== TRANSPARENCY: Track planning step =====
+            tracker.start_step(0, f"Plan - Iteration {self.iteration}")
+            
             plan = self._get_plan(goal, initial_context)
             if not plan:
-                self.errors.append("Failed to generate plan")
+                error_msg = "Failed to generate plan"
+                self.errors.append(error_msg)
+                # ===== TRANSPARENCY: Report error =====
+                tracker.add_error(error_msg, "Plan generation failed")
+                tracker.complete_step("", success=False)
                 break
 
             result["plan"] = plan.get("steps", [])
             print(f"📋 Plan: {len(result['plan'])} steps")
+            
+            # ===== TRANSPARENCY: Complete plan step and add plan =====
+            plan_descriptions = [s.get("description", f"Step {i+1}") for i, s in enumerate(result["plan"])]
+            tracker.complete_step(f"Generated {len(result['plan'])} plan steps")
+            tracker.add_plan(plan_descriptions, estimated_time=300)
 
             # Step 2: Generate actions
+            # ===== TRANSPARENCY: Track action generation step =====
+            tracker.start_step(1, f"Generate Actions - Iteration {self.iteration}")
+            
             actions = self._get_actions(goal, result["plan"], initial_context)
             if not actions:
-                self.errors.append("Failed to generate actions")
+                error_msg = "Failed to generate actions"
+                self.errors.append(error_msg)
+                # ===== TRANSPARENCY: Report error =====
+                tracker.add_error(error_msg, "Action generation failed")
+                tracker.complete_step("", success=False)
                 break
 
             num_actions = len(actions.get("actions", []))
             result["actions_executed"] += num_actions
             print(f"⚙️  Actions: {num_actions} to execute")
+            
+            tracker.complete_step(f"Generated {num_actions} actions")
 
             # Step 3: Execute actions
+            # ===== TRANSPARENCY: Track execution step =====
+            tracker.start_step(2, f"Execute Actions - Iteration {self.iteration}")
+            
             try:
-                execution_result = self._execute_and_check(actions.get("actions", []))
+                # Track each action as it executes
+                action_list = actions.get("actions", [])
+                for i, action in enumerate(action_list):
+                    # ===== TRANSPARENCY: Track action execution =====
+                    tracker.add_action({
+                        "type": action.get("type", "unknown"),
+                        "description": f"Execute {action.get('type', 'action')} {i+1}/{len(action_list)}"
+                    })
+                
+                execution_result = self._execute_and_check(action_list)
                 self.execution_history.append(execution_result)
+                
+                # ===== TRANSPARENCY: Mark all actions complete =====
+                for i in range(len(action_list)):
+                    outputs = execution_result.get("outputs", [])
+                    output_text = str(outputs[i] if i < len(outputs) else "Done")
+                    tracker.complete_action(i, output_text, success=execution_result.get("success", True))
 
                 # Step 4: Check completion
+                # ===== TRANSPARENCY: Track verification step =====
+                tracker.start_step(3, f"Verify - Iteration {self.iteration}")
+                
                 if execution_result.get("success") and self._check_goal_complete(execution_result):
                     result["success"] = True
                     result["final_state"] = execution_result
                     print(f"✅ Goal completed at iteration {self.iteration}")
+                    
+                    # ===== TRANSPARENCY: Mark execution complete =====
+                    tracker.complete_step("Goal verified and complete!", success=True)
+                    tracker.complete_execution(success=True)
+                    
                     write_log(
                         self.project_name,
                         goal,
@@ -116,19 +173,35 @@ class AutonomousAgent:
                 # Step 5: Log and continue
                 if execution_result.get("error"):
                     self.errors.append(execution_result["error"])
-                    print(f"⚠️  Error: {execution_result['error']}")
+                    error_msg = execution_result["error"]
+                    print(f"⚠️  Error: {error_msg}")
+                    # ===== TRANSPARENCY: Report error =====
+                    tracker.add_error(error_msg, f"Iteration {self.iteration} execution")
+                    tracker.complete_step("Error detected, continuing loop...", success=False)
                     # Continue loop to retry/fix
-                    initial_context += f"\n\nLast attempt error:\n{execution_result['error']}"
+                    initial_context += f"\n\nLast attempt error:\n{error_msg}"
+                else:
+                    tracker.complete_step("Execution successful, iteration complete")
 
             except Exception as e:
-                self.errors.append(str(e))
-                print(f"❌ Execution error: {e}")
+                error_msg = str(e)
+                self.errors.append(error_msg)
+                print(f"❌ Execution error: {error_msg}")
+                # ===== TRANSPARENCY: Report critical error =====
+                tracker.add_error(error_msg, "Fatal execution error")
+                tracker.complete_step("", success=False)
+                tracker.complete_execution(success=False)
                 break
 
             result["iterations"] = self.iteration
 
         if not result["success"] and self.iteration >= self.max_iterations:
-            result["error"] = f"Max iterations ({self.max_iterations}) reached"
+            error_msg = f"Max iterations ({self.max_iterations}) reached"
+            result["error"] = error_msg
+            # ===== TRANSPARENCY: Mark as failed due to max iterations =====
+            tracker.add_error(error_msg, "Loop limit reached")
+            tracker.complete_execution(success=False)
+            
             write_log(
                 self.project_name,
                 goal,
