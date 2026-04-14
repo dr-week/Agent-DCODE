@@ -7,6 +7,7 @@ import json
 from ollama_client import ask_llm_structured
 from parser import extract_json
 from executor import execute_actions
+from logger import write_log, get_last_state, get_context_for_project
 
 
 class CodexAgent:
@@ -58,6 +59,12 @@ class CodexAgent:
         except Exception as e:
             result["error"] = str(e)
             result["success"] = False
+
+        # Log execution
+        status = "success" if result["success"] else "fail"
+        action_summary = f"{len(result.get('actions', []))} actions"
+        details = result.get("error") or f"Executed {action_summary}"
+        write_log("agent", user_task, action_summary, status, details)
 
         self.execution_log.append(result)
         return result

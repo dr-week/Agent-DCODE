@@ -5,6 +5,7 @@ from parser import extract_json
 from executor import execute_actions
 from agent import execute_task
 from context_handler import prepare_agent_context, format_context_for_llm
+from logger import write_log, read_logs, format_log_summary
 import os
 import threading
 
@@ -139,6 +140,11 @@ def agent_execute():
         
         execution_time = time.time() - start_time
         
+        # Log execution to web API project
+        status = "success" if result.get("success") else "fail"
+        details = result.get("error") or f"{len(result.get('actions', []))} actions executed"
+        write_log("web_api", task, "agent_execute", status, details)
+        
         # Log execution
         agent_log.append({
             "task": task,
@@ -177,6 +183,29 @@ def agent_clear():
     global agent_log
     agent_log = []
     return jsonify({"message": "Agent log cleared"})
+
+
+@app.route("/api/logs/<project>", methods=["GET"])
+def get_project_logs(project):
+    """Get structured logs for a project"""
+    logs = read_logs(project)
+    return jsonify({"project": project, "logs": logs, "count": len(logs)})
+
+
+@app.route("/api/logs/<project>/summary", methods=["GET"])
+def get_project_summary(project):
+    """Get formatted summary of project logs"""
+    summary = format_log_summary(project)
+    return jsonify({"project": project, "summary": summary})
+
+
+@app.route("/api/logs", methods=["GET"])
+def list_all_logs():
+    """List available log files"""
+    import glob
+    log_files = glob.glob(".logs/*.json")
+    projects = [os.path.basename(f)[:-5] for f in log_files]
+    return jsonify({"projects": projects, "count": len(projects)})
 
 
 if __name__ == "__main__":

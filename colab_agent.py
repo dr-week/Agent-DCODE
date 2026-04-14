@@ -9,6 +9,7 @@ import requests
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from pyngrok import ngrok
+from logger import write_log, get_last_state
 
 MAX_CODE_LENGTH = 2000
 MEMORY_THRESHOLD_BYTES = 600 * 1024 * 1024  # 600 MB free required
@@ -148,6 +149,9 @@ def agent_endpoint():
         actions = result.get("actions", [])
         summary = result.get("result", "")
 
+        # Log to colab_agent project
+        write_log("colab_agent", task, f"gemini({MODEL})", "success", summary)
+
         return jsonify({
             "success": True,
             "task": task,
@@ -161,15 +165,19 @@ def agent_endpoint():
 
     except ColabAgentError as exc:
         logger.error("Agent error: %s", exc)
+        write_log("colab_agent", task, "error", "fail", str(exc))
         return jsonify({"success": False, "error": str(exc)}), 500
     except requests.exceptions.RequestException as exc:
         logger.exception("API request failed")
+        write_log("colab_agent", task, "api_error", "fail", str(exc))
         return jsonify({"success": False, "error": "Gemini request failed", "detail": str(exc)}), 502
     except json.JSONDecodeError as exc:
         logger.exception("JSON parse failed")
+        write_log("colab_agent", task, "parse_error", "fail", str(exc))
         return jsonify({"success": False, "error": "Failed to parse model JSON output", "detail": str(exc)}), 500
     except Exception as exc:
         logger.exception("Unexpected error")
+        write_log("colab_agent", task, "unknown_error", "fail", str(exc))
         return jsonify({"success": False, "error": str(exc)}), 500
 
 
