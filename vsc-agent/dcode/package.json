@@ -63,6 +63,11 @@
           "type": "string",
           "default": "http://localhost:5000",
           "description": "Backend API URL"
+        },
+        "dcode.autoStartModel": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically start local model if not running (requires ollama installed)"
         }
       }
     }

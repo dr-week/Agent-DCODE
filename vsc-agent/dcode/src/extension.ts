@@ -1,13 +1,16 @@
 import * as vscode from "vscode";
 import { callAgent, setBackendUrl, getBackendUrl } from "./api/backend-api";
+import { ensureLocalModelRunning, restartModel } from "./utils/process-manager";
 import { getWebviewContent } from "./webview/chat";
 
 let sidebarWebview: vscode.Webview | null = null;
 let selectedModel = "local";
+let autoStartModel = false;
 
 export function activate(context: vscode.ExtensionContext) {
 	// Initialize settings
 	selectedModel = vscode.workspace.getConfiguration("dcode").get("model") as string || "local";
+	autoStartModel = vscode.workspace.getConfiguration("dcode").get("autoStartModel") as boolean || false;
 	const backendUrl = vscode.workspace.getConfiguration("dcode").get("backendURL") as string;
 	if (backendUrl) {
 		setBackendUrl(backendUrl);
@@ -90,6 +93,21 @@ async function processWithAgent(
 	webview?: vscode.Webview
 ) {
 	try {
+		// Ensure local model is running if needed
+		if (selectedModel === "local" || selectedModel === "ollama") {
+			const modelReady = await ensureLocalModelRunning(selectedModel, autoStartModel);
+			if (!modelReady) {
+				const errorMsg = "Local model is not running";
+				const targetWebview = webview || sidebarWebview;
+				if (targetWebview) {
+					targetWebview.postMessage({ type: "response", data: { error: errorMsg } });
+				} else {
+					vscode.window.showErrorMessage(errorMsg);
+				}
+				return;
+			}
+		}
+
 		const response = await callAgent({
 			task: taskDescription,
 			code: userInput,
@@ -110,6 +128,11 @@ async function processWithAgent(
 	} catch (error: any) {
 		const errorMsg = error.message || "Connection to backend failed";
 		const targetWebview = webview || sidebarWebview;
+		// Attempt to restart model if connection failed
+		if ((selectedModel === "local" || selectedModel === "ollama") && errorMsg.includes("Connection")) {
+			console.log("[Extension] Attempting to restart model after connection failure");
+			await restartModel();
+		}
 		if (targetWebview) {
 			targetWebview.postMessage({ type: "response", data: { error: errorMsg } });
 		} else {
