@@ -2,8 +2,10 @@ import * as vscode from "vscode";
 import { callAgent, setBackendUrl, getBackendUrl } from "./api/backend-api";
 import { ensureLocalModelRunning, restartModel } from "./utils/process-manager";
 import { getWebviewContent } from "./webview/chat";
+import { getTransparencyWebviewContent } from "./webview/transparency";
 
 let sidebarWebview: vscode.Webview | null = null;
+let transparencyWebview: vscode.WebviewView | null = null;
 let selectedModel = "local";
 let autoStartModel = false;
 
@@ -185,9 +187,22 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	});
 
+	// Command: Show Agent Transparency Panel
+	const showTransparencyCmd = vscode.commands.registerCommand("dcode.showTransparency", async () => {
+		if (transparencyWebview) {
+			await vscode.commands.executeCommand("dcode.transparency.focus");
+		} else {
+			vscode.window.showInformationMessage("Agent Transparency panel not available. Open it from the sidebar.");
+		}
+	});
+
 	// Sidebar Webview
 	const provider = new ChatWebviewProvider(context.extensionUri);
 	const sidebarView = vscode.window.registerWebviewViewProvider("dcode.sidebar", provider);
+
+	// Transparency Webview
+	const transparencyProvider = new TransparencyWebviewProvider(context.extensionUri);
+	const transparencyView = vscode.window.registerWebviewViewProvider("dcode.transparency", transparencyProvider);
 
 	context.subscriptions.push(
 		sendToAICmd,
@@ -195,7 +210,9 @@ export function activate(context: vscode.ExtensionContext) {
 		startSystemCmd,
 		stopSystemCmd,
 		statusSystemCmd,
-		sidebarView
+		showTransparencyCmd,
+		sidebarView,
+		transparencyView
 	);
 }
 
@@ -223,6 +240,24 @@ class ChatWebviewProvider implements vscode.WebviewViewProvider {
 				vscode.workspace.getConfiguration("dcode").update("model", message.model, vscode.ConfigurationTarget.Global);
 			}
 		});
+	}
+}
+
+class TransparencyWebviewProvider implements vscode.WebviewViewProvider {
+	constructor(private extensionUri: vscode.Uri) {}
+
+	resolveWebviewView(
+		webviewView: vscode.WebviewView,
+		_context: vscode.WebviewViewResolveContext,
+		_token: vscode.CancellationToken
+	) {
+		webviewView.webview.options = {
+			enableScripts: true,
+			localResourceRoots: [this.extensionUri],
+		};
+
+		webviewView.webview.html = getTransparencyWebviewContent(webviewView.webview);
+		transparencyWebview = webviewView;
 	}
 }
 

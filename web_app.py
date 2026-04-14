@@ -6,6 +6,7 @@ from executor import execute_actions
 from agent import execute_task
 from context_handler import prepare_agent_context, format_context_for_llm
 from logger import write_log, read_logs, format_log_summary
+from transparency import get_tracker, create_new_session, reset_tracker
 import os
 import threading
 
@@ -212,6 +213,148 @@ def list_all_logs():
     log_files = glob.glob(".logs/*.json")
     projects = [os.path.basename(f)[:-5] for f in log_files]
     return jsonify({"projects": projects, "count": len(projects)})
+
+
+# ============================================================================
+# TRANSPARENCY ENDPOINTS - Real-time agent execution tracking
+# ============================================================================
+
+@app.route("/api/transparency/session", methods=["POST"])
+def transparency_start_session():
+    """Start a new transparency session"""
+    data = request.json or {}
+    session_id = data.get("session_id")
+    task = data.get("task", "")
+    plan_steps = data.get("plan_steps", [])
+    
+    tracker = create_new_session()
+    tracker.start_execution(task, plan_steps)
+    
+    return jsonify({
+        "session_id": tracker.session_id,
+        "status": "started",
+        "state": tracker.get_state()
+    })
+
+
+@app.route("/api/transparency/state", methods=["GET"])
+def transparency_get_state():
+    """Get current transparency state"""
+    tracker = get_tracker()
+    return jsonify({
+        "state": tracker.get_state()
+    })
+
+
+@app.route("/api/transparency/plan", methods=["POST"])
+def transparency_add_plan():
+    """Add plan steps"""
+    data = request.json or {}
+    steps = data.get("steps", [])
+    estimated_time = data.get("estimated_time", 0)
+    
+    tracker = get_tracker()
+    tracker.add_plan(steps, estimated_time)
+    
+    return jsonify({
+        "status": "plan_added",
+        "state": tracker.get_state()
+    })
+
+
+@app.route("/api/transparency/step/start", methods=["POST"])
+def transparency_start_step():
+    """Mark step as running"""
+    data = request.json or {}
+    step_index = data.get("step_index", 0)
+    step_name = data.get("step_name", "")
+    
+    tracker = get_tracker()
+    tracker.start_step(step_index, step_name)
+    
+    return jsonify({
+        "status": "step_started",
+        "state": tracker.get_state()
+    })
+
+
+@app.route("/api/transparency/step/complete", methods=["POST"])
+def transparency_complete_step():
+    """Mark step as complete"""
+    data = request.json or {}
+    output = data.get("output", "")
+    success = data.get("success", True)
+    
+    tracker = get_tracker()
+    tracker.complete_step(output, success)
+    
+    return jsonify({
+        "status": "step_completed",
+        "state": tracker.get_state()
+    })
+
+
+@app.route("/api/transparency/action", methods=["POST"])
+def transparency_add_action():
+    """Record action execution"""
+    data = request.json or {}
+    action = data.get("action", {})
+    
+    tracker = get_tracker()
+    tracker.add_action(action)
+    
+    return jsonify({
+        "status": "action_added",
+        "action_index": len(tracker.actions) - 1,
+        "state": tracker.get_state()
+    })
+
+
+@app.route("/api/transparency/action/<int:action_index>/complete", methods=["POST"])
+def transparency_complete_action(action_index):
+    """Mark action as complete"""
+    data = request.json or {}
+    output = data.get("output", "")
+    success = data.get("success", True)
+    
+    tracker = get_tracker()
+    tracker.complete_action(action_index, output, success)
+    
+    return jsonify({
+        "status": "action_completed",
+        "state": tracker.get_state()
+    })
+
+
+@app.route("/api/transparency/error", methods=["POST"])
+def transparency_report_error():
+    """Report an error"""
+    data = request.json or {}
+    error = data.get("error", "")
+    context = data.get("context", "")
+    
+    tracker = get_tracker()
+    tracker.add_error(error, context)
+    
+    return jsonify({
+        "status": "error_recorded",
+        "state": tracker.get_state()
+    })
+
+
+@app.route("/api/transparency/complete", methods=["POST"])
+def transparency_complete_execution():
+    """Mark execution as complete"""
+    data = request.json or {}
+    success = data.get("success", True)
+    
+    tracker = get_tracker()
+    tracker.complete_execution(success)
+    
+    return jsonify({
+        "status": "execution_completed",
+        "state": tracker.get_state()
+    })
 
 
 if __name__ == "__main__":

@@ -45,6 +45,11 @@
         "command": "dcode.statusSystem",
         "title": "Check DCODE System Status",
         "category": "DCODE"
+      },
+      {
+        "command": "dcode.showTransparency",
+        "title": "Show Agent Transparency",
+        "category": "DCODE"
       }
     ],
     "viewsContainers": {
@@ -62,6 +67,11 @@
           "type": "webview",
           "id": "dcode.sidebar",
           "name": "Chat"
+        },
+        {
+          "type": "webview",
+          "id": "dcode.transparency",
+          "name": "Transparency"
         }
       ]
     },
