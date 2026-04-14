@@ -266,6 +266,9 @@ agent/
 │   └── script.js            # Chat logic
 ├── projects/                # Sandbox directory (AI writes here)
 │   └── test.py              # Example file
+├── colab_agent.py           # Minimal Colab Codex agent with Gemini + ngrok
+├── requirements_colab.txt   # Colab-specific dependencies
+├── README_COLAB.md          # Colab agent setup and examples
 └── vsc-agent/               # VS Code extension (incomplete)
     └── dcode/
         ├── package.json
