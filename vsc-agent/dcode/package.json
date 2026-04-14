@@ -27,8 +27,8 @@
         "category": "DCODE"
       },
       {
-        "command": "dcode.agent",
-        "title": "Open Agent Mode",
+        "command": "dcode.switchModel",
+        "title": "Switch AI Model",
         "category": "DCODE"
       }
     ],
@@ -53,10 +53,16 @@
     "configuration": {
       "title": "DCODE AI",
       "properties": {
-        "dcode.apiKey": {
+        "dcode.model": {
           "type": "string",
-          "default": "",
-          "description": "OpenAI API key"
+          "default": "local",
+          "enum": ["local", "ollama", "gemini", "openai"],
+          "description": "AI model to use: local (Ollama), ollama, gemini, or openai"
+        },
+        "dcode.backendURL": {
+          "type": "string",
+          "default": "http://localhost:5000",
+          "description": "Backend API URL"
         }
       }
     }
@@ -68,9 +74,7 @@
     "package": "npm run check-types && node esbuild.js --production",
     "check-types": "tsc --noEmit"
   },
-  "dependencies": {
-    "openai": "^4.26.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/vscode": "^1.110.0",
     "@types/node": "22.x",

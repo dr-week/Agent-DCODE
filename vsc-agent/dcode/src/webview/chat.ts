@@ -107,9 +107,41 @@ export function getWebviewContent(webview: vscode.Webview): string {
             opacity: 0.5;
             cursor: not-allowed;
         }
+
+        #modelContainer {
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--vscode-panel-border);
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        #modelSelect {
+            padding: 4px 8px;
+            background: var(--vscode-input-background);
+            color: var(--vscode-input-foreground);
+            border: 1px solid var(--vscode-input-border);
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .model-label {
+            font-size: 12px;
+            opacity: 0.8;
+        }
     </style>
 </head>
 <body>
+    <div id="modelContainer">
+        <span class="model-label">Model:</span>
+        <select id="modelSelect">
+            <option value="local">Local (Ollama)</option>
+            <option value="ollama">Ollama</option>
+            <option value="gemini">Gemini</option>
+            <option value="openai">OpenAI</option>
+        </select>
+    </div>
     <div id="messages"></div>
     <div id="inputContainer">
         <input type="text" id="userInput" placeholder="Ask me anything..." />
@@ -121,6 +153,7 @@ export function getWebviewContent(webview: vscode.Webview): string {
         const messagesDiv = document.getElementById('messages');
         const userInput = document.getElementById('userInput');
         const sendBtn = document.getElementById('sendBtn');
+        const modelSelect = document.getElementById('modelSelect');
 
         function addMessage(text, type = 'assistant') {
             const msg = document.createElement('div');
@@ -142,6 +175,10 @@ export function getWebviewContent(webview: vscode.Webview): string {
             vscode.postMessage({ command: 'sendMessage', text });
         }
 
+        modelSelect.addEventListener('change', (e) => {
+            vscode.postMessage({ command: 'modelChange', model: e.target.value });
+        });
+
         sendBtn.addEventListener('click', sendMessage);
         userInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') sendMessage();
@@ -149,17 +186,19 @@ export function getWebviewContent(webview: vscode.Webview): string {
 
         window.addEventListener('message', (event) => {
             const { type, data } = event.data;
-            
+
             if (type === 'response') {
                 const loading = messagesDiv.querySelector('.message.loading');
                 if (loading) loading.remove();
-                
+
                 sendBtn.disabled = false;
                 if (data.error) {
                     addMessage(\`Error: \${data.error}\`, 'error');
                 } else {
                     addMessage(data.response, 'assistant');
                 }
+            } else if (event.data.command === 'modelChanged') {
+                modelSelect.value = event.data.model;
             }
         });
     </script>
