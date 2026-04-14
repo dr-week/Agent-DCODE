@@ -4,7 +4,7 @@
 
 1. **Open extension folder in VS Code:**
    ```powershell
-   code c:\Users\disha\Documents\CODES\001\agent\vsc-agent\dcode
+   code ./vsc-agent/dcode
    ```
 
 2. **Press `F5`** to launch extension in debug mode

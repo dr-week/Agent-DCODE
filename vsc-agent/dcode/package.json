@@ -30,6 +30,21 @@
         "command": "dcode.switchModel",
         "title": "Switch AI Model",
         "category": "DCODE"
+      },
+      {
+        "command": "dcode.startSystem",
+        "title": "Start DCODE System",
+        "category": "DCODE"
+      },
+      {
+        "command": "dcode.stopSystem",
+        "title": "Stop DCODE System",
+        "category": "DCODE"
+      },
+      {
+        "command": "dcode.statusSystem",
+        "title": "Check DCODE System Status",
+        "category": "DCODE"
       }
     ],
     "viewsContainers": {

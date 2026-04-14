@@ -53,11 +53,150 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	});
 
+	// Command: Start DCODE System (Orchestrator)
+	const startSystemCmd = vscode.commands.registerCommand("dcode.startSystem", async () => {
+		const output = vscode.window.createOutputChannel("DCODE Orchestrator");
+		output.show();
+		output.appendLine("🚀 Starting DCODE System Services...");
+		output.appendLine("=====================================");
+
+		try {
+			const spawn = require("child_process").spawn;
+			const python = process.platform === "win32" ? "python" : "python3";
+
+			// Get workspace root
+			const workspaceFolders = vscode.workspace.workspaceFolders;
+			if (!workspaceFolders) {
+				output.appendLine("[ERROR] No workspace folder found");
+				vscode.window.showErrorMessage("No workspace folder found");
+				return;
+			}
+
+			const workspaceRoot = workspaceFolders[0].uri.fsPath;
+			const orchestratorScript = `${workspaceRoot}/dcode_orchestrator.py`;
+
+			const proc = spawn(python, [orchestratorScript, "start", "--health-check"], {
+				cwd: workspaceRoot,
+			});
+
+			let isRunning = true;
+
+			proc.stdout.on("data", (data: Buffer) => {
+				const message = data.toString().trim();
+				if (message) {
+					output.appendLine(message);
+				}
+			});
+
+			proc.stderr.on("data", (data: Buffer) => {
+				const message = data.toString().trim();
+				if (message) {
+					output.appendLine(`[WARN] ${message}`);
+				}
+			});
+
+			proc.on("close", (code: number) => {
+				if (isRunning) {
+					isRunning = false;
+					output.appendLine(`=====================================`);
+					output.appendLine(`Services stopped (exit code: ${code})`);
+				}
+			});
+
+			vscode.window.showInformationMessage("✅ DCODE Services starting... Check output panel for details");
+		} catch (error: any) {
+			output.appendLine(`[ERROR] Failed to start orchestrator: ${error.message}`);
+			vscode.window.showErrorMessage(`Failed to start orchestrator: ${error.message}`);
+		}
+	});
+
+	// Command: Stop DCODE System
+	const stopSystemCmd = vscode.commands.registerCommand("dcode.stopSystem", async () => {
+		const output = vscode.window.createOutputChannel("DCODE Orchestrator");
+		output.show();
+		output.appendLine("🛑 Stopping DCODE System Services...");
+
+		try {
+			const spawn = require("child_process").spawn;
+			const python = process.platform === "win32" ? "python" : "python3";
+
+			const workspaceFolders = vscode.workspace.workspaceFolders;
+			if (!workspaceFolders) {
+				output.appendLine("[ERROR] No workspace folder found");
+				return;
+			}
+
+			const workspaceRoot = workspaceFolders[0].uri.fsPath;
+			const orchestratorScript = `${workspaceRoot}/dcode_orchestrator.py`;
+
+			const proc = spawn(python, [orchestratorScript, "stop"], {
+				cwd: workspaceRoot,
+			});
+
+			proc.stdout.on("data", (data: Buffer) => {
+				const message = data.toString().trim();
+				if (message) {
+					output.appendLine(message);
+				}
+			});
+
+			proc.on("close", (code: number) => {
+				output.appendLine(`Services stopped (exit code: ${code})`);
+				vscode.window.showInformationMessage("✅ DCODE Services stopped");
+			});
+		} catch (error: any) {
+			vscode.window.showErrorMessage(`Failed to stop services: ${error.message}`);
+		}
+	});
+
+	// Command: Check System Status
+	const statusSystemCmd = vscode.commands.registerCommand("dcode.statusSystem", async () => {
+		const output = vscode.window.createOutputChannel("DCODE Orchestrator");
+		output.show();
+		output.appendLine("📊 Checking DCODE System Status...");
+		output.appendLine("=====================================");
+
+		try {
+			const spawn = require("child_process").spawn;
+			const python = process.platform === "win32" ? "python" : "python3";
+
+			const workspaceFolders = vscode.workspace.workspaceFolders;
+			if (!workspaceFolders) {
+				output.appendLine("[ERROR] No workspace folder found");
+				return;
+			}
+
+			const workspaceRoot = workspaceFolders[0].uri.fsPath;
+			const orchestratorScript = `${workspaceRoot}/dcode_orchestrator.py`;
+
+			const proc = spawn(python, [orchestratorScript, "status"], {
+				cwd: workspaceRoot,
+			});
+
+			proc.stdout.on("data", (data: Buffer) => {
+				output.appendLine(data.toString());
+			});
+
+			proc.on("close", (code: number) => {
+				output.appendLine("=====================================");
+			});
+		} catch (error: any) {
+			vscode.window.showErrorMessage(`Failed to check status: ${error.message}`);
+		}
+	});
+
 	// Sidebar Webview
 	const provider = new ChatWebviewProvider(context.extensionUri);
 	const sidebarView = vscode.window.registerWebviewViewProvider("dcode.sidebar", provider);
 
-	context.subscriptions.push(sendToAICmd, switchModelCmd, sidebarView);
+	context.subscriptions.push(
+		sendToAICmd,
+		switchModelCmd,
+		startSystemCmd,
+		stopSystemCmd,
+		statusSystemCmd,
+		sidebarView
+	);
 }
 
 class ChatWebviewProvider implements vscode.WebviewViewProvider {

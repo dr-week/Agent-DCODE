@@ -18,7 +18,7 @@ ollama serve
 
 ### Step 2: Start Web Server
 ```bash
-cd c:\Users\disha\Documents\CODES\001\agent
+cd <project-root>  # Your agent project directory
 python web_app.py
 # Server starts on http://localhost:5000
 ```

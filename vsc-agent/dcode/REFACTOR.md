@@ -132,7 +132,7 @@ Content-Type: application/json
 
 ### 1. Start Backend
 ```bash
-cd c:\Users\disha\Documents\CODES\001\agent
+cd <project-root>  # Your agent project directory
 python web_app.py
 ```
 

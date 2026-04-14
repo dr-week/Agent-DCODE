@@ -27,7 +27,7 @@ ollama serve
 
 ### Step 2: Start Web App
 ```bash
-cd c:\Users\disha\Documents\CODES\001\agent
+cd <project-root>  # Your agent project directory
 .venv\Scripts\python web_app.py
 # Server starts on http://localhost:5000
 ```

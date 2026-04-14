@@ -263,9 +263,7 @@ openai==4.26.0
 
 ---
 
-## 📞 Contact & Support
-
-**Project Location:** `c:\Users\disha\Documents\CODES\001\agent\`
+## 📞 Support & Documentation
 
 **Key Files:**
 - Main README: `README.md`

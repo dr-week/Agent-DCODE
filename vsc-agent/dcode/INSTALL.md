@@ -1,7 +1,8 @@
 # 🚀 Install Agent-DCODE Extension
 
 ## ✅ File Ready
-- **Path:** `c:\Users\disha\Documents\CODES\001\agent\vsc-agent\dcode\agent-dcode-0.1.0.vsix`
+- **File:** `agent-dcode-0.1.0.vsix`
+- **Location:** `vsc-agent/dcode/` directory
 - **Size:** 134 KB
 - **Status:** Ready to install
 
@@ -19,14 +20,14 @@ Launch Visual Studio Code
 ### Step 3: Install from VSIX
 - Click the "..." menu in the Extensions panel
 - Select **"Install from VSIX..."**
-- Navigate to: `c:\Users\disha\Documents\CODES\001\agent\vsc-agent\dcode\agent-dcode-0.1.0.vsix`
+- Navigate to: `./vsc-agent/dcode/agent-dcode-0.1.0.vsix`
 - Click **Open**
 
-### Step 4: Configure API Key
+### Step 4: Configure Backend
 1. Open VS Code Settings (`Ctrl+,`)
-2. Search for: `dcode.apiKey`
-3. Paste your **OpenAI API key**
-4. (Get one from https://platform.openai.com/api-keys)
+2. Search for: `dcode.backendURL`
+3. Set to: `http://localhost:5000`
+4. Restart VS Code
 
 ---
 

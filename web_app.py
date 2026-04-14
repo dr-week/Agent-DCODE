@@ -81,6 +81,12 @@ def api_clear():
     return jsonify({"message": "Chat history cleared"})
 
 
+@app.route("/health", methods=["GET"])
+def health():
+    """Health check endpoint (for orchestrator)"""
+    return jsonify({"status": "healthy", "service": "backend"}), 200
+
+
 @app.route("/api/status", methods=["GET"])
 def api_status():
     """Get agent status"""

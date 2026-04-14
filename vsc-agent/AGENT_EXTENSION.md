@@ -20,7 +20,7 @@ The DCODE extension now connects to your local **Codex-like Agent API** at `http
 ollama serve
 
 # Terminal 2: Agent Web Server
-cd c:\Users\disha\Documents\CODES\001\agent
+cd <project-root>  # Your agent project directory
 python web_app.py
 # Server starts on http://localhost:5000
 ```

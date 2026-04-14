@@ -49,9 +49,10 @@ See [AGENT_DCODE_README.md](vsc-agent/dcode/AGENT_DCODE_README.md) for details.
 
 1. **Clone/Setup the project**
    ```bash
-   cd c:\Users\disha\Documents\CODES\001\agent
+   cd <project-root>
    python -m venv .venv
-   .\.venv\Scripts\Activate.ps1
+   .venv\Scripts\Activate.ps1        # Windows
+   source .venv/bin/activate          # macOS/Linux
    pip install -r requirements.txt
    ```
 
@@ -444,8 +445,6 @@ python main.py "write a hello world program"
 ---
 
 ## 📞 Support
-
-**File Location:** `c:\Users\disha\Documents\CODES\001\agent\`
 
 **Quick Help:**
 - Check Flask terminal for errors
