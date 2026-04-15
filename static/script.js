@@ -2,6 +2,28 @@
 let currentMode = "agent"; // "agent" or "chat"
 let isExecuting = false;
 
+// ===== FILE SIDEBAR STATE =====
+let fileTreeData = [];
+let currentFileState = {
+    path: null,
+    status: "pending"
+};
+let fileStatusUpdateInterval = null;
+
+// ===== CODEX CONTROL BAR STATE =====
+let codexState = {
+    files: [],
+    code: "",
+    model: "local",
+    environment: "local",
+    approvalsMode: "auto",
+    settings: {
+        autoExecute: false,
+        showThinking: false,
+        safeMode: true
+    }
+};
+
 // DOM Elements - General
 const statusText = document.getElementById("status-text");
 const statusDot = document.querySelector(".status-dot");
@@ -27,6 +49,28 @@ const userInput = document.getElementById("userInput");
 const sendBtn = document.getElementById("sendBtn");
 const clearBtn = document.getElementById("clearBtn");
 const refreshBtn = document.getElementById("refreshBtn");
+
+// DOM Elements - Codex Control Bar
+const addFileBtn = document.getElementById("addFileBtn");
+const codeContextBtn = document.getElementById("codeContextBtn");
+const modelSelect = document.getElementById("modelSelect");
+const settingsBtn = document.getElementById("settingsBtn");
+const sendTaskBtn = document.getElementById("sendTaskBtn");
+const environmentSelect = document.getElementById("environmentSelect");
+const approvalsSelect = document.getElementById("approvalsSelect");
+const settingsPopup = document.getElementById("settingsPopup");
+const closeSettingsBtn = document.getElementById("closeSettingsBtn");
+const autoExecuteCheckbox = document.getElementById("autoExecute");
+const showThinkingCheckbox = document.getElementById("showThinking");
+const safeModeCheckbox = document.getElementById("safeMode");
+const fileInput = document.getElementById("fileInput");
+const filesIndicator = document.getElementById("filesIndicator");
+const filesCount = document.getElementById("filesCount");
+
+// DOM Elements - File Sidebar
+const fileSidebar = document.getElementById("fileSidebar");
+const sidebarToggle = document.getElementById("sidebarToggle");
+const fileTreeContainer = document.getElementById("fileTreeContainer");
 
 // ===== EVENT LISTENERS =====
 
@@ -55,9 +99,391 @@ userInput.addEventListener("keypress", (e) => {
 clearBtn.addEventListener("click", clearChat);
 refreshBtn.addEventListener("click", refreshStatus);
 
+// Codex Control Bar Events
+addFileBtn.addEventListener("click", handleAddFile);
+codeContextBtn.addEventListener("click", handleCodeContext);
+modelSelect.addEventListener("change", (e) => {
+    codexState.model = e.target.value;
+});
+settingsBtn.addEventListener("click", toggleSettingsPopup);
+closeSettingsBtn.addEventListener("click", hideSettingsPopup);
+sendTaskBtn.addEventListener("click", sendCodexTask);
+environmentSelect.addEventListener("change", (e) => {
+    codexState.environment = e.target.value;
+});
+approvalsSelect.addEventListener("change", (e) => {
+    codexState.approvalsMode = e.target.value;
+});
+
+// Settings Checkboxes
+autoExecuteCheckbox.addEventListener("change", (e) => {
+    codexState.settings.autoExecute = e.target.checked;
+});
+showThinkingCheckbox.addEventListener("change", (e) => {
+    codexState.settings.showThinking = e.target.checked;
+});
+safeModeCheckbox.addEventListener("change", (e) => {
+    codexState.settings.safeMode = e.target.checked;
+});
+
+// File Input
+fileInput.addEventListener("change", handleFileSelection);
+
+// File Sidebar
+sidebarToggle.addEventListener("click", toggleSidebar);
+
+// Close settings popup when clicking outside
+document.addEventListener("click", (e) => {
+    if (settingsPopup.style.display !== "none" && 
+        !settingsPopup.contains(e.target) && 
+        e.target !== settingsBtn) {
+        hideSettingsPopup();
+    }
+});
+
 // ===== INITIALIZATION =====
 loadChatHistory();
 refreshStatus();
+initCodexBar();
+initFilePanel();
+
+// ===== CODEX CONTROL BAR FUNCTIONS =====
+
+function initCodexBar() {
+    // Initialize state from selects if they have values
+    modelSelect.value = codexState.model;
+    environmentSelect.value = codexState.environment;
+    approvalsSelect.value = codexState.approvalsMode;
+}
+
+function handleAddFile() {
+    fileInput.click();
+}
+
+function handleFileSelection(e) {
+    const files = Array.from(e.target.files);
+    
+    files.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const fileData = {
+                name: file.name,
+                content: event.target.result,
+                type: file.type,
+                size: file.size
+            };
+            codexState.files.push(fileData);
+            updateFilesIndicator();
+        };
+        reader.readAsText(file, "UTF-8");
+    });
+    
+    // Reset file input
+    fileInput.value = "";
+}
+
+function updateFilesIndicator() {
+    if (codexState.files.length > 0) {
+        filesCount.textContent = codexState.files.length;
+        filesIndicator.style.display = "block";
+    } else {
+        filesIndicator.style.display = "none";
+    }
+}
+
+function handleCodeContext() {
+    // Try to get code from clipboard or active file
+    navigator.clipboard.read().then(items => {
+        for (let item of items) {
+            if (item.types.includes("text/plain")) {
+                item.getType("text/plain").then(blob => {
+                    blob.text().then(text => {
+                        codexState.code = text;
+                        agentTask.value = `Analyze and work with the following code:\n\n${text.substring(0, 100)}...`;
+                    });
+                });
+            }
+        }
+    }).catch(err => {
+        // Fallback: show prompt for code input
+        const code = prompt("Paste your code context:");
+        if (code) {
+            codexState.code = code;
+            agentTask.value = `Analyze and work with the following code context...`;
+        }
+    });
+}
+
+function toggleSettingsPopup() {
+    if (settingsPopup.style.display === "none") {
+        showSettingsPopup();
+    } else {
+        hideSettingsPopup();
+    }
+}
+
+function showSettingsPopup() {
+    settingsPopup.style.display = "block";
+    // Update checkbox states
+    autoExecuteCheckbox.checked = codexState.settings.autoExecute;
+    showThinkingCheckbox.checked = codexState.settings.showThinking;
+    safeModeCheckbox.checked = codexState.settings.safeMode;
+}
+
+function hideSettingsPopup() {
+    settingsPopup.style.display = "none";
+}
+
+function buildCodexRequest() {
+    return {
+        task: agentTask.value.trim(),
+        code: codexState.code,
+        model: codexState.model,
+        environment: codexState.environment,
+        approval_mode: codexState.approvalsMode,
+        files: codexState.files,
+        settings: codexState.settings
+    };
+}
+
+async function sendCodexTask() {
+    const request = buildCodexRequest();
+    
+    if (!request.task) {
+        alert("Please enter a task");
+        return;
+    }
+
+    // Auto-execute if enabled
+    if (codexState.settings.autoExecute) {
+        executeAgentTask();
+    } else {
+        // Show the built request in the task area
+        agentTask.value = `🎯 Task: ${request.task}\n📦 Model: ${request.model}\n🌍 Env: ${request.environment}\n✓ Approvals: ${request.approval_mode}\n📁 Files: ${request.files.length}`;
+    }
+}
+
+// ===== FILE PANEL FUNCTIONS =====
+
+async function initFilePanel() {
+    // Initialize file panel on page load
+    await loadFileTree();
+    startFileStatusUpdate();
+    
+    // Handle window resize for responsive sidebar
+    window.addEventListener("resize", handleWindowResize);
+}
+
+async function loadFileTree() {
+    // Fetch and render project file tree
+    try {
+        const response = await fetch("/api/files");
+        const data = await response.json();
+        
+        if (data.success) {
+            fileTreeData = data.files;
+            renderFileTree();
+        }
+    } catch (error) {
+        console.error("Error loading file tree:", error);
+        fileTreeContainer.innerHTML = `<div class="loading">Error loading files</div>`;
+    }
+}
+
+function renderFileTree() {
+    // Render file tree structure to HTML
+    fileTreeContainer.innerHTML = "";
+    
+    if (fileTreeData.length === 0) {
+        fileTreeContainer.innerHTML = `<div class="loading">No files found</div>`;
+        return;
+    }
+    
+    const tree = document.createElement("ul");
+    tree.className = "file-tree";
+    
+    fileTreeData.forEach(item => {
+        const li = renderFileItem(item);
+        tree.appendChild(li);
+    });
+    
+    fileTreeContainer.appendChild(tree);
+}
+
+function renderFileItem(item, level = 0) {
+    // Render a single file/directory item
+    const li = document.createElement("li");
+    li.className = `file-item ${item.type}`;
+    li.setAttribute("data-path", item.path);
+    
+    const content = document.createElement("div");
+    content.className = "file-item-content";
+    
+    // Icon
+    const icon = document.createElement("span");
+    icon.className = "file-item-icon";
+    icon.textContent = item.type === "directory" ? "📁" : getFileIcon(item.name);
+    content.appendChild(icon);
+    
+    // Name
+    const name = document.createElement("span");
+    name.textContent = item.name;
+    name.style.flex = 1;
+    content.appendChild(name);
+    
+    // Status indicator
+    const status = document.createElement("span");
+    status.className = "file-item-status pending";
+    status.textContent = "○";
+    content.appendChild(status);
+    
+    li.appendChild(content);
+    
+    // Directory children
+    if (item.type === "directory" && item.children && item.children.length > 0) {
+        const nested = document.createElement("ul");
+        nested.className = "file-tree-nested";
+        
+        item.children.forEach(child => {
+            nested.appendChild(renderFileItem(child, level + 1));
+        });
+        
+        li.appendChild(nested);
+        
+        // Toggle expand/collapse
+        content.addEventListener("click", (e) => {
+            e.stopPropagation();
+            li.classList.toggle("expanded");
+        });
+    }
+    
+    return li;
+}
+
+function getFileIcon(filename) {
+    // Get file type icon based on extension
+    const ext = filename.split(".").pop().toLowerCase();
+    const icons = {
+        'py': '🐍',
+        'js': '📜',
+        'ts': '📘',
+        'jsx': '⚛️',
+        'tsx': '⚛️',
+        'json': '{}',
+        'html': '🌐',
+        'css': '🎨',
+        'md': '📝',
+        'txt': '📄',
+        'yml': '⚙️',
+        'yaml': '⚙️',
+        'sh': '💻',
+        'bash': '💻',
+        'sql': '💾',
+        'git': '🔧'
+    };
+    return icons[ext] || '📄';
+}
+
+function startFileStatusUpdate() {
+    // Start polling for current file status every 1s
+    if (fileStatusUpdateInterval) {
+        clearInterval(fileStatusUpdateInterval);
+    }
+    
+    fileStatusUpdateInterval = setInterval(updateFileStatus, 1000);
+}
+
+async function updateFileStatus() {
+    // Fetch and update current file status
+    try {
+        const response = await fetch("/api/current-file");
+        const data = await response.json();
+        
+        if (data.current_file) {
+            // Update current file highlight
+            if (currentFileState.path !== data.current_file) {
+                clearCurrentFileHighlight();
+                currentFileState.path = data.current_file;
+                highlightCurrentFile();
+            }
+            
+            // Update status indicator
+            updateFileStatusIndicator(data.current_file, data.status);
+            currentFileState.status = data.status;
+        }
+    } catch (error) {
+        console.error("Error updating file status:", error);
+    }
+}
+
+function highlightCurrentFile() {
+    // Highlight current file and scroll to it
+    const fileElement = document.querySelector(`[data-path="${currentFileState.path}"]`);
+    
+    if (fileElement) {
+        fileElement.querySelector(".file-item-content").classList.add("current");
+        
+        // Expand parent directories
+        let parent = fileElement.parentElement.parentElement;
+        while (parent && parent.classList.contains("file-item")) {
+            parent.classList.add("expanded");
+            parent = parent.parentElement.parentElement;
+        }
+        
+        // Scroll into view
+        fileElement.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+}
+
+function clearCurrentFileHighlight() {
+    // Remove highlight from current file
+    if (currentFileState.path) {
+        const fileElement = document.querySelector(`[data-path="${currentFileState.path}"]`);
+        if (fileElement) {
+            fileElement.querySelector(".file-item-content").classList.remove("current");
+        }
+    }
+}
+
+function updateFileStatusIndicator(filePath, status) {
+    // Update status indicator for a file
+    const fileElement = document.querySelector(`[data-path="${filePath}"]`);
+    
+    if (fileElement) {
+        const statusEl = fileElement.querySelector(".file-item-status");
+        
+        // Remove old status classes
+        statusEl.classList.remove("pending", "working", "done", "error");
+        
+        // Add new status class
+        statusEl.classList.add(status);
+        
+        // Update icon
+        const icons = {
+            "pending": "○",
+            "working": "⏳",
+            "done": "✔",
+            "error": "✕"
+        };
+        
+        statusEl.textContent = icons[status] || "○";
+    }
+}
+
+function toggleSidebar() {
+    // Toggle sidebar visibility
+    fileSidebar.classList.toggle("collapsed");
+}
+
+function handleWindowResize() {
+    // Handle responsive sidebar behavior
+    const width = window.innerWidth;
+    
+    // Auto-collapse on very small screens
+    if (width < 600 && !fileSidebar.classList.contains("collapsed")) {
+        fileSidebar.classList.add("collapsed");
+    }
+}
 
 // ===== MODE SWITCHING =====
 function switchMode(mode) {
@@ -88,14 +514,18 @@ async function executeAgentTask() {
 
     isExecuting = true;
     executeBtn.disabled = true;
+    sendTaskBtn.disabled = true;
     agentWorkflow.style.display = "none";
     loadingSpinner.style.display = "flex";
 
     try {
+        // Build the request with Codex state
+        const request = buildCodexRequest();
+        
         const response = await fetch("/api/agent/execute", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ task })
+            body: JSON.stringify(request)
         });
 
         const data = await response.json();
@@ -115,6 +545,7 @@ async function executeAgentTask() {
     } finally {
         isExecuting = false;
         executeBtn.disabled = false;
+        sendTaskBtn.disabled = false;
     }
 }
 
@@ -180,13 +611,20 @@ function addAgentError(message) {
 }
 
 function clearAgentMode() {
-    if (confirm("Clear task and results?")) {
+    if (confirm("Clear task, results, and Codex state?")) {
         agentTask.value = "";
         planSteps.innerHTML = "";
         actionsList.innerHTML = "";
         resultsList.innerHTML = "";
         executionInfo.innerHTML = "";
         agentWorkflow.style.display = "none";
+        
+        // Clear Codex state
+        codexState.files = [];
+        codexState.code = "";
+        updateFilesIndicator();
+        hideSettingsPopup();
+        
         agentTask.focus();
     }
 }

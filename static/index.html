@@ -20,11 +20,104 @@
             </div>
         </div>
 
-        <!-- Mode Selector -->
-        <div class="mode-selector">
-            <button class="mode-btn active" data-mode="agent" id="modeAgent">🎯 Agent Mode</button>
-            <button class="mode-btn" data-mode="chat" id="modeChat">💬 Chat Mode</button>
+        <!-- Main Layout: Sidebar + Content -->
+        <div class="main-layout">
+            <!-- File Structure Sidebar -->
+            <div class="file-sidebar" id="fileSidebar">
+                <div class="sidebar-header">
+                    <h3>📁 Files</h3>
+                    <button class="sidebar-toggle" id="sidebarToggle" title="Toggle sidebar">
+                        ✕
+                    </button>
+                </div>
+                <div class="file-tree-container" id="fileTreeContainer">
+                    <div class="loading">Loading files...</div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Mode Selector -->
+                <div class="mode-selector">
+                    <button class="mode-btn active" data-mode="agent" id="modeAgent">🎯 Agent Mode</button>
+                    <button class="mode-btn" data-mode="chat" id="modeChat">💬 Chat Mode</button>
+                </div>
+
+                <!-- CODEX CONTROL BAR -->
+                <div class="codex-control-bar">
+            <!-- Left Section: File & Code Controls -->
+            <div class="control-group">
+                <button id="addFileBtn" class="control-btn" title="Add file">
+                    <span class="control-icon">+</span>
+                </button>
+                <button id="codeContextBtn" class="control-btn" title="Code context">
+                    <span class="control-icon">&lt;&gt;</span>
+                </button>
+            </div>
+
+            <!-- Center Section: Model & Settings -->
+            <div class="control-group">
+                <select id="modelSelect" class="control-select" title="Model">
+                    <option value="local">🔵 local</option>
+                    <option value="gemini">✨ gemini</option>
+                    <option value="ollama">🦙 ollama</option>
+                    <option value="openai">🤖 openai</option>
+                </select>
+
+                <button id="settingsBtn" class="control-btn" title="Settings">
+                    <span class="control-icon">⚙</span>
+                </button>
+            </div>
+
+            <!-- Right Section: Environment & Approvals -->
+            <div class="control-group">
+                <select id="environmentSelect" class="control-select" title="Environment">
+                    <option value="local">📍 local</option>
+                    <option value="colab">☁️ colab</option>
+                    <option value="remote">🌐 remote</option>
+                </select>
+
+                <select id="approvalsSelect" class="control-select" title="Approvals">
+                    <option value="auto">✓ auto</option>
+                    <option value="manual">⊙ manual</option>
+                    <option value="confirm">⚠ confirm</option>
+                </select>
+
+                <button id="sendTaskBtn" class="control-btn send-btn" title="Send task">
+                    <span class="control-icon">↑</span>
+                </button>
+            </div>
+
+            <!-- Settings Popup -->
+            <div class="settings-popup" id="settingsPopup" style="display: none;">
+                <div class="settings-header">
+                    <h4>⚙ Settings</h4>
+                    <button class="close-btn" id="closeSettingsBtn">✕</button>
+                </div>
+                <div class="settings-content">
+                    <label class="setting-toggle">
+                        <input type="checkbox" id="autoExecute" />
+                        <span>Auto-Execute</span>
+                    </label>
+                    <label class="setting-toggle">
+                        <input type="checkbox" id="showThinking" />
+                        <span>Show Thinking</span>
+                    </label>
+                    <label class="setting-toggle">
+                        <input type="checkbox" id="safeMode" checked />
+                        <span>Safe Mode</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Files Indicator -->
+            <div class="files-indicator" id="filesIndicator" style="display: none;">
+                <span id="filesCount">0</span> file(s) attached
+            </div>
         </div>
+
+        <!-- Hidden File Input -->
+        <input type="file" id="fileInput" style="display: none;" multiple />
 
         <!-- AGENT MODE -->
         <div class="mode-content" id="agentMode" style="display: block;">
@@ -112,7 +205,8 @@
                     </div>
                 </div>
             </div>
-        </div>
+            </div>  <!-- end main-content -->
+        </div>  <!-- end main-layout -->
 
         <!-- Footer -->
         <div class="footer">

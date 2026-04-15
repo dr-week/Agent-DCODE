@@ -17,6 +17,13 @@ CORS(app)
 chat_history = []
 agent_log = []
 
+# Track current file being processed
+current_file_state = {
+    "path": None,
+    "status": "pending",  # pending, working, done, error
+    "message": ""
+}
+
 def run_agent(user_input):
     """Run the agent with retry logic"""
     for attempt in range(3):
@@ -213,6 +220,128 @@ def list_all_logs():
     log_files = glob.glob(".logs/*.json")
     projects = [os.path.basename(f)[:-5] for f in log_files]
     return jsonify({"projects": projects, "count": len(projects)})
+
+
+# ============================================================================
+# FILE STRUCTURE ENDPOINTS - Project file tree and AI activity tracking
+# ============================================================================
+
+@app.route("/api/files", methods=["GET"])
+def get_project_files():
+    """
+    Get project file tree structure.
+    
+    Response:
+    {
+        "files": [
+            {
+                "name": "filename",
+                "path": "path/to/file",
+                "type": "file",
+                "size": 1234
+            },
+            {
+                "name": "dirname",
+                "path": "path/to/dir",
+                "type": "directory",
+                "children": [...]
+            }
+        ]
+    }
+    """
+    def build_tree(root_path, prefix=""):
+        """Recursively build file tree"""
+        items = []
+        try:
+            entries = os.listdir(root_path)
+            entries.sort()
+            
+            # Filter out common ignore patterns
+            ignore_patterns = {".git", "__pycache__", ".venv", "node_modules", ".logs", ".pytest_cache", "*.pyc", ".DS_Store"}
+            entries = [e for e in entries if e not in ignore_patterns and not e.endswith(".pyc")]
+            
+            for entry in entries:
+                full_path = os.path.join(root_path, entry)
+                relative_path = os.path.join(prefix, entry) if prefix else entry
+                
+                if os.path.isdir(full_path):
+                    # Directory
+                    items.append({
+                        "name": entry,
+                        "path": relative_path,
+                        "type": "directory",
+                        "children": build_tree(full_path, relative_path)
+                    })
+                else:
+                    # File
+                    try:
+                        size = os.path.getsize(full_path)
+                        items.append({
+                            "name": entry,
+                            "path": relative_path,
+                            "type": "file",
+                            "size": size
+                        })
+                    except:
+                        pass
+        except PermissionError:
+            pass
+        
+        return items
+    
+    try:
+        root = "."
+        files = build_tree(root)
+        return jsonify({
+            "success": True,
+            "files": files,
+            "root": root
+        })
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        }), 500
+
+
+@app.route("/api/current-file", methods=["GET"])
+def get_current_file():
+    """
+    Get current file being processed by agent.
+    
+    Response:
+    {
+        "current_file": "path/to/file.py",
+        "status": "working|done|pending|error",
+        "message": "Human-readable status message"
+    }
+    """
+    return jsonify(current_file_state)
+
+
+@app.route("/api/current-file", methods=["POST"])
+def set_current_file():
+    """
+    Update current file being processed (called by agent/transparency tracker).
+    
+    Request:
+    {
+        "path": "path/to/file.py",
+        "status": "working|done|pending|error",
+        "message": "Optional status message"
+    }
+    """
+    global current_file_state
+    data = request.json or {}
+    
+    current_file_state["path"] = data.get("path", current_file_state["path"])
+    current_file_state["status"] = data.get("status", "pending")
+    current_file_state["message"] = data.get("message", "")
+    
+    return jsonify({
+        "success": True,
+        "state": current_file_state
+    })
 
 
 # ============================================================================
