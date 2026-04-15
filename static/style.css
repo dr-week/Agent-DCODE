@@ -27,28 +27,68 @@ body {
     overflow: hidden;
 }
 
-/* Main Layout: Sidebar + Content */
-.main-layout {
+/* Main Layout: Resizable Panels */
+.split-container {
     display: flex;
     flex: 1;
     overflow: hidden;
+    width: 100%;
 }
 
-/* File Sidebar */
-.file-sidebar {
-    width: 220px;
-    background: #f5f5f5;
-    border-right: 1px solid #e0e0e0;
+.split-panel {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    transition: width 0.3s ease;
+    flex-basis: auto;
 }
 
-.file-sidebar.collapsed {
-    width: 0;
-    min-width: 0;
-    border-right: none;
+.left-panel {
+    min-width: 150px;
+    max-width: 50%;
+}
+
+.center-panel {
+    min-width: 200px;
+    flex: 1;
+}
+
+/* Gutter (Splitter) Styling */
+.split-gutter.vertical-gutter {
+    background-color: #e0e0e0;
+    background-image: linear-gradient(
+        to right,
+        #ccc 0%,
+        #ccc 1px,
+        #ddd 1px,
+        #ddd 2px,
+        #ccc 2px,
+        #ccc 3px
+    );
+    background-size: 6px 100%;
+    background-position: center;
+    background-repeat: repeat-y;
+    width: 6px;
+    cursor: col-resize;
+    flex-shrink: 0;
+    transition: background-color 0.2s;
+}
+
+.split-gutter.vertical-gutter:hover {
+    background-color: #667eea;
+    background-image: linear-gradient(
+        to right,
+        #667eea 0%,
+        #667eea 100%
+    );
+}
+
+/* File Sidebar Adjustments */
+.file-sidebar {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    flex: 1;
+    border: none;
 }
 
 .sidebar-header {
@@ -1127,8 +1167,52 @@ body {
     color: #667eea;
 }
 
-/* Responsive Codex Bar */
+/* Responsive Split Layout */
 @media (max-width: 768px) {
+    .split-gutter.vertical-gutter {
+        width: 4px;
+    }
+
+    .left-panel {
+        min-width: 120px;
+    }
+
+    .center-panel {
+        min-width: 150px;
+    }
+}
+
+@media (max-width: 600px) {
+    /* Hide left panel on mobile, full width for center */
+    .split-container {
+        flex-direction: column-reverse;
+    }
+
+    .left-panel {
+        display: none;
+    }
+
+    .split-gutter.vertical-gutter {
+        display: none;
+    }
+
+    .center-panel {
+        width: 100%;
+        min-width: 0;
+    }
+
+    body.split-disabled .split-container {
+        flex-direction: column-reverse;
+    }
+
+    body.split-disabled .left-panel {
+        display: none;
+    }
+
+    body.split-disabled .split-gutter.vertical-gutter {
+        display: none;
+    }
+}
     .codex-control-bar {
         gap: 8px;
         padding: 10px 12px;
@@ -1208,10 +1292,6 @@ body {
 
     .file-sidebar:not(.collapsed) {
         width: 200px;
-    }
-
-    .main-layout {
-        position: relative;
     }
 
     .sidebar-header {

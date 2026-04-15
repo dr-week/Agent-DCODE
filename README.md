@@ -200,7 +200,38 @@ Autonomous Agent
 
 ---
 
-## 🎯 Advanced Features  
+## � User Interface
+
+### Web UI Layout
+The web interface features a **modular resizable panel system** powered by [Split.js](https://split.js.org/):
+
+```
+┌────────────────────────────────────────┐
+│          DCode Agent Status            │
+├──────────┬──────┬──────────────────────┤
+│  Files   │ ↔←→  │   Main Content       │
+│  Panel   │gutter│   - Mode Selector    │
+│  (20%)   │(6px) │   - Controls         │
+│          │      │   - Task Input       │
+│  • Tree  │drag  │   - Agent Output     │
+│  • Search│here  │   (80%)              │
+│          │      │                      │
+└──────────┴──────┴──────────────────────┘
+```
+
+**Key Features:**
+- ✅ **Draggable Splitter** — Resize panels by dragging the vertical splitter
+- ✅ **Size Persistence** — Panel sizes saved in browser localStorage
+- ✅ **Responsive Design** — Automatically stacks on mobile (<600px)
+- ✅ **Desktop/Tablet/Mobile** — Works on all devices
+- ✅ **No Dependencies** — Uses Split.js (3KB library)
+
+**For Developers:**
+See [SPLIT_LAYOUT_DOCUMENTATION.md](SPLIT_LAYOUT_DOCUMENTATION.md) for complete UI architecture and [SPLIT_LAYOUT_QUICK_REF.md](SPLIT_LAYOUT_QUICK_REF.md) for quick reference.
+
+---
+
+## �🎯 Advanced Features  
 
 The agent now supports powerful actions including file browsing, code execution (Python, Bash, JavaScript), system monitoring, and more!
 

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DCode - Codex Agent</title>
     <link rel="stylesheet" href="/static/style.css">
+    <!-- Split.js for resizable panels -->
+    <script src="https://cdn.jsdelivr.net/npm/split.js@1.6.4/dist/split.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -20,23 +22,28 @@
             </div>
         </div>
 
-        <!-- Main Layout: Sidebar + Content -->
-        <div class="main-layout">
-            <!-- File Structure Sidebar -->
-            <div class="file-sidebar" id="fileSidebar">
-                <div class="sidebar-header">
-                    <h3>📁 Files</h3>
-                    <button class="sidebar-toggle" id="sidebarToggle" title="Toggle sidebar">
-                        ✕
-                    </button>
-                </div>
-                <div class="file-tree-container" id="fileTreeContainer">
-                    <div class="loading">Loading files...</div>
+        <!-- Main Layout: Resizable Panels using Split.js -->
+        <div id="splitContainer" class="split-container">
+            <!-- Left Panel: File Structure -->
+            <div id="panelLeft" class="split-panel left-panel">
+                <div class="file-sidebar" id="fileSidebar">
+                    <div class="sidebar-header">
+                        <h3>📁 Files</h3>
+                        <button class="sidebar-toggle" id="sidebarToggle" title="Toggle sidebar">
+                            ✕
+                        </button>
+                    </div>
+                    <div class="file-tree-container" id="fileTreeContainer">
+                        <div class="loading">Loading files...</div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Main Content -->
-            <div class="main-content">
+            <!-- Vertical Splitter (draggable) -->
+            <div class="split-gutter vertical-gutter"></div>
+
+            <!-- Center Panel: Main Content -->
+            <div id="panelCenter" class="split-panel center-panel">
                 <!-- Mode Selector -->
                 <div class="mode-selector">
                     <button class="mode-btn active" data-mode="agent" id="modeAgent">🎯 Agent Mode</button>
@@ -205,8 +212,8 @@
                     </div>
                 </div>
             </div>
-            </div>  <!-- end main-content -->
-        </div>  <!-- end main-layout -->
+            </div>  <!-- end panelCenter -->
+        </div>  <!-- end splitContainer -->
 
         <!-- Footer -->
         <div class="footer">

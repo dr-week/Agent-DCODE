@@ -146,6 +146,7 @@ loadChatHistory();
 refreshStatus();
 initCodexBar();
 initFilePanel();
+initSplitLayout();
 
 // ===== CODEX CONTROL BAR FUNCTIONS =====
 
@@ -260,6 +261,81 @@ async function sendCodexTask() {
     } else {
         // Show the built request in the task area
         agentTask.value = `🎯 Task: ${request.task}\n📦 Model: ${request.model}\n🌍 Env: ${request.environment}\n✓ Approvals: ${request.approval_mode}\n📁 Files: ${request.files.length}`;
+    }
+}
+
+// ===== SPLIT LAYOUT FUNCTIONS =====
+
+function initSplitLayout() {
+    // Initialize Split.js for resizable panels
+    if (typeof Split === 'undefined') {
+        console.warn("Split.js not loaded, skipping layout initialization");
+        return;
+    }
+    
+    const splitContainer = document.getElementById('splitContainer');
+    if (!splitContainer) {
+        console.warn("Split container not found");
+        return;
+    }
+    
+    // Check if we should show the split layout (desktop view)
+    if (window.innerWidth > 600) {
+        // Initialize Split.js with panels
+        const split = Split(['#panelLeft', '#panelCenter'], {
+            sizes: [20, 80],
+            minSize: [150, 250],
+            gutterSize: 6,
+            cursor: 'col-resize',
+            onDragEnd: savePanelSizes
+        });
+        
+        // Restore saved panel sizes from localStorage
+        loadPanelSizes(split);
+    }
+    
+    // Handle window resize for responsive behavior
+    window.addEventListener('resize', handleSplitResize);
+}
+
+function savePanelSizes(sizes) {
+    // Save panel sizes to localStorage for persistence
+    try {
+        localStorage.setItem('panelSizes', JSON.stringify(sizes));
+    } catch (error) {
+        console.warn("Could not save panel sizes to localStorage:", error);
+    }
+}
+
+function loadPanelSizes(split) {
+    // Load panel sizes from localStorage and apply them
+    try {
+        const saved = localStorage.getItem('panelSizes');
+        if (saved) {
+            const sizes = JSON.parse(saved);
+            if (Array.isArray(sizes) && sizes.length === 2) {
+                split.setSizes(sizes);
+            }
+        }
+    } catch (error) {
+        console.warn("Could not load panel sizes from localStorage:", error);
+    }
+}
+
+function handleSplitResize() {
+    // Handle window resize - toggle split layout on responsive breakpoints
+    const splitContainer = document.getElementById('splitContainer');
+    
+    if (window.innerWidth <= 600 && !document.body.classList.contains('split-disabled')) {
+        // Hide split on mobile
+        document.body.classList.add('split-disabled');
+    } else if (window.innerWidth > 600 && document.body.classList.contains('split-disabled')) {
+        // Show split on desktop
+        document.body.classList.remove('split-disabled');
+        // Reinitialize Split.js
+        if (typeof Split !== 'undefined') {
+            initSplitLayout();
+        }
     }
 }
 
