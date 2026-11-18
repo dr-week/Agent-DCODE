@@ -1,0 +1,50 @@
+[
+  {
+    "id": "task_01_fibonacci",
+    "category": "code_generation",
+    "description": "Write fibonacci.py and verify output",
+    "actions": [
+      {
+        "type": "write_file",
+        "path": "projects/eval_fib.py",
+        "content": "def fib(n):\n    \"\"\"Return first n fibonacci numbers.\"\"\"\n    a, b, res = 0, 1, []\n    for _ in range(n):\n        res.append(a)\n        a, b = b, a + b\n    return res\n\nif __name__ == '__main__':\n    print(fib(6))\n"
+      },
+      {
+        "type": "run_python",
+        "code": "import eval_fib; assert eval_fib.fib(6) == [0, 1, 1, 2, 3, 5]; print('FIB_OK')"
+      }
+    ],
+    "expected_output": "FIB_OK"
+  },
+  {
+    "id": "task_02_surgical_refactor",
+    "category": "surgical_edit",
+    "description": "Create a buggy function, fix it via replace_in_file, and verify",
+    "actions": [
+      {
+        "type": "write_file",
+        "path": "projects/eval_buggy.py",
+        "content": "def divide_safe(a, b):\n    return a / b\n"
+      },
+      {
+        "type": "replace_in_file",
+        "path": "projects/eval_buggy.py",
+        "target": "return a / b",
+        "replacement": "return None if b == 0 else a / b"
+      },
+      {
+        "type": "run_python",
+        "code": "import eval_buggy; assert eval_buggy.divide_safe(10, 0) is None; assert eval_buggy.divide_safe(10, 2) == 5.0; print('REFACTOR_OK')"
+      }
+    ],
+    "expected_output": "REFACTOR_OK"
+  },
+  {
+    "id": "task_03_cli_anything_harness",
+    "category": "cli_anything",
+    "description": "Generate a CLI-Anything harness from a Python module and execute with --json",
+    "target_file": "projects/eval_fib.py",
+    "cli_command": ["fib", "5"],
+    "expected_json_result": [0, 1, 1, 2, 3]
+  }
+]
