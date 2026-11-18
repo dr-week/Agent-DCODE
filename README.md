@@ -2,7 +2,7 @@
 
 <img src="docs/assets/logo.jpg" alt="Agent-DCODE Logo" width="220" />
 
-# 🐊 Agent-DCODE
+# Agent-DCODE
 
 ### **Universal Agentic AI Framework & Autonomous Software Engineering Platform**
 
