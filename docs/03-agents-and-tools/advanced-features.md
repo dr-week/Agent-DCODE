@@ -1,4 +1,4 @@
-# 🚀 Advanced AI Agent Features
+# Advanced AI Agent Features
 
 **Added Features:** v1.1.0  
 **Date:** April 12, 2026  
@@ -9,7 +9,7 @@
 
 The AI agent now supports 10 powerful action types:
 
-### 1. **list_files** 📁
+### 1. **list_files** 
 Display directory structure recursively.
 
 ```json
@@ -20,7 +20,7 @@ Display directory structure recursively.
 
 ---
 
-### 2. **run_python** 🐍
+### 2. **run_python** 
 Execute arbitrary Python code.
 
 ```json
@@ -35,7 +35,7 @@ Execute arbitrary Python code.
 
 ---
 
-### 3. **run_bash** 🖥️
+### 3. **run_bash** 
 Execute bash/shell commands (Linux/Mac/Windows PowerShell).
 
 ```json
@@ -50,7 +50,7 @@ Execute bash/shell commands (Linux/Mac/Windows PowerShell).
 
 ---
 
-### 4. **run_js** 🟨
+### 4. **run_js** 
 Execute JavaScript code (requires Node.js).
 
 ```json
@@ -65,7 +65,7 @@ Execute JavaScript code (requires Node.js).
 
 ---
 
-### 5. **get_processes** ⚙️
+### 5. **get_processes** 
 Get system process information.
 
 ```json
@@ -86,7 +86,7 @@ PID    Name        CPU%   MEM%
 
 ---
 
-### 6. **show_progress** 📊
+### 6. **show_progress** 
 Display a visual progress bar.
 
 ```json
@@ -227,14 +227,14 @@ Response to Web UI
 
 ## Security & Limitations
 
-### Restrictions ✅
+### Restrictions 
 - File operations sandboxed to `projects/` directory
 - Command execution: 30-second timeout
 - No internet access (offline by design)
 - Process info read-only
 - No privilege escalation
 
-### Limitations ⚠️
+### Limitations 
 - Python code: No external module imports restricted
 - Bash: PowerShell on Windows, sh on Unix
 - JavaScript: Requires Node.js installed
@@ -293,4 +293,4 @@ Planned for v1.2.0:
 
 ---
 
-**These features make the agent truly versatile for coding, automation, and system administration tasks!** 🎉
+**These features make the agent truly versatile for coding, automation, and system administration tasks!** 

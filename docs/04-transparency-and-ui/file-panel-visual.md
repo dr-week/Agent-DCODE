@@ -1,22 +1,22 @@
 # File Structure Panel - Visual Implementation Summary
 
-## 🎬 Before & After
+## Before & After
 
 ### BEFORE
 ```
 ┌─────────────────────────────────────────┐
-│          🤖 DCode Agent                 │
+│           DCode Agent                 │
 │    Autonomous AI Coding Agent           │
 ├─────────────────────────────────────────┤
-│ 🎯 Agent Mode  |  💬 Chat Mode         │
+│  Agent Mode  |   Chat Mode         │
 ├─────────────────────────────────────────┤
-│ [+] [<>] [Model ▼] [⚙] [Env ▼] [↑]    │
+│ [+] [<>] [Model ▼] [] [Env ▼] [↑]    │
 ├─────────────────────────────────────────┤
 │ Task Textarea                           │
 │                                         │
 │ Execute Task  Clear                    │
 ├─────────────────────────────────────────┤
-│ 📋 Plan | ⚙️ Actions | ✅ Results      │
+│  Plan |  Actions |  Results      │
 │                                         │
 │ Workflow display area...               │
 │                                         │
@@ -26,42 +26,42 @@
 ### AFTER
 ```
 ┌─────────────────────────────────────────┐
-│          🤖 DCode Agent                 │
+│           DCode Agent                 │
 │    Autonomous AI Coding Agent           │
 ├──────────┬──────────────────────────────┤
-│ 📁 Files │  🎯 Agent Mode | 💬 Chat   │
+│  Files │   Agent Mode |  Chat   │
 │ ────────┼──────────────────────────────┤
-│ ▶ src/  │ [+][<>][Model▼][⚙][Env▼][↑]│
+│ ▶ src/  │ [+][<>][Model▼][][Env▼][↑]│
 │   ⏳ a.py│ ────────────────────────────│
-│   ✔ b.py│ Task Textarea...            │
+│    b.py│ Task Textarea...            │
 │ ▶ tests/├──────────────────────────────┤
-│   ○ t1  │ 📋 Plan | ⚙️ Actions | ✅   │
+│   ○ t1  │  Plan |  Actions |    │
 │   ○ t2  │                              │
 │ ┴ .logs │ Workflow display...          │
 │         │                              │
-│ Scroll  │ ✔ Task Complete              │
+│ Scroll  │  Task Complete              │
 └──────────┴──────────────────────────────┘
 ```
 
 ---
 
-## 📊 Component Breakdown
+## Component Breakdown
 
 ### Sidebar Panel
 ```
 ┌──────────────────────┐
-│ 📁 Files        ✕    │  Header (always visible)
+│  Files            │  Header (always visible)
 ├──────────────────────┤
 │ ▶ src/               │  Expandable directory
-│   🐍 ai.py        ○  │  File with icon + status
-│   🐍 agent.py    ⏳  │  Currently working
-│   🐍 utils.py    ✔   │  Completed
+│    ai.py        ○  │  File with icon + status
+│    agent.py    ⏳  │  Currently working
+│    utils.py       │  Completed
 │ ▶ tests/             │  Directory
-│   🧪 test.py     ○   │  Pending
+│    test.py     ○   │  Pending
 │ ▶ static/            │  Directory
-│   🌐 index.html  ○   │  Pending
-│   🎨 style.css   ○   │  Pending
-│   📜 script.js   ○   │  Pending
+│    index.html  ○   │  Pending
+│    style.css   ○   │  Pending
+│    script.js   ○   │  Pending
 │                      │ 
 │ Scrollable area │ Responsive layout
 └──────────────────────┘
@@ -69,7 +69,7 @@
 
 ---
 
-## 🔴 Status Indicators
+## Status Indicators
 
 ### Visual States
 ```
@@ -78,23 +78,23 @@ PENDING STATE           WORKING STATE (animated)
 File queued             Currently processing
 
 DONE STATE              ERROR STATE
-✔ Green, static         ✕ Red, static
+ Green, static          Red, static
 Processing complete     Error occurred
 ```
 
 ### Color Reference
 ```
-🔵 Pending:     #999 (gray)
-🟠 Working:     #f59e0b (orange) + pulse animation
-🟢 Done:        #4ade80 (green)
-🔴 Error:       #ef4444 (red)
+ Pending:     #999 (gray)
+ Working:     #f59e0b (orange) + pulse animation
+ Done:        #4ade80 (green)
+ Error:       #ef4444 (red)
 
 Current File:   Light blue background + bold text
 ```
 
 ---
 
-## 🔌 API Endpoints
+## API Endpoints
 
 ### GET /api/files
 ```
@@ -145,7 +145,7 @@ RESPONSE (200 OK):
 
 ---
 
-## 🎬 Live Update Flow
+## Live Update Flow
 
 ### Timeline During Task Execution
 
@@ -164,18 +164,18 @@ T=3s: Processing continues
 
 T=7s: Agent moves to src/utils.py
      └─ POST /api/current-file {"path": "src/utils.py", "status": "working"}
-     └─ Previous file: src/main.py → ✔ (green)
+     └─ Previous file: src/main.py →  (green)
      └─ Current file: src/utils.py → ⏳ (orange, pulsing)
 
 T=12s: All done
      └─ POST /api/current-file {"path": "src/utils.py", "status": "done"}
-     └─ All files show ✔ or kept status
+     └─ All files show  or kept status
      └─ UI settles, no more animations
 ```
 
 ---
 
-## 📱 Responsive Behavior
+## Responsive Behavior
 
 ### Desktop (800px+)
 ```
@@ -200,13 +200,13 @@ T=12s: All done
 ### Mobile (<600px)
 ```
 ┌─────────────────────────────────────┐
-│   [✕]                              │ ← Collapsed
+│   []                              │ ← Collapsed
 ├─────────────────────────────────────┤
 │ Main content here...                │
 │                                     │
-│ Click [✕] to toggle →               │
+│ Click [] to toggle →               │
 │ ┌───────────────────────────────────┐
-│ │ 📁 Files              [✕]        │ ← Expanded overlay
+│ │  Files              []        │ ← Expanded overlay
 │ │ ▶ src/                           │
 │ │ ▶ tests/                         │
 │ └───────────────────────────────────┘
@@ -215,7 +215,7 @@ T=12s: All done
 
 ---
 
-## 📦 Code Statistics
+## Code Statistics
 
 | Component | Lines | Type |
 |-----------|-------|------|
@@ -228,49 +228,49 @@ T=12s: All done
 
 ---
 
-## 🎯 File Type Icons Reference
+## File Type Icons Reference
 
 ```
-📁 Directory (folder)
-📄 Generic file
+ Directory (folder)
+ Generic file
 
 Programming Languages:
-🐍 .py      - Python
-📜 .js      - JavaScript
-📘 .ts      - TypeScript
-⚛️  .jsx     - React JS
-⚛️  .tsx     - React TS
+ .py      - Python
+ .js      - JavaScript
+ .ts      - TypeScript
+  .jsx     - React JS
+  .tsx     - React TS
 
 Markup & Style:
-🌐 .html    - HTML
-🎨 .css     - CSS
+ .html    - HTML
+ .css     - CSS
 {} .json    - JSON
 
 Documentation:
-📝 .md      - Markdown
-📄 .txt     - Text
+ .md      - Markdown
+ .txt     - Text
 
 Configuration:
-⚙️  .yml/.yaml - YAML
-⚙️  .toml    - TOML
-⚙️  .ini     - INI
+  .yml/.yaml - YAML
+  .toml    - TOML
+  .ini     - INI
 
 Scripts:
-💻 .sh      - Shell
-💻 .bash    - Bash
+ .sh      - Shell
+ .bash    - Bash
 
 Database:
-💾 .sql     - SQL
+ .sql     - SQL
 
 Other:
-🔧 .git     - Git
-🎬 .mp4     - Video
-🖼️  .png    - PNG Image
+ .git     - Git
+ .mp4     - Video
+  .png    - PNG Image
 ```
 
 ---
 
-## 🚀 Integration Steps
+## Integration Steps
 
 ### Step 1: Verify Endpoints
 ```bash
@@ -321,7 +321,7 @@ requests.post("/api/current-file", json={
 
 ---
 
-## 🔍 Debug Checklist
+## Debug Checklist
 
 | Issue | Check |
 |-------|-------|
@@ -329,21 +329,21 @@ requests.post("/api/current-file", json={
 | Tree not rendering | Check browser console for JS errors |
 | Status not updating | Ensure `/api/current-file` poll is running |
 | Icons not showing | Verify emoji support in browser |
-| Sidebar hidden (mobile) | Click [✕] to toggle |
+| Sidebar hidden (mobile) | Click [] to toggle |
 | Colors not displaying | Check CSS loaded properly |
 | Auto-scroll not working | Verify scrollIntoView support |
 
 ---
 
-## 💡 Performance Tips
+## Performance Tips
 
-✅ **Good:**
+ **Good:**
 - Polling every 1-5 seconds
 - Lazy loading directories
 - Efficient DOM updates
 - Minimal re-renders
 
-❌ **Avoid:**
+ **Avoid:**
 - Polling every 100ms (too frequent)
 - Re-rendering entire tree on update
 - Too many event listeners
@@ -351,7 +351,7 @@ requests.post("/api/current-file", json={
 
 ---
 
-## 🎓 Architecture
+## Architecture
 
 ### Data Flow
 ```
@@ -378,7 +378,7 @@ Event Loop:
 
 ---
 
-## 🎁 Bonus Features
+## Bonus Features
 
 ### Auto-Expands Parent Directories
 When current file updates:
@@ -407,7 +407,7 @@ scrollIntoView({ behavior: "smooth", block: "nearest" })
 
 ---
 
-## 📞 Quick Support
+## Quick Support
 
 **Q: How do I update file status?**
 A: POST to `/api/current-file` with path, status, message
@@ -426,7 +426,7 @@ A: Yes, comment out `startFileStatusUpdate()`
 
 ---
 
-## 📚 Documentation Map
+## Documentation Map
 
 ```
 FILE_PANEL_COMPLETE.md          ← You are here (overview)
@@ -443,7 +443,7 @@ FILE_PANEL_COMPLETE.md          ← You are here (overview)
 
 ---
 
-## ✅ Implementation Checklist
+## Implementation Checklist
 
 - [x] Backend endpoints created
 - [x] Frontend HTML structured
@@ -457,17 +457,17 @@ FILE_PANEL_COMPLETE.md          ← You are here (overview)
 
 ---
 
-## 🎊 Summary
+## Summary
 
 You now have a **fully functional file structure panel** that:
 
-✨ Shows your entire project file tree  
-✨ Updates in real-time as agent processes files  
-✨ Color-codes file status (pending/working/done/error)  
-✨ Auto-highlights current file  
-✨ Works on desktop, tablet, and mobile  
-✨ Connects seamlessly with Codex control bar  
-✨ Integrates with transparency tracking  
-✨ Fully documented for easy maintenance  
+ Shows your entire project file tree  
+ Updates in real-time as agent processes files  
+ Color-codes file status (pending/working/done/error)  
+ Auto-highlights current file  
+ Works on desktop, tablet, and mobile  
+ Connects seamlessly with Codex control bar  
+ Integrates with transparency tracking  
+ Fully documented for easy maintenance  
 
 **Ready to:** Connect your agent to start updating file status during execution!

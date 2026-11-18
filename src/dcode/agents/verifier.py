@@ -72,7 +72,7 @@ def check_goal_complete(
         return False
 
     combined = "\n".join(str(o.get("output", "")) for o in outputs)
-    indicators = ("[CREATED]", "[UPDATED]", "[APPENDED]", "success", "complete", "done", "✅")
+    indicators = ("[CREATED]", "[UPDATED]", "[APPENDED]", "success", "complete", "done", "")
     if any(ind.lower() in combined.lower() for ind in indicators):
         return True
 

@@ -1,4 +1,4 @@
-# 🚀 DCode v1.2.0 - Web UI Ready for Testing
+# DCode v1.2.0 - Web UI Ready for Testing
 
 ## What's New
 
@@ -9,15 +9,15 @@ Actions executed but output was plain text in the console.
 
 ### Now (v1.2.0) 
 Every action displays in optimized format:
-- 📁 **File trees** → ASCII art with proper indentation
-- 🔵 **Code output** → Dark code blocks
-- 📊 **Processes** → Interactive HTML tables
+-  **File trees** → ASCII art with proper indentation
+-  **Code output** → Dark code blocks
+-  **Processes** → Interactive HTML tables
 - ⏳ **Progress** → Visual progress bars
-- 📝 **Commands** → Clean output formatting
+-  **Commands** → Clean output formatting
 
 ---
 
-## 🎬 Start Testing (3 Steps)
+## Start Testing (3 Steps)
 
 ### Step 1: Start Ollama
 ```bash
@@ -39,7 +39,7 @@ http://localhost:5000
 
 ---
 
-## 💡 Try These Prompts
+## Try These Prompts
 
 ### File Operations
 ```
@@ -68,7 +68,7 @@ http://localhost:5000
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 Read these for detailed information:
 
@@ -81,19 +81,19 @@ Read these for detailed information:
 
 ---
 
-## ✅ What's Been Verified
+## What's Been Verified
 
-- ✅ Python output capture working
-- ✅ Web API passing output to frontend
-- ✅ JavaScript rendering functions error-free
-- ✅ CSS styling applied correctly
-- ✅ End-to-end integration tested
-- ✅ All dependencies installed
-- ✅ Git history clean
+-  Python output capture working
+-  Web API passing output to frontend
+-  JavaScript rendering functions error-free
+-  CSS styling applied correctly
+-  End-to-end integration tested
+-  All dependencies installed
+-  Git history clean
 
 ---
 
-## 🐛 If Something Doesn't Work
+## If Something Doesn't Work
 
 1. **Check Ollama is running:** 
    ```bash
@@ -108,7 +108,7 @@ Read these for detailed information:
 
 ---
 
-## 📝 Summary of Changes
+## Summary of Changes
 
 **Files Modified:**
 - `executor.py` - Output capture added
@@ -126,7 +126,7 @@ Read these for detailed information:
 
 ---
 
-## 🎯 Next Steps
+## Next Steps
 
 1. **Test the 5 scenarios** in [TEST_WEB_UI.md](TEST_WEB_UI.md)
 2. **Try prompts** from [USAGE_EXAMPLES.md](USAGE_EXAMPLES.md)
@@ -135,7 +135,7 @@ Read these for detailed information:
 
 ---
 
-## 🎉 Ready to Go!
+## Ready to Go!
 
 Everything is installed, configured, and tested. Just start the servers and enjoy your offline AI agent with beautiful output formatting!
 
@@ -143,4 +143,4 @@ Everything is installed, configured, and tested. Just start the servers and enjo
 - Backend: `main.py`, `executor.py`, `web_app.py`
 - Frontend: `static/index.html`, `static/script.js`, `static/style.css`
 
-Happy coding! 🤖✨
+Happy coding! 

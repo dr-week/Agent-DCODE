@@ -8,19 +8,19 @@ The VS Code extension has been refactored to **remove OpenAI dependency** and us
 
 ### What Was Removed
 
-- ❌ Direct OpenAI API calls
-- ❌ `apiKey` setting requirement
-- ❌ `openai.ts` dependency (can be deprecated)
-- ❌ `sendCodeToAI()` and `sendMessageToAI()` functions
+-  Direct OpenAI API calls
+-  `apiKey` setting requirement
+-  `openai.ts` dependency (can be deprecated)
+-  `sendCodeToAI()` and `sendMessageToAI()` functions
 
 ### What Was Added
 
-✅ `backend-api.ts` — Unified backend client
-✅ Model selection UI (dropdown)
-✅ `dcode.switchModel` command
-✅ `dcode.model` setting
-✅ `dcode.backendURL` setting
-✅ Multi-model support: `local | ollama | gemini | openai`
+ `backend-api.ts` — Unified backend client
+ Model selection UI (dropdown)
+ `dcode.switchModel` command
+ `dcode.model` setting
+ `dcode.backendURL` setting
+ Multi-model support: `local | ollama | gemini | openai`
 
 ## Architecture
 
@@ -159,27 +159,27 @@ Error: Failed to call backend: fetch failed
 
 If you were using the old OpenAI extension:
 
-1. ❌ **Remove** OpenAI API key from settings
-2. ✅ **Ensure** backend is running (`python web_app.py`)
-3. ✅ **Update** extension to this version
-4. ✅ **Select** your preferred model from the dropdown
+1.  **Remove** OpenAI API key from settings
+2.  **Ensure** backend is running (`python web_app.py`)
+3.  **Update** extension to this version
+4.  **Select** your preferred model from the dropdown
 
 ## Dependencies
 
 ### Old Dependencies
-- `openai@^4.26.0` ❌ Removed
+- `openai@^4.26.0`  Removed
 
 ### New Dependencies
 - None! Pure fetch API
 
 ## Benefits
 
-✅ No API key exposure in extension
-✅ Support for multiple AI models
-✅ Easy model switching
-✅ Extensible backend architecture
-✅ Reduced extension complexity
-✅ Unified error handling
+ No API key exposure in extension
+ Support for multiple AI models
+ Easy model switching
+ Extensible backend architecture
+ Reduced extension complexity
+ Unified error handling
 
 ## Future Enhancements
 

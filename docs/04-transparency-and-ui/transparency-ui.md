@@ -1,6 +1,6 @@
 # Agent Transparency UI - Real-Time Execution Monitor
 
-**Status**: ✅ Fully Implemented and Compiled
+**Status**:  Fully Implemented and Compiled
 
 ## Overview
 
@@ -24,7 +24,7 @@ The **Agent Transparency** panel displays what the agent is doing in real-time w
 
 ### 2. **Actions** (Top-Right)  
 - Real-time execution of individual actions
-- Shows status icons: ◯ (pending), ⟳ (running), ✓ (completed), ✕ (error)
+- Shows status icons: ◯ (pending), ⟳ (running),  (completed),  (error)
 - Each action displays:
   - Action type (code_gen, file_write, test_run, etc.)
   - Description of the action
@@ -36,11 +36,11 @@ The **Agent Transparency** panel displays what the agent is doing in real-time w
    Write login system
    Writing to src/auth.py...
 
-✓ code_gen
+ code_gen
    Generate validator
    import validators...
 
-✕ test_run
+ test_run
    Run unit tests
    Error: AssertionError on line 42
 ```
@@ -70,7 +70,7 @@ Est. Total:   5m 00s
 
 **Example:**
 ```
-⚠️ Module not found: requests
+ Module not found: requests
    Context: Importing dependencies from requirements.txt
    Step: Install Dependencies
    Time: 14:32:45
@@ -423,13 +423,13 @@ To fully integrate transparency with agent execution:
 
 The Agent Transparency UI provides:
 
-✅ **Real-time monitoring** without terminal  
-✅ **4-panel dashboard** (Think, Acts, Status, Errors)  
-✅ **Live updates** every 500ms  
-✅ **Minimal design** (no heavy frameworks)  
-✅ **Thread-safe** backend tracking  
-✅ **VS Code integration** with sidebar panel  
-✅ **Customizable** polling, layout, colors  
-✅ **Production-ready** with proper error handling  
+ **Real-time monitoring** without terminal  
+ **4-panel dashboard** (Think, Acts, Status, Errors)  
+ **Live updates** every 500ms  
+ **Minimal design** (no heavy frameworks)  
+ **Thread-safe** backend tracking  
+ **VS Code integration** with sidebar panel  
+ **Customizable** polling, layout, colors  
+ **Production-ready** with proper error handling  
 
 Use it to monitor your agent's execution step-by-step and quickly identify issues.

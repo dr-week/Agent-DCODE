@@ -6,11 +6,11 @@
 
 ## Prerequisites
 
-- ✅ autonomous_agent.py with transparency integration
-- ✅ transparency.py module (250 lines)
-- ✅ Flask backend (web_app.py with 12 transparency endpoints)
-- ✅ VS Code Extension with Transparency tab
-- ✅ Virtual environment activated
+-  autonomous_agent.py with transparency integration
+-  transparency.py module (250 lines)
+-  Flask backend (web_app.py with 12 transparency endpoints)
+-  VS Code Extension with Transparency tab
+-  Virtual environment activated
 
 ---
 
@@ -63,7 +63,7 @@ python -c "
 from autonomous_agent import AutonomousAgent
 agent = AutonomousAgent(max_iterations=3)
 result = agent.run('Create a simple Python calculator with add and multiply functions')
-print(f'\n✅ RESULT: {result}')
+print(f'\n RESULT: {result}')
 "
 ```
 
@@ -82,12 +82,12 @@ As the agent runs, watch the VS Code Transparency panel for updates:
 
 **T+2s - Planning Start:**
 - Step indicator: "Plan - Iteration 1"
-- Status: "🔄 Planning..."
+- Status: " Planning..."
 - Progress: ~15%
 
 **T+4s - Plan Complete:**
 - Thinking panel: Shows plan steps
-- Status: "✓ Plan complete"
+- Status: " Plan complete"
 - Progress: ~20%
 
 **T+6s - Action Generation:**
@@ -102,17 +102,17 @@ As the agent runs, watch the VS Code Transparency panel for updates:
 - Progress: ~30%
 
 **T+10-15s - Execution:**
-- Actions: Icons change from ◯ to ⟳ to ✓
+- Actions: Icons change from ◯ to ⟳ to 
 - Output snippets visible
 - Status bar advancing
 
 **T+16s - Verification:**
 - Step indicator: "Verify - Iteration 1"
-- Status: "🔍 Verifying..."
+- Status: " Verifying..."
 - Progress: ~40%
 
 **T+20s - Complete (if successful):**
-- Status: "✅ Complete!"
+- Status: " Complete!"
 - Progress: 100%
 - All panels show final state
 
@@ -126,7 +126,7 @@ As the agent runs, watch the VS Code Transparency panel for updates:
 - [ ] Step indicator updates through all 4 steps
 - [ ] Thinking panel shows plan steps
 - [ ] Actions panel shows action list with status icons
-- [ ] Icons animate (◯ → ⟳ → ✓)
+- [ ] Icons animate (◯ → ⟳ → )
 - [ ] Progress updates every iteration
 - [ ] No errors in browser console
 
@@ -134,10 +134,10 @@ As the agent runs, watch the VS Code Transparency panel for updates:
 
 Expected to see:
 ```
-🔄 [Iteration 1/3]
-📋 Plan: X steps
-⚙️  Actions: Y to execute
-✅ Goal completed at iteration Z
+ [Iteration 1/3]
+ Plan: X steps
+  Actions: Y to execute
+ Goal completed at iteration Z
 ```
 
 ### Backend Output (Terminal 1)
@@ -153,27 +153,27 @@ POST /api/transparency/error - 200
 
 ## What Each Component Shows
 
-### Thinking Panel 🧠
+### Thinking Panel 
 - **Shows**: Plan steps from iteration
 - **Updates**: After planning step completes
 - **Example**:
-  - ✓ Analyze requirements
-  - ✓ Design functions
+  -  Analyze requirements
+  -  Design functions
   - ⟳ Generate code
   - ○ Test code
 
-### Actions Panel ▶️
+### Actions Panel ▶
 - **Shows**: Each action with status
 - **Updates**: As each action executes
 - **Status Icons**:
   - ◯ = Waiting
   - ⟳ = Running
-  - ✓ = Complete
-  - ✕ = Failed
+  -  = Complete
+  -  = Failed
 - **Example**:
   ```
-  ✓ Create add function (output: def add(a, b)...)
-  ✓ Create multiply function (output: def mul(a, b)...)
+   Create add function (output: def add(a, b)...)
+   Create multiply function (output: def mul(a, b)...)
   ⟳ Test functions
   ```
 
@@ -188,13 +188,13 @@ POST /api/transparency/error - 200
   Time: 1m 23s
   ```
 
-### Errors Panel ⚠️
+### Errors Panel 
 - **Shows**: Any errors that occur
 - **Updates**: Immediately on error
 - **Visible**: Error message + context + timestamp
 - **Example**:
   ```
-  ⚠️ ModuleNotFoundError
+   ModuleNotFoundError
   Context: During import in generated code
   Time: 14:32:16
   ```
@@ -216,7 +216,7 @@ result = agent.run("Create a simple greeting function")
 - Completes in 1-2 iterations
 - No errors
 - All panels populate
-- Status → ✅ Complete
+- Status →  Complete
 
 **Watch for**:
 - Smooth progress bar
@@ -288,7 +288,7 @@ result = agent.run("Use a non-existent library called 'impossible_lib' to do X")
    - Should return JSON with execution status
 
 3. Agent running? Check Terminal 2 output
-   - Should see "🔄 [Iteration 1/X]"
+   - Should see " [Iteration 1/X]"
 
 4. Browser console errors? Open DevTools (F12)
    - Check for network errors or JS errors
@@ -343,11 +343,11 @@ Expected: 2 requests/sec = normal (500ms polling interval)
 ### Terminal 2 (Agent)
 Should see progression every 5-20 seconds:
 ```
-🔄 [Iteration 1/3]
+ [Iteration 1/3]
 ...
-🔄 [Iteration 2/3]
+ [Iteration 2/3]
 ...
-✅ Goal completed at iteration 2
+ Goal completed at iteration 2
 ```
 
 Should NOT see:
@@ -373,12 +373,12 @@ After running tests, verify:
 - [ ] Transparency tab opens without errors
 - [ ] Agent runs from Python terminal
 - [ ] Status shows "⬜ Initializing..."
-- [ ] Status progresses to "🔄 Executing..."
+- [ ] Status progresses to " Executing..."
 - [ ] Progress bar advances from 0-100%
 - [ ] Thinking panel shows plan steps
 - [ ] Actions panel shows action list
-- [ ] Icons animate (◯ → ⟳ → ✓)
-- [ ] Final status shows ✅ or error
+- [ ] Icons animate (◯ → ⟳ → )
+- [ ] Final status shows  or error
 - [ ] No errors in browser console
 - [ ] No errors in Terminal 1
 - [ ] Agent completes and shows result
@@ -389,10 +389,10 @@ After running tests, verify:
 
 If all checks pass:
 
-1. ✅ Integration is working correctly
-2. ✅ UI updates in real-time
-3. ✅ No performance issues
-4. ✅ Ready for production use
+1.  Integration is working correctly
+2.  UI updates in real-time
+3.  No performance issues
+4.  Ready for production use
 
 Then you can:
 - Add more complex tasks
@@ -418,9 +418,9 @@ python -c "from autonomous_agent import AutonomousAgent; agent = AutonomousAgent
 python -c "from autonomous_agent import AutonomousAgent; agent = AutonomousAgent(max_iterations=5); result = agent.run('Build a todo app')"
 
 # Check integration
-python -c "import autonomous_agent; from transparency import create_new_session; print('✅ Integration verified')"
+python -c "import autonomous_agent; from transparency import create_new_session; print(' Integration verified')"
 ```
 
 ---
 
-**Ready to test? Start with Step 1! 🚀**
+**Ready to test? Start with Step 1! **

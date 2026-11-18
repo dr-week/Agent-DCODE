@@ -1,4 +1,4 @@
-# 🎯 DCode Codex Agent - Upgrade Documentation
+# DCode Codex Agent - Upgrade Documentation
 
 **Version:** 2.0.0  
 **Date:** April 13, 2026  
@@ -91,7 +91,7 @@ context = prepare_agent_context(
 ### 5. Web UI - Dual Mode
 Two modes for different workflows:
 
-#### **🎯 Agent Mode (New)**
+#### ** Agent Mode (New)**
 - Task input with Ctrl+Enter execution
 - 4-phase workflow visualization:
   1. **Plan** - Step-by-step task breakdown
@@ -99,7 +99,7 @@ Two modes for different workflows:
   3. **Results** - Execution results
   4. **Stats** - Timing and success status
 
-#### **💬 Chat Mode (Classic)**
+#### ** Chat Mode (Classic)**
 - Traditional chat interface
 - Rich action output formatting
 - History persistence
@@ -108,22 +108,22 @@ Two modes for different workflows:
 
 **Agent Mode Display:**
 ```
-📋 Plan:
+ Plan:
   1. Analyze requirements
   2. Generate code structure
   3. Create files
   4. Run validation
 
-⚙️ Actions:
+ Actions:
   - write_file: projects/app.py
   - write_file: projects/config.py
   - run_python: validate.py
 
-✅ Results:
+ Results:
   - write_file: SUCCESS
   - run_python: All tests passed
 
-Stats: ⏱️ 2.34s | ▶️ 3 actions | ✅ Success
+Stats: ⏱ 2.34s | ▶ 3 actions |  Success
 ```
 
 ## API Endpoints
@@ -238,7 +238,7 @@ Agent:
    - write_file: config_new.py
    - run_python: validate_config.py
 
-3. Results: Configuration updated ✅
+3. Results: Configuration updated 
 ```
 
 ## Performance Metrics
@@ -292,9 +292,9 @@ max_depth = a.get("max_depth", 3)  # Directory recursion limit
 **Chat mode remains unchanged** - fully backward compatible.
 
 Old endpoints still work:
-- ✅ `/api/ask` - Chat endpoint
-- ✅ `/api/ask` - Execute actions
-- ✅ Full action support (all 10 types)
+-  `/api/ask` - Chat endpoint
+-  `/api/ask` - Execute actions
+-  Full action support (all 10 types)
 
 New agent mode is **opt-in** - users can choose Agent or Chat mode.
 
@@ -316,13 +316,13 @@ http://localhost:5000
 ```
 
 ### 4. Test Agent Mode
-- Click "🎯 Agent Mode" tab
+- Click " Agent Mode" tab
 - Enter task: "Create a Python function that calculates factorial"
 - Click "Execute Task"
 - Watch plan → actions → results flow
 
 ### 5. Test Chat Mode (Optional)
-- Click "💬 Chat Mode" tab
+- Click " Chat Mode" tab
 - Chat as before
 - All existing features work
 
@@ -345,14 +345,14 @@ http://localhost:5000
 
 ## Production Checklist
 
-- ✅ Agent loop implemented
-- ✅ Context handler optimized
-- ✅ Web UI updated
-- ✅ API endpoints working
-- ✅ Error handling in place
-- ✅ Token limits set
-- ✅ Unicode encoding fixed
-- ✅ Backward compatible
+-  Agent loop implemented
+-  Context handler optimized
+-  Web UI updated
+-  API endpoints working
+-  Error handling in place
+-  Token limits set
+-  Unicode encoding fixed
+-  Backward compatible
 
 ## Version History
 
@@ -373,4 +373,4 @@ For issues or questions:
 
 ---
 
-**🚀 Ready to autonomously execute your coding tasks!**
+** Ready to autonomously execute your coding tasks!**

@@ -67,9 +67,9 @@ def execute_step(step_name):
 
 ```
 Thinking ──── Actions ─────
-  ✓ Step 1     ⟳ Running Task
-  ✓ Step 2     ✓ Completed
-  ⟳ Step 3     ☆ Queued
+   Step 1     ⟳ Running Task
+   Step 2      Completed
+  ⟳ Step 3      Queued
 
 Status ────── Errors
   45% ████     (No errors)
@@ -196,11 +196,11 @@ def agent_execute():
 ### Terminal Output (Old Way - Limited Info)
 
 ```
-🔄 [Iteration 1/10]
-📋 Plan: 4 steps
-⚙️  Actions: 3 to execute
+ [Iteration 1/10]
+ Plan: 4 steps
+  Actions: 3 to execute
 Executing...
-✓ Complete
+ Complete
 ```
 
 ### VS Code Transparency Panel (New Way - Full Transparency)
@@ -209,7 +209,7 @@ Executing...
 ┌──────────────────────┬──────────────────────┐
 │     THINKING         │      ACTIONS         │
 ├──────────────────────┼──────────────────────┤
-│ 1. Analyze task      │ ✓ Parse request      │
+│ 1. Analyze task      │  Parse request      │
 │ 2. Design solution   │ ⟳ Generate code      │
 │ 3. Implement code    │ ○ Run tests          │
 │ 4. Run tests         │                      │
@@ -358,10 +358,10 @@ tracker.complete_execution(True)
 
 ## What's Next?
 
-1. ✅ Transparency tracking system built
-2. ✅ VS Code panel integrated
-3. ⏭️ **TODO**: Integrate with autonomous_agent.py
-4. ⏭️ **TODO**: Stream actions from your specific agent
-5. ⏭️ **TODO**: Customize colors/layout to your taste
+1.  Transparency tracking system built
+2.  VS Code panel integrated
+3. ⏭ **TODO**: Integrate with autonomous_agent.py
+4. ⏭ **TODO**: Stream actions from your specific agent
+5. ⏭ **TODO**: Customize colors/layout to your taste
 
 **Start** with the simple pattern above and expand as needed!

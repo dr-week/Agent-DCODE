@@ -193,14 +193,14 @@ Ollama: http://localhost:11434
 # Check status at any time
 $ python dcode_orchestrator.py status
 
-✓ BACKEND
+ BACKEND
   Port: 5000
   Status: running
   PID: 12345
   Message: Backend healthy
   Uptime: 245s
 
-✓ OLLAMA
+ OLLAMA
   Port: 11434
   Status: running
   PID: 12346
@@ -267,37 +267,37 @@ agent/
 
 ## Features
 
-### ✅ One-Click Startup
+### One-Click Startup
 - Start all services with single command
 - Automatic port checking
 - Process discovery and cleanup
 
-### ✅ Duplicate Handling
+### Duplicate Handling
 - Detects multiple instances
 - Keeps newest, kills others
 - Graceful process termination
 
-### ✅ Health Monitoring
+### Health Monitoring
 - Periodic health checks every 5 seconds
 - Auto-restart if unresponsive
 - Background monitoring thread
 
-### ✅ Cross-Platform
+### Cross-Platform
 - Windows (tested)
 - macOS (subprocess handling)
 - Linux (POSIX signals)
 
-### ✅ No Admin Required
+### No Admin Required
 - Standard user permissions sufficient
 - No privileged operations
 - Safe process management
 
-### ✅ Minimal Dependencies
+### Minimal Dependencies
 - Python 3.10+ (already available)
 - psutil (for process management)
 - Standard library only for subprocess
 
-### ✅ Error Recovery
+### Error Recovery
 - Automatic service restart
 - Graceful degradation
 - Clear error messages
@@ -487,13 +487,13 @@ python dcode_orchestrator.py stop
 
 ## Security Considerations
 
-### ✅ Safe
+### Safe
 - No network exposure (localhost only)
 - No authentication needed (local development)
 - Standard user permissions
 - Process isolation
 
-### ⚠️ Not For Production
+### Not For Production
 - No service authentication
 - No encrypted transport
 - Single-user only
@@ -526,14 +526,14 @@ python dcode_orchestrator.py stop
 
 The orchestrator provides a complete, production-ready service management system that:
 
-✅ Starts all services with one command  
-✅ Detects and cleans up duplicate processes  
-✅ Monitors health and auto-restarts  
-✅ Works cross-platform (Windows/Mac/Linux)  
-✅ Requires no admin privileges  
-✅ Integrates with VS Code  
-✅ Provides full Python API  
-✅ Minimal dependencies  
+ Starts all services with one command  
+ Detects and cleans up duplicate processes  
+ Monitors health and auto-restarts  
+ Works cross-platform (Windows/Mac/Linux)  
+ Requires no admin privileges  
+ Integrates with VS Code  
+ Provides full Python API  
+ Minimal dependencies  
 
 **Result**: Professional-grade service orchestration for local development.
 

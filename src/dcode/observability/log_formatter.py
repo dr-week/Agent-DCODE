@@ -24,11 +24,11 @@ def format_log_summary(project: str) -> str:
     if not logs:
         return f"No logs for project: {project}"
 
-    lines = [f"📋 {project} - {len(logs)} entries:"]
+    lines = [f" {project} - {len(logs)} entries:"]
     for entry in logs[-5:]:
         ts_parts = entry.get("timestamp", "").split("T")
         timestamp = ts_parts[1][:5] if len(ts_parts) > 1 else "00:00"
-        status_icon = "✅" if entry.get("status") == "success" else "❌"
+        status_icon = "" if entry.get("status") == "success" else ""
         task = entry.get("task", "")[:40]
         lines.append(f"  {timestamp} {status_icon} {task}")
 

@@ -6,12 +6,12 @@ Automatic management of local AI models (Ollama) directly from the VS Code exten
 
 The process manager automatically ensures a local AI model is running before executing tasks. It handles:
 
-- ✅ Server availability checks
-- ✅ Automatic process startup on first use
-- ✅ User prompts for confirmation
-- ✅ Duplicate process detection and cleanup
-- ✅ Automatic restart on connection failures
-- ✅ Cross-platform support (Windows, Mac, Linux)
+-  Server availability checks
+-  Automatic process startup on first use
+-  User prompts for confirmation
+-  Duplicate process detection and cleanup
+-  Automatic restart on connection failures
+-  Cross-platform support (Windows, Mac, Linux)
 
 ## How It Works
 
@@ -25,14 +25,14 @@ Model: [Local (Ollama) ▼]
 
 ```
 Extension checks: Is localhost:11434 running?
-  ✅ If YES → Use existing instance
-  ❌ If NO  → Prompt user
+   If YES → Use existing instance
+   If NO  → Prompt user
 ```
 
 ### 3. User Prompt
 
 ```
-⚠️ Local model (ollama) is not running. Start it now?
+ Local model (ollama) is not running. Start it now?
 [Yes] [No] [Always Start]
 ```
 
@@ -190,7 +190,7 @@ Start the model process.
 ```typescript
 const started = await startModelProcess();
 if (started) {
-  console.log("✅ Model started");
+  console.log(" Model started");
 }
 ```
 
@@ -253,17 +253,17 @@ async function processWithAgent(...) {
 
 ### What It Does NOT Do
 
-❌ Kill unrelated processes  
-❌ Modify system PATH  
-❌ Install software  
-❌ Access other user files  
+ Kill unrelated processes  
+ Modify system PATH  
+ Install software  
+ Access other user files  
 
 ### What It Does
 
-✅ Spawn child process for `ollama serve` only  
-✅ Kill processes by exact name matching  
-✅ Check port availability  
-✅ Log all operations  
+ Spawn child process for `ollama serve` only  
+ Kill processes by exact name matching  
+ Check port availability  
+ Log all operations  
 
 ## Cross-Platform Support
 

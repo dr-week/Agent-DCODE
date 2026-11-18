@@ -6,11 +6,11 @@ The DCODE extension now connects to your local **Codex-like Agent API** at `http
 
 ## Features
 
-✨ **Agent Mode** - Autonomous task execution with plan → execute → result  
-🔗 **Local API Connection** - Single fetch call to agent  
-📝 **Minimal UI** - Text-only interface, no heavy styling  
-⚡ **Loading & Error States** - Real-time feedback  
-✏️ **Code Changes** - Auto-apply file changes via WorkspaceEdit  
+ **Agent Mode** - Autonomous task execution with plan → execute → result  
+ **Local API Connection** - Single fetch call to agent  
+ **Minimal UI** - Text-only interface, no heavy styling  
+ **Loading & Error States** - Real-time feedback  
+ **Code Changes** - Auto-apply file changes via WorkspaceEdit  
 
 ## Setup
 
@@ -55,15 +55,15 @@ npm run package
    - Fetches from `http://localhost:5000/api/agent/execute`
 
 3. **View Results**
-   - 📋 **PLAN** - Step-by-step breakdown
-   - ⚙️ **ACTIONS** - What the agent will do
-   - ✅ **RESULTS** - Output from each action
+   -  **PLAN** - Step-by-step breakdown
+   -  **ACTIONS** - What the agent will do
+   -  **RESULTS** - Output from each action
    - Stats: Time, action count, status
 
 ### Auto-Apply Code Changes
 When agent creates/modifies files:
 - File changes are automatically applied to your workspace
-- Shows notification: "✅ Task completed. Files updated."
+- Shows notification: " Task completed. Files updated."
 - You can undo with Ctrl+Z if needed
 
 ## API Integration
@@ -110,10 +110,10 @@ src/
 ├── extension.ts            ← Main extension logic
 ├── api/
 │   ├── openai.ts          ← Chat mode (OpenAI)
-│   └── agent-api.ts       ← Agent mode (Local API) ⭐ NEW
+│   └── agent-api.ts       ← Agent mode (Local API)  NEW
 └── webview/
     ├── chat.ts            ← Chat UI
-    └── agent.ts           ← Agent UI ⭐ NEW
+    └── agent.ts           ← Agent UI  NEW
 ```
 
 ### Key Components
@@ -144,20 +144,20 @@ Input Task:
 "Create a Python function that validates email using regex"
 
 Output:
-📋 PLAN
+ PLAN
   1. Design email regex pattern
   2. Create validation function
   3. Add test cases
 
-⚙️ ACTIONS
+ ACTIONS
   write_file - projects/email_validator.py - [50 chars...]
   run_python - projects/test_email.py - [50 chars...]
 
-✅ RESULTS
-  write_file: ✓ OK
-  run_python: ✓ All tests passed
+ RESULTS
+  write_file:  OK
+  run_python:  All tests passed
 
-Stats: ⏱️ 2.45s | Actions: 2 | Status: ✅ Success
+Stats: ⏱ 2.45s | Actions: 2 | Status:  Success
 ```
 
 ### Task: Fix Code
@@ -182,19 +182,19 @@ Agent automatically includes:
 
 ### Connection Error
 ```
-❌ Failed to execute task: Failed to fetch
+ Failed to execute task: Failed to fetch
 → Ensure http://localhost:5000 is running
 ```
 
 ### API Error
 ```
-❌ API error: 500 Internal Server Error
+ API error: 500 Internal Server Error
 → Check server logs
 ```
 
 ### Task Error
 ```
-❌ <error message from agent>
+ <error message from agent>
 → Review task description
 → Try simpler task first
 ```
@@ -220,11 +220,11 @@ Agent automatically includes:
 
 ## Limitations
 
-- ❌ Cannot apply changes outside workspace
-- ❌ Only plain text UI (by design - minimal)
-- ❌ No styling customization (uses VS Code themes)
-- ❌ Single task execution (no history)
-- ❌ Requires agent server running on localhost:5000
+-  Cannot apply changes outside workspace
+-  Only plain text UI (by design - minimal)
+-  No styling customization (uses VS Code themes)
+-  Single task execution (no history)
+-  Requires agent server running on localhost:5000
 
 ## Troubleshooting
 
@@ -273,4 +273,4 @@ npm run check-types  # Type check
 
 ---
 
-**Ready to build autonomously! 🚀**
+**Ready to build autonomously! **

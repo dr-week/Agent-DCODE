@@ -1,9 +1,9 @@
 # Codex Control Bar Implementation Summary
 
-## 📋 Overview
+## Overview
 A fully functional Codex-style input control bar has been added to the web UI, providing advanced controls for agent operation with file attachment, code context, model selection, environment management, and approval workflows.
 
-## 📁 Files Modified
+## Files Modified
 
 ### 1. [static/index.html](static/index.html)
 **Changes:**
@@ -17,10 +17,10 @@ A fully functional Codex-style input control bar has been added to the web UI, p
 <!-- Codex Control Bar -->
 - File Add Button: [+]
 - Code Context Button: [<>]
-- Model Dropdown: [🔵 local | ✨ gemini | 🦙 ollama | 🤖 openai]
-- Settings Button: [⚙]
-- Environment Dropdown: [📍 local | ☁️ colab | 🌐 remote]
-- Approvals Dropdown: [✓ auto | ⊙ manual | ⚠ confirm]
+- Model Dropdown: [ local |  gemini |  ollama |  openai]
+- Settings Button: []
+- Environment Dropdown: [ local |  colab |  remote]
+- Approvals Dropdown: [ auto | ⊙ manual |  confirm]
 - Send Task Button: [↑]
 
 <!-- Settings Popup -->
@@ -103,42 +103,42 @@ clearAgentMode()          // Updated to clear Codex state
 
 ---
 
-## 🎯 Features Implemented
+## Features Implemented
 
-### ✅ File Management
+### File Management
 - Multiple file selection via file picker
 - File storage with metadata (name, content, type, size)
 - File count indicator badge
 - Files included in request payload
 
-### ✅ Code Context
+### Code Context
 - Clipboard API integration (with fallback)
 - Code preview in task description
 - Attached to request as `code` field
 
-### ✅ Model Selection
+### Model Selection
 - 4 model options: local, gemini, ollama, openai
 - Dropdown with emoji indicators
 - State persisted in `codexState.model`
 
-### ✅ Settings
+### Settings
 - Auto-Execute toggle
 - Show Thinking toggle
 - Safe Mode toggle
 - Floating popup UI
 - State persisted in `codexState.settings`
 
-### ✅ Environment Selection
+### Environment Selection
 - 3 environments: local, colab, remote
 - Emoji indicators for quick recognition
 - State persisted in `codexState.environment`
 
-### ✅ Approval Modes
+### Approval Modes
 - 3 modes: auto, manual, confirm
 - Affects request payload
 - State persisted in `codexState.approvalsMode`
 
-### ✅ Task Sending
+### Task Sending
 - Sends complete request object to backend
 - Validates task is not empty
 - Respects auto-execute setting
@@ -146,7 +146,7 @@ clearAgentMode()          // Updated to clear Codex state
 
 ---
 
-## 📤 Request Format
+## Request Format
 
 The control bar builds and sends the following structure:
 
@@ -175,16 +175,16 @@ The control bar builds and sends the following structure:
 
 ---
 
-## 🎨 UI/UX Design
+## UI/UX Design
 
 ### Layout Structure
 ```
 ┌─────────────────────────────────────────┐
 │ Codex Control Bar                       │
 ├──────────┬──────────┬─────────────────┤
-│ File <> │ Model ⚙ │ Env Approvals ↑ │
+│ File <> │ Model  │ Env Approvals ↑ │
 ├─────────────────────────────────────────┤
-│ ⚙ Settings Popup (shown on demand)      │
+│  Settings Popup (shown on demand)      │
 └─────────────────────────────────────────┘
 ```
 
@@ -202,7 +202,7 @@ The control bar builds and sends the following structure:
 
 ---
 
-## 🔧 Integration Points
+## Integration Points
 
 ### Backend Endpoint Expected
 ```
@@ -229,7 +229,7 @@ Body: CodexRequest
 
 ---
 
-## 🎮 Usage Workflows
+## Usage Workflows
 
 ### Workflow 1: Quick Local Task
 1. Enter task in textarea
@@ -246,20 +246,20 @@ Body: CodexRequest
 ### Workflow 3: Code Review with Gemini
 1. Click [<>] Code Context
 2. Paste or select code
-3. Select "✨ gemini" from model dropdown
+3. Select " gemini" from model dropdown
 4. Check "Show Thinking" in settings
 5. Enter review task
 6. Click [↑] Send
 
 ### Workflow 4: Safe Execution
-1. Click [⚙] Settings
+1. Click [] Settings
 2. Check "Safe Mode"
-3. Select "⚠ confirm" approvals
+3. Select " confirm" approvals
 4. Build task
 5. Click [↑] Send
 
 ### Workflow 5: Remote Colab Execution
-1. Select "☁️ colab" from environment
+1. Select " colab" from environment
 2. Select appropriate model (gemini/openai)
 3. Attach files if needed
 4. Set approval mode
@@ -267,7 +267,7 @@ Body: CodexRequest
 
 ---
 
-## 🔌 Real-Time Features
+## Real-Time Features
 
 - **Live File Indicator:** Updates as files are added/removed
 - **Settings Preview:** Shows checked toggles when popup opens
@@ -277,7 +277,7 @@ Body: CodexRequest
 
 ---
 
-## 📊 State Persistence
+## State Persistence
 
 ### Session-Only Storage
 - All state is in-memory in `codexState`
@@ -292,7 +292,7 @@ Body: CodexRequest
 
 ---
 
-## 🚀 Performance
+## Performance
 
 ### Optimizations
 - Event delegation for settings popup
@@ -308,7 +308,7 @@ Body: CodexRequest
 
 ---
 
-## 🔒 Security Notes
+## Security Notes
 
 - **File Upload:** Client-side only, no validation
 - **Code Context:** Requires user permission (clipboard)
@@ -317,7 +317,7 @@ Body: CodexRequest
 
 ---
 
-## 📝 Documentation
+## Documentation
 
 See [CODEX_CONTROL_BAR.md](CODEX_CONTROL_BAR.md) for:
 - Detailed component reference
@@ -331,7 +331,7 @@ See [CODEX_CONTROL_BAR.md](CODEX_CONTROL_BAR.md) for:
 
 ---
 
-## ✨ Next Steps (Optional Enhancements)
+## Next Steps (Optional Enhancements)
 
 1. **Backend Integration**
    - Update `/api/agent/execute` to handle new request format
@@ -362,7 +362,7 @@ See [CODEX_CONTROL_BAR.md](CODEX_CONTROL_BAR.md) for:
 
 ---
 
-## 🎯 Conclusion
+## Conclusion
 
 The Codex-style control bar is fully implemented and ready for integration with a backend that supports the new request format. All UI elements are functional, state is managed properly, and the component follows VSCode design principles with minimal dependencies.
 

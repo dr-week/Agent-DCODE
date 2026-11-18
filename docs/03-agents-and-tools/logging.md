@@ -102,10 +102,10 @@ from logger import format_log_summary
 summary = format_log_summary("my_agent")
 print(summary)
 # Output:
-# 📋 my_agent - 5 entries:
-#   10:23 ✅ Parse user input
-#   10:24 ❌ Build API endpoint
-#   10:25 ✅ Generate response
+# my_agent - 5 entries:
+# 10:23  Parse user input
+# 10:24  Build API endpoint
+# 10:25  Generate response
 ```
 
 ### `clear_logs(project=None)`
@@ -199,10 +199,10 @@ Each file contains up to 20 entries (old entries are removed).
 ## Example Output
 
 ```
-📋 agent - 5 entries:
-  14:23 ✅ Generate Python function
-  14:24 ❌ Build API endpoint
-  14:25 ✅ Process user input
-  14:26 ✅ Return result
-  14:27 ❌ Save to database
+ agent - 5 entries:
+  14:23  Generate Python function
+  14:24  Build API endpoint
+  14:25  Process user input
+  14:26  Return result
+  14:27  Save to database
 ```

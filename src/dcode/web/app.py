@@ -30,8 +30,8 @@ app = create_app()
 
 
 def run_server(host: str = BACKEND_HOST, port: int = BACKEND_PORT, debug: bool = True) -> None:
-    print(f"🚀 DCode Web UI starting on http://localhost:{port}")
-    print(f"📝 Local model: {OLLAMA_MODEL}")
+    print(f" DCode Web UI starting on http://localhost:{port}")
+    print(f" Local model: {OLLAMA_MODEL}")
     app.run(debug=debug, host=host, port=port)
 
 

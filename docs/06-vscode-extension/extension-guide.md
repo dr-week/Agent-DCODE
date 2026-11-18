@@ -63,18 +63,18 @@ Press `F5` in VS Code to launch extension in debug mode.
 
 ## Features
 
-✅ Send code to OpenAI  
-✅ Sidebar chat interface  
-✅ Real-time responses  
-✅ Configurable API key  
-✅ Minimal & fast  
+ Send code to OpenAI  
+ Sidebar chat interface  
+ Real-time responses  
+ Configurable API key  
+ Minimal & fast  
 
 ## Limitations
 
-❌ No internet = no AI (requires OpenAI API)  
-❌ Single function call (no conversation memory)  
-❌ No syntax highlighting  
-❌ Limited to 5000 char responses  
+ No internet = no AI (requires OpenAI API)  
+ Single function call (no conversation memory)  
+ No syntax highlighting  
+ Limited to 5000 char responses  
 
 ---
 

@@ -252,24 +252,24 @@ for goal in goal_list:
 
 ## Key Features
 
-✅ **Continuous Loop**: Automatic retry and refinement  
-✅ **Error Recovery**: Detects and learns from failures  
-✅ **Model Routing**: Use best model for each step  
-✅ **State Tracking**: Logs all actions for debugging  
-✅ **Execution Safety**: Sandboxed to projects/ directory  
-✅ **Extension Integration**: Built-in VS Code support  
-✅ **Local Model Support**: Works with Ollama (free, fast)  
-✅ **Progress Reporting**: Real-time feedback to user  
-✅ **Configurable**: Adjustable iterations, models, context  
+ **Continuous Loop**: Automatic retry and refinement  
+ **Error Recovery**: Detects and learns from failures  
+ **Model Routing**: Use best model for each step  
+ **State Tracking**: Logs all actions for debugging  
+ **Execution Safety**: Sandboxed to projects/ directory  
+ **Extension Integration**: Built-in VS Code support  
+ **Local Model Support**: Works with Ollama (free, fast)  
+ **Progress Reporting**: Real-time feedback to user  
+ **Configurable**: Adjustable iterations, models, context  
 
 ## Limitations
 
-⚠️ **Bounded Execution**: Max iterations prevents infinite loops  
-⚠️ **Heuristic Errors**: Error detection looks for text patterns  
-⚠️ **No Long-term Memory**: History reset on restart  
-⚠️ **Single Directory**: Only writes to projects/  
-⚠️ **No External Calls**: Limited to local execution  
-⚠️ **Token Budget**: Each iteration consumes tokens  
+ **Bounded Execution**: Max iterations prevents infinite loops  
+ **Heuristic Errors**: Error detection looks for text patterns  
+ **No Long-term Memory**: History reset on restart  
+ **Single Directory**: Only writes to projects/  
+ **No External Calls**: Limited to local execution  
+ **Token Budget**: Each iteration consumes tokens  
 
 ## Error Handling
 
@@ -361,9 +361,9 @@ cat .logs/autonomous_task/latest.json
 ## Next Steps
 
 **Immediate**:
-1. ✅ Core module created
-2. ✅ Tests written
-3. ✅ Documentation complete
+1.  Core module created
+2.  Tests written
+3.  Documentation complete
 
 **Short-term**:
 1. Add Flask routes to web_app.py

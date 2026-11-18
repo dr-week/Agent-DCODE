@@ -1,12 +1,12 @@
-# File Structure Panel - Implementation Complete ✅
+# File Structure Panel - Implementation Complete 
 
-## 📋 What Was Delivered
+## What Was Delivered
 
 A fully functional **file structure panel** has been added to your DCode Agent web UI with live AI activity indicators showing which file the agent is currently working on.
 
 ---
 
-## 🔌 Backend Endpoints (web_app.py)
+## Backend Endpoints (web_app.py)
 
 ### 1. **GET /api/files**
 Returns recursive project file tree with metadata
@@ -41,10 +41,10 @@ Returns recursive project file tree with metadata
 ```
 
 **Features:**
-- ✅ Recursively builds tree
-- ✅ Filters ignored directories
-- ✅ Includes file sizes
-- ✅ Handles permissions gracefully
+-  Recursively builds tree
+-  Filters ignored directories
+-  Includes file sizes
+-  Handles permissions gracefully
 
 ### 2. **GET /api/current-file**
 Returns current file being processed by agent
@@ -72,7 +72,7 @@ Updates current file status (called by agent during execution)
 
 ---
 
-## 🎨 Frontend Components
+## Frontend Components
 
 ### **Sidebar Panel**
 Located on the left of the UI, displays:
@@ -85,8 +85,8 @@ Located on the left of the UI, displays:
 ```
 ○ pending  → Dark gray
 ⏳ working → Orange (animated pulse)
-✔ done    → Green
-✕ error   → Red
+ done    → Green
+ error   → Red
 ```
 
 ### **Current File Highlight**
@@ -96,19 +96,19 @@ Located on the left of the UI, displays:
 - Auto-scrolls into view
 
 ### **File Type Icons**
-- 🐍 .py - Python
-- 📜 .js - JavaScript
-- 📘 .ts - TypeScript
-- ⚛️ .jsx/.tsx - React
+-  .py - Python
+-  .js - JavaScript
+-  .ts - TypeScript
+-  .jsx/.tsx - React
 - {} .json - JSON
-- 🌐 .html - HTML
-- 🎨 .css - CSS
-- 📝 .md - Markdown
+-  .html - HTML
+-  .css - CSS
+-  .md - Markdown
 - And 5+ more types
 
 ---
 
-## 📁 Files Modified
+## Files Modified
 
 ### 1. **web_app.py**
 ```python
@@ -134,8 +134,8 @@ current_file_state = {
     <!-- File Structure Sidebar -->
     <div class="file-sidebar" id="fileSidebar">
         <div class="sidebar-header">
-            <h3>📁 Files</h3>
-            <button class="sidebar-toggle" id="sidebarToggle">✕</button>
+            <h3> Files</h3>
+            <button class="sidebar-toggle" id="sidebarToggle"></button>
         </div>
         <div class="file-tree-container" id="fileTreeContainer">
             <div class="loading">Loading files...</div>
@@ -205,7 +205,7 @@ const fileTreeContainer
 
 ---
 
-## 🚀 How It Works
+## How It Works
 
 ### Initialization Flow
 ```
@@ -240,12 +240,12 @@ Agent: POST /api/current-file
     ├─ status: "done"
     └─ message: "Completed"
     ↓
-Frontend: Updates icon to ✔ (green)
+Frontend: Updates icon to  (green)
 ```
 
 ---
 
-## 🎯 Integration Examples
+## Integration Examples
 
 ### Simple Integration (No Transparency)
 ```python
@@ -295,7 +295,7 @@ def update_file_status():
 
 ---
 
-## 📱 Responsive Design
+## Responsive Design
 
 | Size | Behavior |
 |------|----------|
@@ -305,7 +305,7 @@ def update_file_status():
 
 ---
 
-## 🔧 Customization
+## Customization
 
 ### Change Sidebar Width
 ```css
@@ -323,15 +323,15 @@ fileStatusUpdateInterval = setInterval(updateFileStatus, 5000);
 ### Add File Type Icon
 ```javascript
 const icons = {
-    'rs': '🦀',    // Rust
-    'go': '🐹',    // Go
-    'java': '☕',  // Java
+    'rs': '',    // Rust
+    'go': '',    // Go
+    'java': '',  // Java
 };
 ```
 
 ---
 
-## 📊 Performance Characteristics
+## Performance Characteristics
 
 | Metric | Value |
 |--------|-------|
@@ -342,7 +342,7 @@ const icons = {
 
 ---
 
-## ✅ Testing Checklist
+## Testing Checklist
 
 - [ ] `/api/files` returns valid JSON with tree structure
 - [ ] File tree renders on page load
@@ -350,7 +350,7 @@ const icons = {
 - [ ] File type icons display
 - [ ] `/api/current-file` GET returns initial state
 - [ ] POST to `/api/current-file` updates state
-- [ ] Status indicators update (⏳ → ✔)
+- [ ] Status indicators update (⏳ → )
 - [ ] Current file highlights with blue background
 - [ ] Auto-scroll to current file works
 - [ ] Sidebar toggle works on mobile
@@ -359,14 +359,14 @@ const icons = {
 
 ---
 
-## 📚 Documentation Files
+## Documentation Files
 
 1. **[FILE_PANEL_QUICK_REF.md](FILE_PANEL_QUICK_REF.md)** - Quick reference guide
 2. **[FILE_PANEL_GUIDE.md](FILE_PANEL_GUIDE.md)** - Comprehensive documentation
 
 ---
 
-## 🎓 Usage Flow (End User)
+## Usage Flow (End User)
 
 **Before:**
 ```
@@ -376,20 +376,20 @@ User sees task input area and results
 **Now:**
 ```
 User sees:
-1. File structure on left (📁 Files)
+1. File structure on left ( Files)
 2. Project tree with all files
 3. Real-time indicators while running:
    ⏳ File being worked on (orange, pulsing)
-   ✔ Completed files (green)
-   ✕ Error files (red)
+    Completed files (green)
+    Error files (red)
 4. Current file highlighted and scrolled
 ```
 
 ---
 
-## 🔗 Integration Points
+## Integration Points
 
-✅ **Works With:**
+ **Works With:**
 - Codex Control Bar (context aware)
 - Transparency Tracker (can update file status)
 - Agent Execution (real-time updates)
@@ -397,33 +397,33 @@ User sees:
 
 ---
 
-## 💡 Key Features
+## Key Features
 
-✨ **Live Updates**
+ **Live Updates**
 - Polls every 1 second
 - Auto-highlights current file
 - Real-time status indicators
 
-✨ **Smart Rendering**
+ **Smart Rendering**
 - Recursive tree structure
 - Expandable directories
 - File type icons
 - Size information
 
-✨ **Visual Feedback**
+ **Visual Feedback**
 - Color-coded status
 - Pulse animation for working files
 - Auto-scroll behavior
 - Current file highlight
 
-✨ **Responsive**
+ **Responsive**
 - Desktop: Always visible
 - Tablet: Narrower
 - Mobile: Toggle on/off
 
 ---
 
-## 🚀 Next Steps (Optional)
+## Next Steps (Optional)
 
 1. **Test the endpoints** with curl
 2. **Integrate with your agent** to update file status
@@ -433,12 +433,12 @@ User sees:
 
 ---
 
-## 📞 Support
+## Support
 
 ### Quick Start
 1. Open web UI → File tree appears automatically
 2. Run a task → File indicators update
-3. Task ends → Files show ✔ or ✕
+3. Task ends → Files show  or 
 
 ### Troubleshooting
 See [FILE_PANEL_QUICK_REF.md](FILE_PANEL_QUICK_REF.md) for common issues
@@ -459,17 +459,17 @@ curl -X POST http://localhost:5000/api/current-file \
 
 ---
 
-## ✨ Summary
+## Summary
 
 **Delivered:**
-- ✅ Full backend with 2 endpoints
-- ✅ Responsive sidebar panel
-- ✅ Real-time status indicators
-- ✅ Auto-scroll to current file
-- ✅ File type icons
-- ✅ Directory expansion
-- ✅ Mobile-friendly design
-- ✅ Complete documentation
+-  Full backend with 2 endpoints
+-  Responsive sidebar panel
+-  Real-time status indicators
+-  Auto-scroll to current file
+-  File type icons
+-  Directory expansion
+-  Mobile-friendly design
+-  Complete documentation
 
 **Ready for:** Integration with your agent task execution flow
 

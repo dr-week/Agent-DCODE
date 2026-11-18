@@ -9,11 +9,11 @@
 │  │                DCODE AI Activity Bar                     │   │
 │  │                                                          │   │
 │  │  ┌─────────────┐  ┌──────────────────────────────────┐  │   │
-│  │  │   CHAT      │  │      ★ TRANSPARENCY ★           │  │   │
+│  │  │   CHAT      │  │       TRANSPARENCY            │  │   │
 │  │  │  (existing) │  │      (NEW - this build)          │  │   │
 │  │  └─────────────┘  │                                  │  │   │
 │  │                   │  ┌───────────────────────────┐   │  │   │
-│  │                   │  │ 🧠 THINKING (Plans)      │   │  │   │
+│  │                   │  │  THINKING (Plans)      │   │  │   │
 │  │                   │  │ └────────────────────────┘│   │  │   │
 │  │                   │  └───────────────────────────┘   │  │   │
 │  │                   │                                  │  │   │
@@ -28,7 +28,7 @@
 │  │                   │  └───────────────────────────┘   │  │   │
 │  │                   │                                  │  │   │
 │  │                   │  ┌───────────────────────────┐   │  │   │
-│  │                   │  │ ⚠ ERRORS (Issues)        │   │  │   │
+│  │                   │  │  ERRORS (Issues)        │   │  │   │
 │  │                   │  │ └────────────────────────┘│   │  │   │
 │  │                   │  └───────────────────────────┘   │  │   │
 │  │                   │                                  │  │   │
@@ -46,15 +46,15 @@
         │  (web_app.py - PORT 5000)       │
         ├─────────────────────────────────┤
         │ Transparency Endpoints:         │
-        │  ✓ /session                     │
-        │  ✓ /state                       │
-        │  ✓ /plan                        │
-        │  ✓ /step/start                  │
-        │  ✓ /step/complete               │
-        │  ✓ /action                      │
-        │  ✓ /action/{id}/complete        │
-        │  ✓ /error                       │
-        │  ✓ /complete                    │
+        │   /session                     │
+        │   /state                       │
+        │   /plan                        │
+        │   /step/start                  │
+        │   /step/complete               │
+        │   /action                      │
+        │   /action/{id}/complete        │
+        │   /error                       │
+        │   /complete                    │
         └──────────────────┬──────────────┘
                            │
                            │ Reference state
@@ -90,28 +90,28 @@ TIME    AGENT CODE                    TRACKER                 UI (VS Code)
 ────────────────────────────────────────────────────────────────────────────
 
 0ms     create_new_session()
-        │                              ★ Create session
+        │                               Create session
         │                              │ [empty state]
         │                              │
      ┌──▶ get_tracker()               │
-     │                              ★ Return tracker
+     │                               Return tracker
      │
    start_execution(
      "Build API"
-   )                                   ★ Set status="planning"
+   )                                    Set status="planning"
                                        │
                                        │ [UI still idle]
 1000ms                                 │
                                        │
        add_plan(                      
-         ["Design","Code","Test"]      ★ Add plan steps
+         ["Design","Code","Test"]       Add plan steps
        )                               │ Set status="planned"
                                        │ Set progress=10%
                                        │
                                        │──▶ [500ms] User opens Transparency
                                           │ Panel fetches state
                                           │
-                                          ★ UI Shows:
+                                           UI Shows:
                                           │ - Plan: 3 steps
                                           │ - Status: Planned
                                           │ - Progress: 10%
@@ -119,7 +119,7 @@ TIME    AGENT CODE                    TRACKER                 UI (VS Code)
 2000ms                                 │
                                        │
        start_step(0, "Design DB")      │
-       │                                ★ Set current_step
+       │                                 Set current_step
        │                                │ Set status="executing_step_0"
        │                                │ Set progress=30%
    generate_schema()                    │
@@ -127,65 +127,65 @@ TIME    AGENT CODE                    TRACKER                 UI (VS Code)
                                        │──▶ [500ms] Poll update
                                           │ API returns step details
        complete_step(output)            │
-       │                                ★ Mark step as complete
+       │                                 Mark step as complete
        │                                │ Set progress=40%
        │                                │
-                                        ★ UI Updates:
+                                         UI Updates:
                                         │ - Current step name
                                         │ - 40% progress bar
                                         │
 3000ms                                 │
                                        │
        start_step(1, "Code Gen")       │
-       │                                ★ Step 1 is now active
+       │                                 Step 1 is now active
        │                                │ progress=50%
        │
        add_action({                    │
-         "type":"code_gen",             ★ Add to actions list
+         "type":"code_gen",              Add to actions list
          "description":"..."            │ Set action.status="executing"
        })                               │
        │
    generate_code()                      │
        │
-   tracker.complete_action(             ★ Update action
+   tracker.complete_action(              Update action
      0,                                 │ Set action.status="completed"
      output,                            │ Set action.output="Generated 250L"
      success=true                       │
    )                                    │
                                         │──▶ [500ms] Poll update
                                            │
-                                           ★ UI Updates:
-                                           │ - Actions: Shows ✓
+                                            UI Updates:
+                                           │ - Actions: Shows 
                                            │ - Output: "Generated 250L"
                                            │ - Progress: 65%
                                            │
 4000ms                                 │
                                        │
        complete_step(output)           │
-                                        ★ Step 1 complete
+                                         Step 1 complete
                                         │ progress=70%
                                         │
        start_step(2, "Run Tests")      │
-                                        ★ Step 2 active
+                                         Step 2 active
                                         │ progress=80%
                                         │
        add_action(...)                 │
        run_tests()                     │
        tracker.complete_action(...)    │
-                                        ★ Action: ✓ Tests pass
+                                         Action:  Tests pass
                                         │ progress=90%
                                         │
        complete_step(...)              │
-                                        ★ All steps done
+                                         All steps done
                                         │ progress=100%
                                         │
-       complete_execution(              ★ Mark execution done
+       complete_execution(               Mark execution done
          success=true                   │ status="completed"
        )                                │
                                         │──▶ [500ms] Final poll
                                            │
-                                           ★ UI Shows:
-                                           │ - Status: ✓ Completed
+                                            UI Shows:
+                                           │ - Status:  Completed
                                            │ - All panels stable
                                            │ - Final output
                                            │
@@ -295,9 +295,9 @@ TIME    AGENT CODE                    TRACKER                 UI (VS Code)
 │  └─────────────────────────────────┘   │
 │                                         │
 │  Access Patterns:                       │
-│  - Concurrent reads: ✓ (same lock)     │
-│  - Concurrent writes: ✓ (protected)    │
-│  - Read during write: ✓ (locked)       │
+│  - Concurrent reads:  (same lock)     │
+│  - Concurrent writes:  (protected)    │
+│  - Read during write:  (locked)       │
 │                                         │
 └─────────────────────────────────────────┘
 ```
@@ -385,12 +385,12 @@ Your Agent Project
 Agent Code
 ├─▶ No error
 │   └─▶ tracker.complete_action(idx, output, success=True)
-│   └─▶ Action shows ✓ in UI
+│   └─▶ Action shows  in UI
 │
 ├─▶ Expected error (handled)
 │   └─▶ tracker.add_error(msg, context)
 │   └─▶ tracker.complete_action(idx, error_msg, success=False)
-│   └─▶ UI shows ✕ and error in panel
+│   └─▶ UI shows  and error in panel
 │
 ├─▶ Unexpected error (exception)
 │   └─▶ Exception caught
@@ -427,7 +427,7 @@ T+1500ms  Third poll
           
 T+2000ms  Fourth poll
           ├─▶ First action complete
-          ├─▶ Change icon from ⟳ to ✓
+          ├─▶ Change icon from ⟳ to 
           
 T+2500ms  Fifth poll
           ├─▶ Progress: 45%
@@ -538,13 +538,13 @@ Note: Real-world limit is browser, not backend:
 
 **This architecture ensures:**
 
-✅ Real-time updates (500ms latency)  
-✅ Thread-safe state management  
-✅ Minimal network overhead  
-✅ Low CPU/memory impact  
-✅ Clean separation of concerns  
-✅ Easy to extend/customize  
-✅ Production-ready  
+ Real-time updates (500ms latency)  
+ Thread-safe state management  
+ Minimal network overhead  
+ Low CPU/memory impact  
+ Clean separation of concerns  
+ Easy to extend/customize  
+ Production-ready  
 
 ---
 

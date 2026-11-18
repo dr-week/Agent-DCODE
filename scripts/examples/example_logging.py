@@ -67,4 +67,4 @@ if __name__ == "__main__":
     example_resumption()
     clear_logs("example_project")
     clear_logs("learning_agent")
-    print("\n✅ Demo logs cleaned up")
+    print("\n Demo logs cleaned up")

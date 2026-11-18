@@ -1,25 +1,25 @@
 # Codex Control Bar - Quick Reference
 
-## 🎯 Quick Start
+## Quick Start
 1. Open web UI
 2. Use Codex Control Bar above task input
 3. Select model, environment, approvals
 4. Attach files or code context
 5. Click [↑] to send task
 
-## 🔘 Controls at a Glance
+## Controls at a Glance
 
 | Control | Icon | Action | States |
 |---------|------|--------|--------|
 | Add File | **[+]** | Open file picker | Files count indicator |
 | Code Context | **[<>]** | Fetch code from clipboard | Code preview |
-| Model | **[🔵]** | Select AI model | local, gemini, ollama, openai |
-| Settings | **[⚙]** | Toggle options | Auto-Execute, Show Thinking, Safe Mode |
+| Model | **[]** | Select AI model | local, gemini, ollama, openai |
+| Settings | **[]** | Toggle options | Auto-Execute, Show Thinking, Safe Mode |
 | Send Task | **[↑]** | Submit to backend | Sends full request object |
-| Environment | **[📍]** | Choose runtime | local, colab, remote |
-| Approvals | **[✓]** | Approval workflow | auto, manual, confirm |
+| Environment | **[]** | Choose runtime | local, colab, remote |
+| Approvals | **[]** | Approval workflow | auto, manual, confirm |
 
-## 💾 State Structure
+## State Structure
 ```javascript
 {
   task: "description",
@@ -32,13 +32,13 @@
 }
 ```
 
-## ⌨️ Keyboard Shortcuts
+## ⌨ Keyboard Shortcuts
 - **Ctrl/Cmd + Enter** - Send task
 - **Tab** - Navigate controls
 - **Space** - Toggle checkbox
 - **Esc** - Close settings popup
 
-## 🎪 Common Workflows
+## Common Workflows
 
 ### Quick Local Task
 ```
@@ -57,15 +57,15 @@
 
 ### Safe Execution
 ```
-1. Click [⚙] → Check "Safe Mode" → Enter task → Click [↑]
+1. Click [] → Check "Safe Mode" → Enter task → Click [↑]
 ```
 
 ### Remote Execution
 ```
-1. Select [☁️ colab] → Click [↑]
+1. Select [ colab] → Click [↑]
 ```
 
-## 📝 Request Format Sent
+## Request Format Sent
 ```json
 {
   "task": "user input",
@@ -82,27 +82,27 @@
 }
 ```
 
-## 🎨 Visual Cues
+## Visual Cues
 - **File indicator:** Shows when files attached
-- **Settings popup:** Appears below ⚙ button
+- **Settings popup:** Appears below  button
 - **Button states:** Hover blue tint, active darker
 - **Send button:** Purple gradient, always visible
 
-## 💡 Tips & Tricks
+## Tips & Tricks
 
-✅ **Do:**
+ **Do:**
 - Use Safe Mode for experimental tasks
 - Enable Show Thinking for debugging
 - Use Gemini/OpenAI for complex reasoning
 - Select Colab for heavy computation
 
-❌ **Don't:**
+ **Don't:**
 - Attach massive files (memory limits)
 - Change model mid-execution
 - Use random approval modes without testing
 - Leave Safe Mode disabled for untrusted tasks
 
-## 🔧 Integration Checklist
+## Integration Checklist
 
 For backend developers:
 - [ ] Update `/api/agent/execute` endpoint
@@ -112,14 +112,14 @@ For backend developers:
 - [ ] Implement safe_mode restrictions
 - [ ] Return success/error responses
 
-## 📍 Location in UI
+## Location in UI
 ```
 ┌──────────────────────┐
 │   Header             │
 ├──────────────────────┤
 │   Mode Selector      │
 ├──────────────────────┤
-│ 🔴 CODEX BAR HERE    │  ← You are here
+│  CODEX BAR HERE    │  ← You are here
 ├──────────────────────┤
 │ Task Textarea        │
 ├──────────────────────┤
@@ -127,7 +127,7 @@ For backend developers:
 └──────────────────────┘
 ```
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 | Issue | Solution |
 |-------|----------|
@@ -137,17 +137,17 @@ For backend developers:
 | Settings not saving | Use localStorage (add feature) |
 | Send button disabled | Clear invalid task text |
 
-## 📚 Documentation Files
+## Documentation Files
 - **[CODEX_CONTROL_BAR.md](CODEX_CONTROL_BAR.md)** - Full reference
 - **[IMPLEMENTATION_SUMMARY.md](IMPLEMENTATION_SUMMARY.md)** - Implementation details
 
-## 🎓 Learning Path
+## Learning Path
 1. **Beginner:** Use local model, no settings
 2. **Intermediate:** Add files, try different models
 3. **Advanced:** Use approval modes, safe mode, remote environments
 4. **Expert:** Batch tasks, automation, custom settings
 
-## 🚀 Next: Backend Integration
+## Next: Backend Integration
 
 Update your `/api/agent/execute` endpoint to:
 
@@ -185,5 +185,5 @@ async def execute_agent(request: CodexRequest):
     return result
 ```
 
-## 📞 Need Help?
+## Need Help?
 Check the documentation files for detailed explanations of each component.

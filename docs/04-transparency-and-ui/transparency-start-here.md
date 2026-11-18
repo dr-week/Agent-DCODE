@@ -1,4 +1,4 @@
-# 🚀 Agent Transparency - START HERE
+# Agent Transparency - START HERE
 
 **Welcome!** You now have a real-time agent transparency system. This page gets you started in 5 minutes.
 
@@ -17,7 +17,7 @@ See Agent Thinking    →  See Actions Being Done  →  Track Progress
 
 ---
 
-## ⚡ 5-Minute Quick Start
+## 5-Minute Quick Start
 
 ### Step 1: Open Your Agent File
 Any file where you run your agent (e.g., `agent.py`, `autonomous_agent.py`)
@@ -57,7 +57,7 @@ Run your agent as normal — the dashboard will start updating in real-time!
 
 ---
 
-## 🎨 What You'll See
+## What You'll See
 
 ```
 ┌────────────── THINKING ────────────┐
@@ -68,7 +68,7 @@ Run your agent as normal — the dashboard will start updating in real-time!
 └────────────────────────────────────┘
 
 ┌────────────── ACTIONS ─────────────┐
-│ ✓ Parse requirements               │
+│  Parse requirements               │
 │ ⟳ Generating code... (spinning)    │
 │ ○ Run tests (pending)              │
 └────────────────────────────────────┘
@@ -86,7 +86,7 @@ Run your agent as normal — the dashboard will start updating in real-time!
 
 ---
 
-## 📝 Complete Minimal Example
+## Complete Minimal Example
 
 ```python
 # my_agent.py
@@ -121,7 +121,7 @@ def main():
     
     # Done
     tracker.complete_execution(success=True)
-    print("✅ Complete!")
+    print(" Complete!")
 
 if __name__ == "__main__":
     main()
@@ -129,7 +129,7 @@ if __name__ == "__main__":
 
 ---
 
-## 🎯 Common Patterns
+## Common Patterns
 
 ### Pattern 1: Simple Steps
 ```python
@@ -168,7 +168,7 @@ except Exception as e:
 
 ---
 
-## 🖥️ Using the Dashboard
+## Using the Dashboard
 
 ### Opening
 ```
@@ -187,15 +187,15 @@ BOTTOM-RIGHT: Any errors
 
 ### Watching
 ```
-- ✓ Green check: Step completed
+-  Green check: Step completed
 - ⟳ Spinning icon: Currently running
 - ○ Hollow dot: Waiting/pending
-- ✕ Red X: Error occurred
+-  Red X: Error occurred
 ```
 
 ---
 
-## 🐛 If It's Not Working
+## If It's Not Working
 
 ### Dashboard shows nothing?
 ```
@@ -237,7 +237,7 @@ Before the complete_step/execution calls.
 
 ---
 
-## 📚 For More Info
+## For More Info
 
 | Want to... | Read |
 |-----------|------|
@@ -277,7 +277,7 @@ That's literally all the methods you need!
 
 ---
 
-## 🌟 Pro Tips
+## Pro Tips
 
 ### Tip 1: Use Descriptive Names
 ```python
@@ -315,7 +315,7 @@ tracker.complete_execution(success)    # Always call
 
 ---
 
-## 🎯 Example: Before & After
+## Example: Before & After
 
 ### Before (What You Have)
 ```python
@@ -357,7 +357,7 @@ def my_agent(task):
 
 ---
 
-## ⚙️ Configuration
+## Configuration
 
 ### Change Update Speed
 ```python
@@ -376,10 +376,10 @@ fetch('http://your-server:8000/api/transparency/state')
 
 ---
 
-## 🚀 Next Steps
+## Next Steps
 
 ### Now
-- [ ] Read this file ✓ (just did)
+- [ ] Read this file  (just did)
 - [ ] Add 3 lines to your agent
 - [ ] Run and test
 - [ ] **Done!** (10 minutes total)
@@ -392,7 +392,7 @@ fetch('http://your-server:8000/api/transparency/state')
 
 ---
 
-## 🎓 Learning Path
+## Learning Path
 
 ```
 1. START HERE (this file)
@@ -408,39 +408,39 @@ fetch('http://your-server:8000/api/transparency/state')
 
 ---
 
-## 📊 What Gets Tracked
+## What Gets Tracked
 
 ```
-✅ Your Plan      → Which steps you'll do
-✅ Your Actions   → What you're actually doing
-✅ Your Progress  → How far along (%)
-✅ Your Status    → What state you're in
-✅ Your Errors    → What went wrong
-✅ Your Timing    → How long it took
+ Your Plan      → Which steps you'll do
+ Your Actions   → What you're actually doing
+ Your Progress  → How far along (%)
+ Your Status    → What state you're in
+ Your Errors    → What went wrong
+ Your Timing    → How long it took
 ```
 
 All visible in one dashboard!
 
 ---
 
-## 🎁 What You Get
+## What You Get
 
 ```
-✅ Real-time monitoring (500ms updates)
-✅ Visual 4-panel layout
-✅ No terminal needed
-✅ Live progress tracking
-✅ Error alerts
-✅ Minimal code changes (3-10 lines)
-✅ Production ready
-✅ Zero external dependencies
-✅ VS Code integrated
-✅ Fully documented
+ Real-time monitoring (500ms updates)
+ Visual 4-panel layout
+ No terminal needed
+ Live progress tracking
+ Error alerts
+ Minimal code changes (3-10 lines)
+ Production ready
+ Zero external dependencies
+ VS Code integrated
+ Fully documented
 ```
 
 ---
 
-## 🔑 Key Takeways
+## Key Takeways
 
 1. **3-line setup** - Import, create session, start execution
 2. **10 methods** - That's all you need
@@ -450,7 +450,7 @@ All visible in one dashboard!
 
 ---
 
-## 🎊 You're Ready!
+## You're Ready!
 
 ```
 1. Add 3 lines to your code
@@ -461,7 +461,7 @@ All visible in one dashboard!
 
 **Questions?** Check TRANSPARENCY_QUICK_REF.md or docs folder.
 
-**Let's go! 🚀**
+**Let's go! **
 
 ---
 
@@ -486,4 +486,4 @@ Copy-paste, change step names, done!
 
 ---
 
-*Welcome to real-time transparency! Open VS Code and get started. 🎯*
+*Welcome to real-time transparency! Open VS Code and get started. *

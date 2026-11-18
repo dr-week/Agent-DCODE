@@ -13,12 +13,12 @@ The orchestrator handles:
 - **Model Server** (Ollama on port 11434)
 
 Features:
-- ✅ Automatic service startup
-- ✅ Duplicate process detection & cleanup
-- ✅ Health monitoring & auto-restart
-- ✅ Cross-platform support (Windows/Mac/Linux)
-- ✅ No admin privileges required
-- ✅ Command-line & VS Code integration
+-  Automatic service startup
+-  Duplicate process detection & cleanup
+-  Health monitoring & auto-restart
+-  Cross-platform support (Windows/Mac/Linux)
+-  No admin privileges required
+-  Command-line & VS Code integration
 
 ---
 
@@ -81,14 +81,14 @@ python dcode_orchestrator.py status
 DCODE System Status
 ============================================================
 
-✓ BACKEND
+ BACKEND
   Port: 5000
   Status: running
   PID: 12345
   Message: Backend healthy
   Uptime: 245s
 
-✓ OLLAMA
+ OLLAMA
   Port: 11434
   Status: running
   PID: 12346
@@ -339,14 +339,14 @@ Used by orchestrator to verify backend is responsive.
 ## Cross-Platform Support
 
 ### Windows
-- ✅ Subprocess process group handling
-- ✅ Python executable detection
-- ✅ Process termination via SIGTERM/SIGKILL
+-  Subprocess process group handling
+-  Python executable detection
+-  Process termination via SIGTERM/SIGKILL
 
 ### macOS/Linux
-- ✅ Standard subprocess handling
-- ✅ Uses `python3` executable
-- ✅ Full POSIX signal support
+-  Standard subprocess handling
+-  Uses `python3` executable
+-  Full POSIX signal support
 
 ### Verified On
 - Windows 10/11 (Python 3.10+)
@@ -417,16 +417,16 @@ python web_app.py
 ## Security
 
 ### What It Does
-- ✅ Manages local processes only
-- ✅ Checks ports before starting
-- ✅ Graceful process termination
-- ✅ No network exposure (localhost only)
+-  Manages local processes only
+-  Checks ports before starting
+-  Graceful process termination
+-  No network exposure (localhost only)
 
 ### What It Doesn't Do
-- ❌ No authentication/authorization
-- ❌ No encrypted transport
-- ❌ No user isolation
-- ⚠️ Only for local development
+-  No authentication/authorization
+-  No encrypted transport
+-  No user isolation
+-  Only for local development
 
 ### Best Practices
 - Use only on development machines
@@ -545,11 +545,11 @@ Ollama: http://localhost:11434
 ```bash
 $ python dcode_orchestrator.py start --health-check
 [Starting services with continuous monitoring...]
-[Health check: Backend ✓, Ollama ✓]
-[Health check: Backend ✓, Ollama ✓]
-[Health check: Backend ✓, Ollama ✗]
+[Health check: Backend , Ollama ]
+[Health check: Backend , Ollama ]
+[Health check: Backend , Ollama ]
 [Attempting to restart: Ollama...]
-[Health check: Backend ✓, Ollama ✓]
+[Health check: Backend , Ollama ]
 ```
 
 ### Example 4: Python Integration

@@ -1,6 +1,6 @@
 # File Panel - Quick Reference
 
-## 🎯 What Was Added
+## What Was Added
 
 ### Backend (web_app.py)
 ```python
@@ -27,7 +27,7 @@ POST /api/current-file    # Update current file status
 **CSS Styling:**
 - Sidebar layout (220px width)
 - File tree styling
-- Status indicators (○ ⏳ ✔ ✕)
+- Status indicators (○ ⏳  )
 - Responsive design (hidden on mobile)
 - Current file highlight
 - Smooth animations
@@ -42,7 +42,7 @@ POST /api/current-file    # Update current file status
 
 ---
 
-## 📊 How It Works
+## How It Works
 
 ### On Page Load
 ```
@@ -77,14 +77,14 @@ When Done:
 POST /api/current-file with status="done"
 
 Frontend:
-1. Changes icon: ⏳ → ✔
+1. Changes icon: ⏳ → 
 2. Changes color: orange → green
 3. Remove pulse animation
 ```
 
 ---
 
-## 🔌 Integration with Your Agent
+## Integration with Your Agent
 
 ### Option 1: Simple (No Transparency)
 ```python
@@ -124,14 +124,14 @@ def transparency_update_file():
 
 ---
 
-## 📱 UI Features
+## UI Features
 
 ### Desktop View
 ```
-┌─ 📁 Files ─────────────┐  Full sidebar visible
+┌─  Files ─────────────┐  Full sidebar visible
 │ ▶ src/                 │  All items visible
 │   ⏳ agent.py         │  Full names displayed
-│   ✔ utils.py          │  Status icons clear
+│    utils.py          │  Status icons clear
 │   ▶ tests/            │
 │     ○ test_a.py       │
 │     ○ test_b.py       │
@@ -142,26 +142,26 @@ def transparency_update_file():
 
 ### Mobile View (Collapsed)
 ```
-┌─ ✕ ─┐  Sidebar hidden by default
-│     │  Click ✕ to expand
+┌─  ─┐  Sidebar hidden by default
+│     │  Click  to expand
 │     │  Overlay on content
 └─────┘
 ```
 
 ---
 
-## 🎯 Status Indicators
+## Status Indicators
 
 | Status | Icon | Color | Animation |
 |--------|------|-------|-----------|
 | pending | ○ | Gray | None |
 | working | ⏳ | Orange | Pulse |
-| done | ✔ | Green | None |
-| error | ✕ | Red | None |
+| done |  | Green | None |
+| error |  | Red | None |
 
 ---
 
-## ⚙️ Configuration Examples
+## Configuration Examples
 
 ### Disable Auto-Polling
 ```javascript
@@ -189,7 +189,7 @@ document.querySelectorAll(".file-item.directory").forEach(dir => {
 
 ---
 
-## 🔍 Testing Checklist
+## Testing Checklist
 
 - [ ] `/api/files` returns valid JSON
 - [ ] `/api/current-file` GET returns initial state
@@ -197,7 +197,7 @@ document.querySelectorAll(".file-item.directory").forEach(dir => {
 - [ ] Directories can be expanded/collapsed
 - [ ] File type icons display correctly
 - [ ] POST to `/api/current-file` updates state
-- [ ] Status indicators update (⏳ → ✔)
+- [ ] Status indicators update (⏳ → )
 - [ ] Current file highlights
 - [ ] Auto-scroll works
 - [ ] Sidebar toggles on mobile
@@ -205,7 +205,7 @@ document.querySelectorAll(".file-item.directory").forEach(dir => {
 
 ---
 
-## 📊 Response Formats
+## Response Formats
 
 ### GET /api/files
 ```json
@@ -245,7 +245,7 @@ document.querySelectorAll(".file-item.directory").forEach(dir => {
 
 ---
 
-## 🚀 Files Modified
+## Files Modified
 
 | File | Changes |
 |------|---------|
@@ -256,16 +256,16 @@ document.querySelectorAll(".file-item.directory").forEach(dir => {
 
 ---
 
-## 💡 Tips
+## Tips
 
-✅ **Do:**
+ **Do:**
 - Keep update interval reasonably frequent (1-5s)
 - Always update status when processing starts/ends
 - Use meaningful status messages
 - Test endpoints with curl first
 - Check browser console for errors
 
-❌ **Don't:**
+ **Don't:**
 - Update status too frequently (<100ms)
 - Forget to POST status updates
 - Leave status as "working" after completion
@@ -274,17 +274,17 @@ document.querySelectorAll(".file-item.directory").forEach(dir => {
 
 ---
 
-## 🔗 Connected Features
+## Connected Features
 
 Works with:
-- ✅ Codex Control Bar (shows files available)
-- ✅ Transparency Tracker (update file status during execution)
-- ✅ Agent Execution (real-time file activity)
-- ✅ Responsive Design (adapts to screen size)
+-  Codex Control Bar (shows files available)
+-  Transparency Tracker (update file status during execution)
+-  Agent Execution (real-time file activity)
+-  Responsive Design (adapts to screen size)
 
 ---
 
-## 📞 Quick Troubleshoot
+## Quick Troubleshoot
 
 **File tree not loading?**
 - Check if `/api/files` endpoint exists
@@ -308,5 +308,5 @@ Works with:
 
 ---
 
-## 📚 Full Documentation
+## Full Documentation
 See [FILE_PANEL_GUIDE.md](FILE_PANEL_GUIDE.md) for complete reference

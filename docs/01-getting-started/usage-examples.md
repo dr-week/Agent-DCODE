@@ -2,7 +2,7 @@
 
 This guide shows practical examples of how to use DCode's 10 action types through the web UI and CLI.
 
-## 🎯 Quick Start
+## Quick Start
 
 ### Web UI Chat Examples
 
@@ -10,7 +10,7 @@ The web UI at **http://localhost:5000** is the easiest way to interact with DCod
 
 ---
 
-## 📁 File Operations
+## File Operations
 
 ### 1. Write Files
 **Prompt:** "Create a new Python file called hello_world.py that prints a greeting"
@@ -90,7 +90,7 @@ The web UI at **http://localhost:5000** is the easiest way to interact with DCod
 
 ---
 
-## 🐍 Python Code Execution
+## Python Code Execution
 
 ### 5. Run Python Code
 **Prompt:** "Calculate the sum of all numbers from 1 to 100 and show the result"
@@ -146,7 +146,7 @@ Average Score: 91.3
 
 ---
 
-## 🔧 Bash/Shell Commands
+## Bash/Shell Commands
 
 ### 6. Run Bash Commands
 **Prompt:** "List all files in the projects directory with details"
@@ -206,7 +206,7 @@ Output:
 
 ---
 
-## 🎨 JavaScript Execution
+## JavaScript Execution
 
 ### 7. Run JavaScript Code
 **Prompt:** "Write JavaScript code that creates an array and performs calculations"
@@ -257,7 +257,7 @@ AIML
 
 ---
 
-## 💻 System Process Monitoring
+## System Process Monitoring
 
 ### 8. Get Processes
 **Prompt:** "Show me the top 5 processes using the most memory"
@@ -333,7 +333,7 @@ PID     Name        CPU%    MEM%
 
 ---
 
-## 🔄 Running Commands
+## Running Commands
 
 ### 10. Generic Command Execution
 **Prompt:** "Run the command to check current directory"
@@ -353,7 +353,7 @@ PID     Name        CPU%    MEM%
 
 ---
 
-## 📊 Complex Multi-Step Scenarios
+## Complex Multi-Step Scenarios
 
 ### Scenario 1: Project Setup
 **User Prompt:** "Create a new Python project structure with a main file, utils, and tests"
@@ -389,7 +389,7 @@ PID     Name        CPU%    MEM%
 
 ---
 
-## 🚀 Tips & Best Practices
+## Tips & Best Practices
 
 ### 1. File Paths
 - Always use paths relative to the `projects/` directory
@@ -417,7 +417,7 @@ PID     Name        CPU%    MEM%
 
 ---
 
-## 📝 Common Prompts Quick Reference
+## Common Prompts Quick Reference
 
 | Goal | Example Prompt |
 |------|---|
@@ -431,7 +431,7 @@ PID     Name        CPU%    MEM%
 
 ---
 
-## 🔗 Integration Examples
+## Integration Examples
 
 ### With VS Code Extension
 1. Open a file in VS Code
@@ -453,7 +453,7 @@ python main.py "Write a function that reverses a string"
 
 ---
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 **Issue:** "Node.js not installed" error for JS execution
 - **Solution:** Install Node.js from nodejs.org, then restart the agent

@@ -40,14 +40,14 @@ The Codex-style input control bar provides a powerful, minimal interface for age
 
 ### 3. **[Model Dropdown]**
 - **Options:**
-  - 🔵 `local` - Local Ollama instance
-  - ✨ `gemini` - Google Gemini
-  - 🦙 `ollama` - Ollama server
-  - 🤖 `openai` - OpenAI API
+  -  `local` - Local Ollama instance
+  -  `gemini` - Google Gemini
+  -  `ollama` - Ollama server
+  -  `openai` - OpenAI API
 - **Default:** `local`
 - **State:** `codexState.model`
 
-### 4. **[⚙ Settings] Button**
+### 4. **[ Settings] Button**
 - **Opens:** Floating settings popup
 - **Available Toggles:**
   - `Auto-Execute` - Automatically run tasks
@@ -67,17 +67,17 @@ The Codex-style input control bar provides a powerful, minimal interface for age
 
 ### 6. **[Environment Dropdown]**
 - **Options:**
-  - 📍 `local` - Local machine
-  - ☁️ `colab` - Google Colab
-  - 🌐 `remote` - Remote server
+  -  `local` - Local machine
+  -  `colab` - Google Colab
+  -  `remote` - Remote server
 - **Default:** `local`
 - **State:** `codexState.environment`
 
 ### 7. **[Approvals Dropdown]**
 - **Modes:**
-  - ✓ `auto` - Execute without prompts
+  -  `auto` - Execute without prompts
   - ⊙ `manual` - Manual approval each step
-  - ⚠ `confirm` - Confirm before execution
+  -  `confirm` - Confirm before execution
 - **Default:** `auto`
 - **State:** `codexState.approvalsMode`
 
@@ -194,7 +194,7 @@ buildCodexRequest()      // Build request object
 // 1. Click [+] button
 // 2. Select file(s)
 // 3. File count appears: "2 file(s) attached"
-// 4. Select "✨ gemini" from model dropdown
+// 4. Select " gemini" from model dropdown
 // 5. Enter task description
 // 6. Click [↑] button
 // Request includes files and uses Gemini model
@@ -204,7 +204,7 @@ buildCodexRequest()      // Build request object
 ```javascript
 // 1. Click [<>] button
 // 2. Paste code or select from clipboard
-// 3. Click [⚙] button
+// 3. Click [] button
 // 4. Check "Safe Mode"
 // 5. Enter review task
 // 6. Submit
@@ -261,7 +261,7 @@ Content-Type: application/json
 Edit HTML:
 ```html
 <select id="modelSelect" class="control-select">
-    <option value="new-model">🎨 new-model</option>
+    <option value="new-model"> new-model</option>
 </select>
 ```
 

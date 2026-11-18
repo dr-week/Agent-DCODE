@@ -42,7 +42,7 @@ This release enhances the web UI to display rich, formatted output from all 10 A
 ```html
 <div class="message action-output action-{type}">
   <div class="action-container">
-    <div class="action-header">📋 {TYPE}</div>
+    <div class="action-header"> {TYPE}</div>
     <div class="action-content">
       <!-- Type-specific formatted content -->
     </div>
@@ -51,12 +51,12 @@ This release enhances the web UI to display rich, formatted output from all 10 A
 ```
 
 ### Action Type Colors
-- 🟢 `list_files` → Green (#4ade80)
-- 🟠 `run_python`, `run_bash`, `run_js` → Amber (#f59e0b)
-- 🔵 `get_processes` → Cyan (#06b6d4)
-- 🟣 `show_progress` → Violet (#8b5cf6)
-- 🔴 `write_file`, `append_file` → Rose (#ec4899)
-- 🟦 `read_file`, `run_command` → Cyan (#06b6d4)
+-  `list_files` → Green (#4ade80)
+-  `run_python`, `run_bash`, `run_js` → Amber (#f59e0b)
+-  `get_processes` → Cyan (#06b6d4)
+-  `show_progress` → Violet (#8b5cf6)
+-  `write_file`, `append_file` → Rose (#ec4899)
+-  `read_file`, `run_command` → Cyan (#06b6d4)
 
 ### Output Formats
 
@@ -108,11 +108,11 @@ Shows visual progress with percentage
 
 ## Browser Compatibility
 
-- ✅ Chrome/Chromium 90+
-- ✅ Firefox 88+
-- ✅ Safari 14+
-- ✅ Edge 90+
-- ✅ Mobile browsers (iOS Safari, Chrome Android)
+-  Chrome/Chromium 90+
+-  Firefox 88+
+-  Safari 14+
+-  Edge 90+
+-  Mobile browsers (iOS Safari, Chrome Android)
 
 ## Performance Impact
 
@@ -126,23 +126,23 @@ Shows visual progress with percentage
 
 ### Manual Testing Scenarios (5 tests, 10 minutes)
 
-1. **File Operations** ✓
+1. **File Operations** 
    - Create file → Show "[CREATED]" message
    - Read file → Display content in code block
 
-2. **Directory Listing** ✓
+2. **Directory Listing** 
    - List files → Show ASCII tree structure
    - Verify indentation with ├── and └──
 
-3. **Code Execution** ✓
+3. **Code Execution** 
    - Run Python → Show output in dark code block
    - Run JS → Show result with proper formatting
 
-4. **Process Monitoring** ✓
+4. **Process Monitoring** 
    - Get processes → Display as HTML table
    - Sort by CPU/memory
 
-5. **Progress Display** ✓
+5. **Progress Display** 
    - Show progress → Render bar with percentage
    - Verify completion message
 
@@ -197,10 +197,10 @@ for action in result["actions"]:
 
 ## Quality Metrics
 
-- ✅ **Syntax:** All Python files pass `py_compile`
-- ✅ **Git:** Clean commit history with descriptive messages
-- ✅ **Docs:** Comprehensive guides for users and developers
-- ✅ **Coverage:** All 10 action types have examples
+-  **Syntax:** All Python files pass `py_compile`
+-  **Git:** Clean commit history with descriptive messages
+-  **Docs:** Comprehensive guides for users and developers
+-  **Coverage:** All 10 action types have examples
 
 ## Support & Feedback
 
@@ -211,14 +211,14 @@ for action in result["actions"]:
 ## Release Notes
 
 **v1.2.0** - Web UI Rich Output Formatting
-- ✨ New: Rich action output formatting for all 10 action types
-- ✨ New: renderActionOutput() function with type-specific rendering
-- ✨ New: Comprehensive CSS styling for action outputs
-- ✨ New: USAGE_EXAMPLES.md with 50+ prompt examples
-- ✨ New: TEST_WEB_UI.md with test scenarios and checklists
-- 🔧 Fixed: Executor now captures output for API responses
-- 📚 Updated: README.md with documentation links
-- ✅ Tested: All action types render correctly
+-  New: Rich action output formatting for all 10 action types
+-  New: renderActionOutput() function with type-specific rendering
+-  New: Comprehensive CSS styling for action outputs
+-  New: USAGE_EXAMPLES.md with 50+ prompt examples
+-  New: TEST_WEB_UI.md with test scenarios and checklists
+-  Fixed: Executor now captures output for API responses
+-  Updated: README.md with documentation links
+-  Tested: All action types render correctly
 
 ## Commit Hash
 
@@ -229,7 +229,7 @@ d6fd8ba Add comprehensive documentation for web UI testing and usage examples
 
 ---
 
-**Status:** ✅ Ready for testing and production use
+**Status:**  Ready for testing and production use
 
 **Next Steps:** 
 1. Run TEST_WEB_UI.md scenarios

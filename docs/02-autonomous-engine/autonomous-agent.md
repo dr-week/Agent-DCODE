@@ -29,7 +29,7 @@ Continuous planning, execution, and error recovery system.
             │  (Did it work?)             │
             └─────────────┬───────────────┘
                    YES ↓  ↓ NO
-          ✅ SUCCESS   CONTINUE LOOP
+           SUCCESS   CONTINUE LOOP
                        (iterate context)
 ```
 
@@ -305,14 +305,14 @@ Enter your goal: Create a scraper for weather data
 Enter context: Use requests and BeautifulSoup, save to CSV
 Max iterations: 8
 
-🔄 [Iteration 1/8]
-📋 Plan: 3 steps
+ [Iteration 1/8]
+ Plan: 3 steps
   1. Set up project structure
   2. Write web scraper
   3. Test and validate data
 
-⚙️  Actions: 3 to execute
-✅ File created: projects/scraper.py
+  Actions: 3 to execute
+ File created: projects/scraper.py
 ```
 
 ### Example 2: Complex Task

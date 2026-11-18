@@ -20,11 +20,11 @@
 
 ## Debug Features
 
-- ✅ Full breakpoint support
-- ✅ Step through code
-- ✅ Watch variables
-- ✅ Debug console
-- ✅ Hot reload on save
+-  Full breakpoint support
+-  Step through code
+-  Watch variables
+-  Debug console
+-  Hot reload on save
 
 ## Keyboard Shortcuts
 

@@ -1,11 +1,11 @@
 # File Structure Panel - Implementation Guide
 
-## 📋 Overview
+## Overview
 A live file structure panel has been added to the web UI, displaying the project file tree with real-time AI activity indicators showing which file the agent is currently working on.
 
 ---
 
-## 🔌 Backend Endpoints
+## Backend Endpoints
 
 ### 1. GET `/api/files`
 **Purpose:** Fetch project file tree structure
@@ -61,8 +61,8 @@ A live file structure panel has been added to the web UI, displaying the project
 **Status Values:**
 - `pending` - File queued, not started
 - `working` - Currently processing (⏳)
-- `done` - Processing complete (✔)
-- `error` - Error occurred (✕)
+- `done` - Processing complete ()
+- `error` - Error occurred ()
 
 ### 3. POST `/api/current-file`
 **Purpose:** Update current file status (called by agent/transparency tracker)
@@ -90,7 +90,7 @@ A live file structure panel has been added to the web UI, displaying the project
 
 ---
 
-## 🎨 Frontend UI
+## Frontend UI
 
 ### Layout Structure
 ```
@@ -98,7 +98,7 @@ A live file structure panel has been added to the web UI, displaying the project
 │          Header                         │
 ├──────────┬──────────────────────────────┤
 │          │                              │
-│  📁      │      Main Content            │
+│        │      Main Content            │
 │  Files   │                              │
 │  Sidebar │      Mode Selector           │
 │          │      Codex Bar               │
@@ -111,8 +111,8 @@ A live file structure panel has been added to the web UI, displaying the project
 ### Sidebar Features
 
 **Header:**
-- Title: "📁 Files"
-- Close/Toggle button (✕)
+- Title: " Files"
+- Close/Toggle button ()
 
 **File Tree:**
 - Recursive tree structure
@@ -121,8 +121,8 @@ A live file structure panel has been added to the web UI, displaying the project
 - Status indicators:
   - `pending` → ○ (gray)
   - `working` → ⏳ (orange, pulsing)
-  - `done` → ✔ (green)
-  - `error` → ✕ (red)
+  - `done` →  (green)
+  - `error` →  (red)
 
 **Current File:**
 - Highlighted with light blue background
@@ -132,24 +132,24 @@ A live file structure panel has been added to the web UI, displaying the project
 
 ### File Type Icons
 ```
-.py       → 🐍 Python
-.js       → 📜 JavaScript
-.ts       → 📘 TypeScript
-.jsx/.tsx → ⚛️ React
+.py       →  Python
+.js       →  JavaScript
+.ts       →  TypeScript
+.jsx/.tsx →  React
 .json     → {} JSON
-.html     → 🌐 HTML
-.css      → 🎨 CSS
-.md       → 📝 Markdown
-.txt      → 📄 Text
-.yml/.yaml→ ⚙️ YAML
-.sh/.bash → 💻 Shell
-.sql      → 💾 SQL
-default   → 📄 Generic
+.html     →  HTML
+.css      →  CSS
+.md       →  Markdown
+.txt      →  Text
+.yml/.yaml→  YAML
+.sh/.bash →  Shell
+.sql      →  SQL
+default   →  Generic
 ```
 
 ---
 
-## 🚀 Frontend Implementation
+## Frontend Implementation
 
 ### JavaScript State
 ```javascript
@@ -245,7 +245,7 @@ Update status icon and color for a file:
 
 ---
 
-## 🔗 Integration Points
+## Integration Points
 
 ### With Transparency Tracker
 When agent processes file, call POST endpoint:
@@ -281,7 +281,7 @@ File panel updates in real-time:
 
 ---
 
-## 📱 Responsive Design
+## Responsive Design
 
 ### Desktop (800px+)
 - Sidebar always visible (220px)
@@ -301,7 +301,7 @@ File panel updates in real-time:
 
 ---
 
-## 🎯 Usage Workflow
+## Usage Workflow
 
 ### As End User
 1. Open web UI
@@ -309,8 +309,8 @@ File panel updates in real-time:
 3. Submit task via Codex control
 4. Watch file sidebar update:
    - Files change color to orange ⏳ when being worked on
-   - Turn green ✔ when done
-   - Show red ✕ if error
+   - Turn green  when done
+   - Show red  if error
    - Current file is highlighted
 
 ### As Developer (Transparency Integration)
@@ -330,7 +330,7 @@ agent.update_current_file("src/api.py", "error", "Failed to parse imports")
 
 ---
 
-## 🔧 Customization
+## Customization
 
 ### Change Sidebar Width
 **CSS:**
@@ -345,10 +345,10 @@ agent.update_current_file("src/api.py", "error", "Failed to parse imports")
 ```javascript
 function getFileIcon(filename) {
     const icons = {
-        'rs': '🦀',      // Rust
-        'go': '🐹',      // Go
-        'java': '☕',    // Java
-        'cpp': '⚙️',     // C++
+        'rs': '',      // Rust
+        'go': '',      // Go
+        'java': '',    // Java
+        'cpp': '',     // C++
     };
     // ... existing code
 }
@@ -367,14 +367,14 @@ fileStatusUpdateInterval = setInterval(updateFileStatus, 5000);  // 5 seconds
 const icons = {
     "pending": "⌛",    // Different icon
     "working": "▶",
-    "done": "✓",
-    "error": "⚠"
+    "done": "",
+    "error": ""
 };
 ```
 
 ---
 
-## 📊 Performance
+## Performance
 
 - **File Tree Loading:** Recursive scan, typically <500ms
 - **Status Polling:** 1 request per second (minimal overhead)
@@ -383,7 +383,7 @@ const icons = {
 
 ---
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 | Issue | Cause | Solution |
 |-------|-------|----------|
@@ -396,7 +396,7 @@ const icons = {
 
 ---
 
-## ✨ Future Enhancements
+## Future Enhancements
 
 1. **File Search**
    - Quick file finder
@@ -431,7 +431,7 @@ const icons = {
 
 ---
 
-## 📝 Files Modified
+## Files Modified
 
 ### Backend
 - `web_app.py` - Added `current_file_state` variable and two endpoints
@@ -443,7 +443,7 @@ const icons = {
 
 ---
 
-## 🔍 API Testing
+## API Testing
 
 ### Test `/api/files`
 ```bash
@@ -464,7 +464,7 @@ curl -X POST http://localhost:5000/api/current-file \
 
 ---
 
-## 📞 Support
+## Support
 
 For issues or questions:
 1. Check endpoint responses with API testing

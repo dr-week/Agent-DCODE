@@ -1,6 +1,6 @@
-# 🚀 Install Agent-DCODE Extension
+# Install Agent-DCODE Extension
 
-## ✅ File Ready
+## File Ready
 - **File:** `agent-dcode-0.1.0.vsix`
 - **Location:** `vsc-agent/dcode/` directory
 - **Size:** 134 KB
@@ -8,7 +8,7 @@
 
 ---
 
-## 📥 Installation Steps
+## Installation Steps
 
 ### Step 1: Open VS Code
 Launch Visual Studio Code
@@ -31,7 +31,7 @@ Launch Visual Studio Code
 
 ---
 
-## ✨ You're Ready!
+## You're Ready!
 
 ### Use it:
 - **Via Command:** Ctrl+Shift+P → "Send to DCODE AI"
@@ -39,7 +39,7 @@ Launch Visual Studio Code
 
 ---
 
-## 🎯 Quick Test
+## Quick Test
 1. Select some code in an editor
 2. Press Ctrl+Shift+P
 3. Type "Send to DCODE AI"
@@ -48,6 +48,6 @@ Launch Visual Studio Code
 ---
 
 **Troubleshooting:**
-- ❌ "Module not found" → Reinstall from VSIX
-- ❌ "No API response" → Check API key in settings
-- ❌ Still not working → Press F5 in extension folder to debug
+-  "Module not found" → Reinstall from VSIX
+-  "No API response" → Check API key in settings
+-  Still not working → Press F5 in extension folder to debug

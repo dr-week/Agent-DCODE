@@ -1,11 +1,11 @@
-# 🚀 Agent-DCODE Release v0.1.0
+# Agent-DCODE Release v0.1.0
 
 **Release Date:** April 12, 2026  
-**Status:** ✅ Ready for Installation
+**Status:**  Ready for Installation
 
 ---
 
-## 📥 Quick Install
+## Quick Install
 
 ### Option 1: Direct Installation (EASIEST)
 
@@ -25,21 +25,21 @@ Location: Project root or vsc-agent/dcode/
 - Settings (Ctrl+,) → Search "dcode.apiKey"
 - Paste your OpenAI API key
 
-**Done!** 🎉
+**Done!** 
 
 ---
 
-## 🎯 What's Included
+## What's Included
 
-✅ **Send Code to OpenAI** — Right-click selected code or use command  
-✅ **Sidebar Chat** — Interactive chat panel in VS Code  
-✅ **Real-time Responses** — Instant AI feedback  
-✅ **Security** — CSP enabled, sandboxed webview  
-✅ **Performance** — 10 KB production build, lazy loading  
+ **Send Code to OpenAI** — Right-click selected code or use command  
+ **Sidebar Chat** — Interactive chat panel in VS Code  
+ **Real-time Responses** — Instant AI feedback  
+ **Security** — CSP enabled, sandboxed webview  
+ **Performance** — 10 KB production build, lazy loading  
 
 ---
 
-## 📋 Features
+## Features
 
 ### Command: "Send to DCODE AI"
 - Select any code in editor
@@ -54,17 +54,17 @@ Location: Project root or vsc-agent/dcode/
 
 ---
 
-## ⚙️ Configuration
+## Configuration
 
 | Setting | Value | Required |
 |---------|-------|----------|
-| `dcode.apiKey` | Your OpenAI API key | ✅ Yes |
+| `dcode.apiKey` | Your OpenAI API key |  Yes |
 
 Get free API key: https://platform.openai.com/api-keys
 
 ---
 
-## 🔍 Troubleshooting
+## Troubleshooting
 
 ### "Extension not found"
 - Make sure VS Code version 1.110+ (check Help → About)
@@ -82,7 +82,7 @@ Get free API key: https://platform.openai.com/api-keys
 
 ---
 
-## 📝 Version Info
+## Version Info
 
 - **Version:** 0.1.0
 - **Publisher:** dishant
@@ -92,7 +92,7 @@ Get free API key: https://platform.openai.com/api-keys
 
 ---
 
-## 🔗 Links
+## Links
 
 - **GitHub:** https://github.com/dishant/agent-dcode
 - **Documentation:** See INSTALL.md & AGENT_DCODE_README.md
@@ -100,7 +100,7 @@ Get free API key: https://platform.openai.com/api-keys
 
 ---
 
-## 🎁 What's New in v0.1.0
+## What's New in v0.1.0
 
 - Initial release
 - OpenAI integration
@@ -110,4 +110,4 @@ Get free API key: https://platform.openai.com/api-keys
 
 ---
 
-**Ready to use! Install now and start getting AI-powered code assistance! 🤖**
+**Ready to use! Install now and start getting AI-powered code assistance! **
