@@ -9,10 +9,10 @@
 *Local-First • Micro-Modular (`<100 Lines/File`) • Agent-Native CLI-Anything • Multi-Agent Swarms*
 
 <p align="center">
-  <a href="#-universal-agent-sdk--create-any-agent-in-10-lines"><img src="https://img.shields.io/badge/Architecture-Universal_Agent_SDK-00C853?style=for-the-badge&logo=python&logoColor=white" alt="Universal Agent SDK" /></a>
-  <a href="#-micro-modular-repository-map"><img src="https://img.shields.io/badge/Modularity-100%25_%3C100_Lines%2FFile-00B0FF?style=for-the-badge&logo=codefactor&logoColor=white" alt="Modularity" /></a>
-  <a href="#-cli-anything-agent-native-engine"><img src="https://img.shields.io/badge/Protocol-CLI--Anything_Native-FF6D00?style=for-the-badge&logo=gnubash&logoColor=white" alt="CLI-Anything" /></a>
-  <a href="#-verification--benchmark-evals"><img src="https://img.shields.io/badge/Evals_Pass%401-100%25_Verified-AA00FF?style=for-the-badge&logo=checkmarx&logoColor=white" alt="Evals" /></a>
+  <a href="#universal-agent-sdk--create-any-agent-in-10-lines"><img src="https://img.shields.io/badge/Architecture-Universal_Agent_SDK-00C853?style=for-the-badge&logo=python&logoColor=white" alt="Universal Agent SDK" /></a>
+  <a href="#micro-modular-repository-map-100--100-linesfile"><img src="https://img.shields.io/badge/Modularity-100%25_%3C100_Lines%2FFile-00B0FF?style=for-the-badge&logo=codefactor&logoColor=white" alt="Modularity" /></a>
+  <a href="#cli-anything-agent-native-engine"><img src="https://img.shields.io/badge/Protocol-CLI--Anything_Native-FF6D00?style=for-the-badge&logo=gnubash&logoColor=white" alt="CLI-Anything" /></a>
+  <a href="#verification--benchmark-evals"><img src="https://img.shields.io/badge/Evals_Pass%401-100%25_Verified-AA00FF?style=for-the-badge&logo=checkmarx&logoColor=white" alt="Evals" /></a>
 </p>
 
 <p align="center">
@@ -24,11 +24,11 @@
 </p>
 
 <p align="center">
-  <a href="#-why-agent-dcode"><b>Why DCode?</b></a> •
-  <a href="#-system-architecture"><b>Architecture</b></a> •
-  <a href="#-universal-agent-sdk--create-any-agent-in-10-lines"><b>Agent SDK</b></a> •
-  <a href="#-cli-anything-agent-native-engine"><b>CLI-Anything</b></a> •
-  <a href="#-micro-modular-repository-map"><b>Folder Map</b></a> •
+  <a href="#why-agent-dcode"><b>Why DCode?</b></a> •
+  <a href="#system-architecture"><b>Architecture</b></a> •
+  <a href="#universal-agent-sdk--create-any-agent-in-10-lines"><b>Agent SDK</b></a> •
+  <a href="#cli-anything-agent-native-engine"><b>CLI-Anything</b></a> •
+  <a href="#micro-modular-repository-map-100--100-linesfile"><b>Folder Map</b></a> •
   <a href="docs/README.md"><b>Docs Hub (49 Guides)</b></a>
 </p>
 
@@ -36,45 +36,45 @@
 
 ---
 
-## 🌌 Why Agent-DCODE?
+## Why Agent-DCODE?
 
 Most AI coding tools are either opaque SaaS wrappers or sprawling monoliths. **Agent-DCODE** is engineered from first principles as both a **production-ready Autonomous Coding Agent** and a **Universal Agentic AI Framework**—built under an extreme engineering discipline where **every single Python module is strictly `< 100 lines of code`**.
 
 | Pillar | What It Does | Engineering Highlight |
 | :--- | :--- | :--- |
-| 🧠 **Pluggable Cognitive Loops** | Run **ReAct**, **Plan-and-Solve**, **Reflexion (Actor ↔ Critic)**, or **Multi-Agent Swarms** | Composable [`StateGraph`](src/dcode/framework/core/state_graph.py) DAG & cyclical state machine |
-| 🛠️ **Universal `@tool` & ACI** | Turn any Python function into a JSON-Schema validated tool, plus surgical code editing | [`@tool`](src/dcode/framework/core/tool_decorator.py) type-hint introspection + [`replace_in_file`](src/dcode/tools/edit_tools.py) |
-| ⚡ **CLI-Anything Engine** | Transforms codebases into **Agent-Native CLIs** with `--json`, `--dry-run`, `SKILL.md` & Undo | Modeled on **[HKUDS/CLI-Anything](https://github.com/HKUDS/CLI-Anything)** (*arXiv:2606.03854*) |
-| 🗄️ **3-Tier Agent Memory** | **Working** (sliding window), **Episodic** (trajectory lessons), & **Semantic** (BM25 RAG) | Zero-dependency retrieval in [`src/dcode/memory/`](src/dcode/memory/) |
-| 🛡️ **Guardrails & HITL** | Enforces step budgets, blocks path traversal / destructive shell commands, & gates high-risk calls | [`GuardrailPolicy`](src/dcode/guardrails/policy.py) & [`ApprovalGate`](src/dcode/guardrails/approval.py) |
-| 🔭 **Live Transparency UI** | Real-time step, action, file-tree & progress streaming to the Web UI and VS Code Extension | [`TransparencyTracker`](src/dcode/observability/transparency_tracker.py) + 7 Flask Blueprints |
+| **Pluggable Cognitive Loops** | Run **ReAct**, **Plan-and-Solve**, **Reflexion (Actor / Critic)**, or **Multi-Agent Swarms** | Composable [`StateGraph`](src/dcode/framework/core/state_graph.py) DAG & cyclical state machine |
+| **Universal `@tool` & ACI** | Turn any Python function into a JSON-Schema validated tool, plus surgical code editing | [`@tool`](src/dcode/framework/core/tool_decorator.py) type-hint introspection + [`replace_in_file`](src/dcode/tools/edit_tools.py) |
+| **CLI-Anything Engine** | Transforms codebases into **Agent-Native CLIs** with `--json`, `--dry-run`, `SKILL.md` & Undo | Modeled on **[HKUDS/CLI-Anything](https://github.com/HKUDS/CLI-Anything)** (*arXiv:2606.03854*) |
+| **3-Tier Agent Memory** | **Working** (sliding window), **Episodic** (trajectory lessons), & **Semantic** (BM25 RAG) | Zero-dependency retrieval in [`src/dcode/memory/`](src/dcode/memory/) |
+| **Guardrails & HITL** | Enforces step budgets, blocks path traversal / destructive shell commands, & gates high-risk calls | [`GuardrailPolicy`](src/dcode/guardrails/policy.py) & [`ApprovalGate`](src/dcode/guardrails/approval.py) |
+| **Live Transparency UI** | Real-time step, action, file-tree & progress streaming to the Web UI and VS Code Extension | [`TransparencyTracker`](src/dcode/observability/transparency_tracker.py) + 7 Flask Blueprints |
 
 ---
 
-## 🏛️ System Architecture
+## System Architecture
 
 ```mermaid
 flowchart TB
-    subgraph Surfaces ["🖥️ Developer & Agent Surfaces"]
+    subgraph Surfaces ["Developer & Agent Surfaces"]
         CLI["Agent-Native CLI (scripts/dcode_cli.py --json)"]
         Web["Flask Web UI & REST API (src/dcode/web/)"]
         VSC["VS Code Extension (vsc-agent/dcode/)"]
     end
 
-    subgraph Framework ["🧬 Universal Agentic AI Framework (src/dcode/framework/)"]
+    subgraph Framework ["Universal Agentic AI Framework (src/dcode/framework/)"]
         Spec["AgentSpec & TaskSpec"]
         Graph["StateGraph (Nodes & Conditional Edges)"]
         Loops["Cognitive Loops: ReAct | Plan-and-Solve | Reflexion"]
-        Swarm["MultiAgentTeam (Architect → Developer → QA Critic)"]
+        Swarm["MultiAgentTeam (Architect -> Developer -> QA Critic)"]
     end
 
-    subgraph Subsystems ["⚙️ Core Agentic Subsystems"]
+    subgraph Subsystems ["Core Agentic Subsystems"]
         Mem["3-Tier Memory (Working • Episodic • Semantic BM25 RAG)"]
         Guard["Guardrails & HITL Approval Gates"]
         Obs["Observability (JSON Log Store • Real-Time Transparency)"]
     end
 
-    subgraph Execution ["🛠️ Sandboxed Tool & Protocol Layer"]
+    subgraph Execution ["Sandboxed Tool & Protocol Layer"]
         Tools["ACI Tools (write, replace_in_file, search_code, run_python)"]
         CLIAny["CLI-Anything Generator, Runner & Undo Stack"]
         LLM["LLM Router (Local Ollama • Remote Colab/Gemini)"]
@@ -87,11 +87,11 @@ flowchart TB
 
 ---
 
-## ⚡ Universal Agent SDK — Create *Any* Agent in 10 Lines
+## Universal Agent SDK — Create *Any* Agent in 10 Lines
 
 **Agent-DCODE** is a complete framework for building domain-specific agents—whether you need a **Site Reliability Engineer**, **Data Scientist**, **Security Auditor**, **Research Analyst**, or a **Multi-Agent Software Factory**.
 
-### 1️⃣ Build a Custom Tool & ReAct Agent (`@tool` + `AgentSpec`)
+### 1. Build a Custom Tool & ReAct Agent (`@tool` + `AgentSpec`)
 ```python
 from dcode.framework import AgentSpec, ReActAgent, tool
 
@@ -112,7 +112,7 @@ sre_agent = ReActAgent(
 result = sre_agent.run("Check telemetry for payment-service and report status")
 ```
 
-### 2️⃣ Launch a 3-Agent Autonomous Software Team (`Architect → Developer → QA Critic`)
+### 2. Launch a 3-Agent Autonomous Software Team (`Architect -> Developer -> QA Critic`)
 ```python
 from dcode.archetypes import create_software_team
 
@@ -120,7 +120,7 @@ team = create_software_team("autonomous-software-factory")
 report = team.run("Design, implement, and verify a token-bucket rate limiter in projects/limiter.py")
 ```
 
-### 3️⃣ Wire Custom Cyclical Workflows with `StateGraph`
+### 3. Wire Custom Cyclical Workflows with `StateGraph`
 ```python
 from dcode.framework import END, StateGraph
 
@@ -136,7 +136,7 @@ final_state = workflow.run({})
 
 ---
 
-## 🔧 CLI-Anything Agent-Native Engine
+## CLI-Anything Agent-Native Engine
 
 Inspired by **[HKUDS/CLI-Anything](https://github.com/HKUDS/CLI-Anything)** (*"Making ALL Software Agent-Native"*), DCode includes [`src/dcode/cli_anything/`](src/dcode/cli_anything/) to turn any Python module inside `projects/` into a self-describing CLI harness with deterministic `--json` output, `--dry-run`, `SKILL.md` discovery, and an automatic file **Undo/Redo snapshot stack**:
 
@@ -156,7 +156,7 @@ python3 scripts/dcode_cli.py undo --json
 
 ---
 
-## 🗂️ Micro-Modular Repository Map (`100% < 100 Lines/File`)
+## Micro-Modular Repository Map (`100% < 100 Lines/File`)
 
 Every Python module across the repository is strictly capped below 100 lines (largest file: **97 lines**):
 
@@ -171,7 +171,7 @@ Agent-DCODE/
 │   ├── config.py                          # Centralized workspace paths, ports & LLM configuration
 │   ├── framework/                         # 1. UNIVERSAL AGENT CREATION SDK
 │   │   ├── core/                          # AgentSpec, @tool JSON-schema decorator, StateGraph, JSON loader
-│   │   ├── loops/                         # ReActAgent & ReflexionAgent (Actor ↔ Critic)
+│   │   ├── loops/                         # ReActAgent & ReflexionAgent (Actor / Critic)
 │   │   └── swarm/                         # MultiAgentTeam sequential & supervisor handoffs
 │   ├── memory/                            # 2. 3-TIER MEMORY (Working, Episodic, Semantic BM25 RAG)
 │   ├── guardrails/                        # 3. SAFETY POLICIES & HUMAN-IN-THE-LOOP (HITL) GATES
@@ -195,7 +195,7 @@ Agent-DCODE/
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 # 1. Clone & install dependencies
@@ -213,7 +213,7 @@ python3 scripts/run_web.py
 
 ---
 
-## 🧪 Verification & Benchmark Evals
+## Verification & Benchmark Evals
 
 Agent-DCODE ships with a zero-dependency unit test suite and an automated agent evaluation benchmark (`evals/`):
 
@@ -236,7 +236,7 @@ python3 evals/run_evals.py
 
 ---
 
-## 📚 Documentation Hub (8 Functional Categories)
+## Documentation Hub (8 Functional Categories)
 
 Explore **[docs/README.md](docs/README.md)** for full architectural specifications and operational guides:
 
@@ -254,6 +254,6 @@ Explore **[docs/README.md](docs/README.md)** for full architectural specificatio
 ---
 
 <div align="center">
-  <b>Built for the Agentic AI Era 🐊✨</b><br/>
+  <b>Built for the Agentic AI Era</b><br/>
   <sub>MIT Licensed • Local-First • Agent-Native</sub>
 </div>

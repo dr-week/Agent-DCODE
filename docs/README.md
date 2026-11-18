@@ -1,4 +1,4 @@
-# 📚 Agent-DCODE Documentation Hub
+# Agent-DCODE Documentation Hub
 
 All project documentation is organized into **8 functional categories** according to system architecture, engineering requirements, and operational workflows.
 
@@ -47,6 +47,8 @@ All project documentation is organized into **8 functional categories** accordin
 - [Debugging Guide](06-vscode-extension/debug.md)
 - [Extension Refactor Notes](06-vscode-extension/refactor-notes.md)
 - [Fixes Applied](06-vscode-extension/fixes-applied.md)
+- [Extension Changelog](06-vscode-extension/changelog.md)
+- [VS Code Extension Quickstart](06-vscode-extension/vsc-extension-quickstart.md)
 
 ## 07. Testing & Verification (`07-testing-and-verification/`)
 - [Verification Checklist](07-testing-and-verification/checklist.md)
