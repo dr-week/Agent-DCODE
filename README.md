@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/assets/logo.jpg" alt="Agent-DCODE Logo" width="340" style="border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.25);" />
+<img src="docs/assets/logo.png" alt="Agent-DCODE Logo" width="340" style="border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.25);" />
 
 # Agent-DCODE
 
@@ -234,7 +234,7 @@ Agent-DCODE/
 │   ├── colab.txt                          # Cloud notebook & tunnel dependencies
 │   └── dev.txt                            # Linting and testing dependencies
 ├── docs/                                  # 49 technical guides across 8 categories
-│   └── assets/logo.jpg                    # Official project banner visual
+│   └── assets/logo.png                    # Official project banner visual
 │
 ├── src/dcode/                             # CORE FRAMEWORK & ENGINE (<100 lines/file)
 │   ├── config.py                          # Environment paths, port assignments & LLM configs
