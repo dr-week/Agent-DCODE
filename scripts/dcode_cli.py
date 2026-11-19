@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Agent-DCODE Agent-Native CLI (with HKUDS/CLI-Anything protocol support).
-Supports --json, --dry-run, autonomous mode, CLI harness generation, session status, and undo.
+Agent-DCODE Agent-Native CLI (with CLI-Anything & v2.0 Open-Source Integrations).
+Supports --json, --dry-run, integrations status, AST repomap, MCP tools, telemetry metrics, and undo.
 """
 
 import argparse
@@ -18,6 +18,8 @@ from dcode.cli_anything import (
     get_session_status,
     undo_last_mutation,
 )
+from dcode.config import PROJECT_ROOT
+from dcode.integrations import LangfuseTracer, MCPBridge, build_repo_map, get_integration_status
 from dcode.llm.ollama_client import ask_llm
 from dcode.llm.parser import extract_json
 from dcode.tools.executor import execute_actions
@@ -34,11 +36,16 @@ def _run_prompt(prompt: str, dry_run: bool = False) -> dict:
 
 
 def main() -> None:
-    p = argparse.ArgumentParser(description="DCode Agent-Native CLI (CLI-Anything compatible)")
-    p.add_argument("instruction", nargs="?", help="Coding instruction or subcommand (status, undo, list-clis)")
+    p = argparse.ArgumentParser(description="DCode Agent-Native CLI (v2.0 Integrations & CLI-Anything)")
+    p.add_argument(
+        "instruction",
+        nargs="?",
+        help="Instruction or subcommand (status, undo, list-clis, integrations, repomap, mcp-tools, metrics)",
+    )
     p.add_argument("--autonomous", "-a", action="store_true", help="Run multi-step autonomous loop")
     p.add_argument("--max-iterations", type=int, default=5, help="Max autonomous loop iterations")
     p.add_argument("--generate-cli", metavar="FILE", help="Generate a CLI-Anything harness for a file in projects/")
+    p.add_argument("--dir", default=str(PROJECT_ROOT / "src"), help="Target directory for repomap scan")
     p.add_argument("--dry-run", action="store_true", help="Preview tool actions without mutating files")
     p.add_argument("--json", action="store_true", dest="as_json", help="Emit deterministic JSON output")
     args = p.parse_args()
@@ -51,6 +58,14 @@ def main() -> None:
         res = undo_last_mutation()
     elif args.instruction == "list-clis":
         res = {"harnesses": discover_cli_harnesses()}
+    elif args.instruction == "integrations":
+        res = {"integrations": get_integration_status()}
+    elif args.instruction == "repomap":
+        res = build_repo_map(args.dir)
+    elif args.instruction == "mcp-tools":
+        res = {"mcp_tools": MCPBridge().list_mcp_tools()}
+    elif args.instruction == "metrics":
+        res = LangfuseTracer().summary()
     elif not args.instruction:
         p.print_help()
         return
@@ -59,10 +74,7 @@ def main() -> None:
     else:
         res = _run_prompt(args.instruction, dry_run=args.dry_run)
 
-    if args.as_json:
-        print(json.dumps(res, indent=2))
-    else:
-        print(f"[DCODE RESULT] {json.dumps(res, indent=2)}")
+    print(json.dumps(res, indent=2) if args.as_json else f"[DCODE RESULT] {json.dumps(res, indent=2)}")
 
 
 if __name__ == "__main__":

@@ -46,5 +46,16 @@
     "target_file": "projects/eval_fib.py",
     "cli_command": ["fib", "5"],
     "expected_json_result": [0, 1, 1, 2, 3]
+  },
+  {
+    "id": "task_04_swe_issue_to_pr_loop",
+    "category": "swe_issue_solver",
+    "description": "Solve a failing unit test via SWELoop with AST RepoMap and GitCheckpoint rollback",
+    "issue": "discount_price subtracts rate instead of multiplying percentage"
+  },
+  {
+    "id": "task_05_mcp_and_crawl4ai_pipeline",
+    "category": "mcp_and_research",
+    "description": "Convert live HTML docs via Crawl4AI adapter and execute tool via FastMCP bridge"
   }
 ]
