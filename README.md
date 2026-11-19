@@ -29,13 +29,14 @@
 
 <p align="center">
   <a href="#executive-overview"><b>Overview</b></a> •
+  <a href="#systems-profile-problem--trade-offs"><b>Systems Profile</b></a> •
   <a href="#core-architectural-pillars"><b>Core Pillars</b></a> •
   <a href="#system-architecture"><b>Architecture</b></a> •
   <a href="#universal-agent-sdk--build-agents-in-10-lines"><b>Agent SDK</b></a> •
   <a href="#cli-anything-agent-native-engine"><b>CLI-Anything</b></a> •
   <a href="#micro-modular-repository-map-100--100-linesfile"><b>Repository Map</b></a> •
   <a href="#verification--benchmark-evals"><b>Benchmarks</b></a> •
-  <a href="docs/README.md"><b>Documentation Hub</b></a>
+  <a href="docs/README.md"><b>Docs Hub</b></a>
 </p>
 
 </div>
@@ -50,6 +51,49 @@ Every Python module in the framework follows an uncompromising design constraint
 
 > [!NOTE]
 > **Zero Remote Data Egress:** All model tokenization, prompt evaluation, file generation, and shell executions execute within the local host boundary. No telemetry, context tokens, or code artifacts are transmitted to external cloud providers unless explicitly routed to the Gemini/Colab adapter.
+
+---
+
+## Systems Profile: Problem &amp; Trade-Offs
+
+<details open>
+<summary><b>Systems Engineering Classification (Level 3.5 - 4)</b></summary>
+<br/>
+
+Agent-DCODE sits at **Level 3.5 – 4 (Advanced Autonomous Systems &amp; Micro-Framework)** on the agent maturity scale:
+- `Level 1` Prompt Wrappers (Single API call, no state)
+- `Level 2` Simple ReAct Scripts (Basic tool-calling, brittle regex parsing)
+- `Level 3` Full-Stack Agent Applications (Web UI + Tool Sandboxes)
+- `Level 3.5 - 4` **Agent-DCODE** (Cyclical `StateGraph` DAGs, Reflexion Actor/Critic loops, 3-tier memory, CLI-Anything protocol, micro-modular `<100 lines/file` code structure)
+- `Level 5` Hyperscale Multi-Cloud Distributed Swarms (Ephemeral cloud micro-VM clusters)
+
+</details>
+
+<details open>
+<summary><b>Problem Space &amp; Architectural Rationale</b></summary>
+<br/>
+
+| Friction in Traditional AI | Architectural Remedy in Agent-DCODE | Technical Rationale |
+| :--- | :--- | :--- |
+| **Data Egress Risks** | Air-gapped local inference via Ollama (`qwen2.5-coder:7b`) | Complies with strict IP/security boundaries with \$0 token cost. |
+| **Developer Toil** | Autonomous closed loop: Plan -> Act -> Test -> Refine | Transforms conversational advice into sandboxed execution &amp; automatic self-healing. |
+| **Framework Bloat** | Micro-modular standard: 100% of modules are strictly `< 100 lines` | Prevents monolithic failure modes; enables effortless agentic self-inspection. |
+| **Brittle Agent Tooling** | HKUDS/CLI-Anything protocol with deterministic `--json` &amp; undo stack | Removes UI friction; provides predictable JSON contracts and instantaneous rollbacks. |
+
+</details>
+
+<details open>
+<summary><b>Engineering Trade-Offs: Advantages vs. Limitations</b></summary>
+<br/>
+
+| Dimension | Engineering Advantages | Operational Constraints |
+| :--- | :--- | :--- |
+| **Privacy &amp; Security** | Zero telemetry leaks; sandboxed writes isolated to `projects/`; 30s timeout guards. | Commands run in local host user space (not in isolated microVMs). |
+| **Cost &amp; Resilience** | \$0 inference expense; runs offline without network dependency. | Performance scales with local GPU/VRAM (6GB+ VRAM recommended). |
+| **Code Architecture** | Zero bloated dependencies; clean DAG state graph; typed `@tool` schema extraction. | Local 7B models require precise prompting for deep, multi-file refactors. |
+| **Developer Surface** | Dual UI (Web + VS Code); live telemetry audit log; snapshot undo/redo engine. | Conversation state is currently session-based (in-memory). |
+
+</details>
 
 ---
 
