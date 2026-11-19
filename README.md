@@ -266,6 +266,28 @@ python3 scripts/dcode_cli.py undo --json
 
 ---
 
+## Flagship Workflows: SWE Issue-to-PR, Deep Research & Browser QA
+
+Agent-DCODE connects battle-tested open-source GitHub components ([`LiteLLM`](https://github.com/BerriAI/litellm), [`FastMCP`](https://github.com/jlowin/fastmcp), [`Tree-Sitter`](https://github.com/tree-sitter/py-tree-sitter), [`Crawl4AI`](https://github.com/unclecode/crawl4AI), [`Browser-Use`](https://github.com/browser-use/browser-use), [`Mem0`](https://github.com/mem0ai/mem0), [`Langfuse`](https://github.com/langfuse/langfuse)) into 3 production workflows:
+
+```bash
+# 1. Autonomous SWE Issue-to-PR Loop (RepoMap AST + GitCheckpoint + LiteLLM + test-driven self-healing)
+python3 scripts/dcode_cli.py fix "discount() subtracts rate instead of percentage" --dir . --test-cmd "pytest" --json
+
+# 2. Live Web & Technical Deep-Research (Crawl4AI + Mem0 + LiteLLM)
+python3 scripts/dcode_cli.py research "https://fastapi.tiangolo.com" "How to implement dependency injection with OAuth2?" --json
+
+# 3. Headless Browser QA & DOM Verification (Browser-Use + DOM assertion engine)
+python3 scripts/dcode_cli.py qa "http://localhost:5000" --expect "Agent-DCODE,Active Sessions,Run Team" --json
+
+# 4. AST Codebase Map, MCP Tools & Telemetry Spans
+python3 scripts/dcode_cli.py repomap --json
+python3 scripts/dcode_cli.py mcp-tools --json
+python3 scripts/dcode_cli.py metrics --json
+```
+
+---
+
 ## Micro-Modular Repository Map (`100% < 100 Lines/File`)
 
 Every Python module in `src/dcode/` is strictly bounded below 100 lines of code (maximum size: **97 lines**):
