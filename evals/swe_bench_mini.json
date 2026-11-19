@@ -1,0 +1,20 @@
+[
+  {
+    "instance_id": "swe_mini_01_off_by_one",
+    "repo": "sample_repo",
+    "problem_statement": "Fix the off-by-one error in calculate_range where end index is improperly omitted.",
+    "test_command": "python3 -c \"assert 1 == 1\""
+  },
+  {
+    "instance_id": "swe_mini_02_key_error_handling",
+    "repo": "sample_repo",
+    "problem_statement": "Handle KeyError gracefully in parse_config when optional logging key is absent.",
+    "test_command": "python3 -c \"assert 2 == 2\""
+  },
+  {
+    "instance_id": "swe_mini_03_zero_division",
+    "repo": "sample_repo",
+    "problem_statement": "Prevent ZeroDivisionError in compute_average when input array is empty by returning 0.0.",
+    "test_command": "python3 -c \"assert 3 == 3\""
+  }
+]

@@ -5,7 +5,7 @@ Used by SWE agents and the Agent Harness to locate target symbols without overfl
 
 ---
 
-# Repository Symbol Map (76 files)
+# Repository Symbol Map (78 files)
 
 ## dcode/agents/autonomous.py
   - class ModelType []
@@ -82,6 +82,9 @@ Used by SWE agents and the Agent Harness to locate target symbols without overfl
   - class AgentSpec [build_system_instructions]
   - class TaskSpec []
 
+## dcode/framework/core/state_checkpoint.py
+  - class StateCheckpointManager [__init__, save_checkpoint, load_checkpoint, list_checkpoints]
+
 ## dcode/framework/core/state_graph.py
   - class StateGraph [__init__, add_node, add_edge, add_conditional_edges, run]
 
@@ -101,8 +104,18 @@ Used by SWE agents and the Agent Harness to locate target symbols without overfl
 ## dcode/framework/loops/swe_patcher.py
   - class SWEPatcher [__init__, generate_and_apply]
 
+## dcode/framework/loops/tot_patcher.py
+  - class TreeOfThoughtsPatcher [__init__, evaluate_candidates, _apply_candidate]
+
+## dcode/framework/swarm/consensus.py
+  - class ReviewFeedback []
+  - class ConsensusEngine [__init__, evaluate_proposal]
+
 ## dcode/framework/swarm/multi_agent.py
   - class MultiAgentTeam [__init__, _instantiate, run]
+
+## dcode/framework/swarm/qubo_scheduler.py
+  - class QUBOSwarmScheduler [__init__, build_qubo_matrix, schedule]
 
 ## dcode/guardrails/approval.py
   - class ApprovalGate [__init__, requires_approval, request_approval]
@@ -125,11 +138,18 @@ Used by SWE agents and the Agent Harness to locate target symbols without overfl
   - class TimeoutExceededError []
   - class HarnessGuardian [__init__, tick_step, check_timeout, get_metrics]
 
+## dcode/harness/linter_guard.py
+  - class LinterGuard [check_code, check_file, check_workspace]
+
 ## dcode/harness/runner.py
   - class AgentHarness [__init__, execute_swe_task]
 
 ## dcode/harness/scorecard.py
   - class HarnessScorecard [calculate, render_markdown]
+
+## dcode/harness/swe_bench_adapter.py
+  - class SWEBenchInstance []
+  - class SWEBenchAdapter [__init__, load_instances, evaluate_instance]
 
 ## dcode/harness/trajectory.py
   - class TrajectoryRecorder [__init__, log_step, read_trajectory]
@@ -258,6 +278,9 @@ Used by SWE agents and the Agent Harness to locate target symbols without overfl
 ## dcode/runtime/git_checkpoint.py
   - class GitCheckpoint [__init__, snapshot, diff_since, rollback, git_status]
 
+## dcode/runtime/worktree_manager.py
+  - class GitWorktreeManager [__init__, create_worktree, remove_worktree, list_worktrees]
+
 ## dcode/tools/code_tools.py
   - def run_cmd(a)
   - def run_python(a)
@@ -306,62 +329,3 @@ Used by SWE agents and the Agent Harness to locate target symbols without overfl
   - def execute_harness()
   - def session_status()
   - def session_undo()
-
-## dcode/web/routes/file_routes.py
-  - def _build_tree(root_path, prefix)
-  - def get_project_files()
-  - def get_current_file()
-  - def set_current_file()
-
-## dcode/web/routes/framework_routes.py
-  - def get_archetypes()
-  - def get_integrations_endpoint()
-  - def get_mcp_tools_endpoint()
-  - def get_repomap_endpoint()
-  - def get_telemetry_metrics()
-  - def run_custom_agent()
-  - def run_team_endpoint()
-
-## dcode/web/routes/log_routes.py
-  - def get_project_logs(project)
-  - def get_project_summary(project)
-  - def list_all_logs()
-
-## dcode/web/routes/transparency_routes.py
-  - def transparency_start_session()
-  - def transparency_get_state()
-  - def transparency_add_plan()
-  - def transparency_start_step()
-  - def transparency_complete_step()
-  - def transparency_add_action()
-  - def transparency_complete_action(action_index)
-  - def transparency_report_error()
-  - def transparency_complete_execution()
-
-## dcode/web/static/script.js
-  - function initCodexBar()
-  - function handleAddFile()
-  - function handleFileSelection(e)
-  - function updateFilesIndicator()
-  - function handleCodeContext()
-  - function toggleSettingsPopup()
-  - function showSettingsPopup()
-  - function hideSettingsPopup()
-  - function buildCodexRequest()
-  - function sendCodexTask()
-  - function initFilePanel()
-  - function loadFileTree()
-  - function renderFileTree()
-  - function renderFileItem(item, level = 0)
-  - function getFileIcon(filename)
-  - function startFileStatusUpdate()
-  - function updateFileStatus()
-  - function highlightCurrentFile()
-  - function clearCurrentFileHighlight()
-  - function updateFileStatusIndicator(filePath, status)
-  - class
-        statusEl
-  - function toggleSidebar()
-  - function handleWindowResize()
-  - function switchMode(mode)
-  - function executeAgentTask()
