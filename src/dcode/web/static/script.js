@@ -21,8 +21,16 @@ let codexState = {
         autoExecute: false,
         showThinking: false,
         safeMode: true
-    }
 };
+
+// ===== GITHUB PAGES & CLOUD BACKEND CONFIG =====
+let apiBaseUrl = localStorage.getItem("dcode_api_base") || (window.location.hostname.includes("github.io") ? "http://localhost:8000" : "");
+
+function apiUrl(path) {
+    if (path.startsWith("http://") || path.startsWith("https://")) return path;
+    const cleanBase = apiBaseUrl.replace(/\/+$/, "");
+    return cleanBase ? `${cleanBase}${path}` : path;
+}
 
 // DOM Elements - General
 const statusText = document.getElementById("status-text");
@@ -277,7 +285,7 @@ async function initFilePanel() {
 async function loadFileTree() {
     // Fetch and render project file tree
     try {
-        const response = await fetch("/api/files");
+        const response = await fetch(apiUrl("/api/files"));
         const data = await response.json();
         
         if (data.success) {
@@ -396,7 +404,7 @@ function startFileStatusUpdate() {
 async function updateFileStatus() {
     // Fetch and update current file status
     try {
-        const response = await fetch("/api/current-file");
+        const response = await fetch(apiUrl("/api/current-file"));
         const data = await response.json();
         
         if (data.current_file) {
@@ -522,7 +530,7 @@ async function executeAgentTask() {
         // Build the request with Codex state
         const request = buildCodexRequest();
         
-        const response = await fetch("/api/agent/execute", {
+        const response = await fetch(apiUrl("/api/agent/execute"), {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(request)
@@ -645,7 +653,7 @@ async function sendMessage() {
     const loadingId = addMessage("Thinking...", "loading");
 
     try {
-        const response = await fetch("/api/ask", {
+        const response = await fetch(apiUrl("/api/ask"), {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ message })
@@ -706,11 +714,11 @@ function addMessage(content, type = "assistant") {
 async function clearChat() {
     if (confirm("Clear chat history?")) {
         try {
-            await fetch("/api/clear", { method: "POST" });
+            await fetch(apiUrl("/api/clear"), { method: "POST" });
             chatMessages.innerHTML = `
                 <div class="message system">
-                    <p>👋 Welcome! I'm DCode, your offline AI coding assistant.</p>
-                    <p>Ask me to write code, refactor files, run commands, and more!</p>
+                    <p>Welcome! I am DCode, your AI coding assistant.</p>
+                    <p>Ask me to write code, refactor files, run commands, and more.</p>
                     <p><small>Using: qwen2.5-coder:7b</small></p>
                 </div>
             `;
@@ -722,7 +730,7 @@ async function clearChat() {
 
 async function refreshStatus() {
     try {
-        const response = await fetch("/api/status");
+        const response = await fetch(apiUrl("/api/status"));
         const data = await response.json();
 
         if (data.status === "online") {
@@ -740,7 +748,7 @@ async function refreshStatus() {
 
 async function loadChatHistory() {
     try {
-        const response = await fetch("/api/history");
+        const response = await fetch(apiUrl("/api/history"));
         const data = await response.json();
 
         data.history.forEach(msg => {
@@ -835,3 +843,19 @@ function escapeHtml(text) {
 
 // Status refresh
 setInterval(refreshStatus, 5000);
+
+// Endpoint Connect Controls
+const apiBaseInput = document.getElementById("apiBaseInput");
+const setApiBaseBtn = document.getElementById("setApiBaseBtn");
+
+if (apiBaseInput) {
+    apiBaseInput.value = apiBaseUrl;
+}
+if (setApiBaseBtn && apiBaseInput) {
+    setApiBaseBtn.addEventListener("click", () => {
+        apiBaseUrl = apiBaseInput.value.trim();
+        localStorage.setItem("dcode_api_base", apiBaseUrl);
+        refreshStatus();
+        loadFileTree();
+    });
+}

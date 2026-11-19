@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: agent-dcode-api
+    runtime: python
+    plan: free
+    region: oregon
+    buildCommand: pip install flask flask-cors requests
+    startCommand: python3 -m dcode.web.app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: BACKEND_HOST
+        value: 0.0.0.0
+      - key: BACKEND_PORT
+        value: 10000
+      - key: PYTHONPATH
+        value: ./src

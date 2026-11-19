@@ -7,6 +7,7 @@ All project documentation is streamlined into **authoritative, single-source-of-
 - **[AI Agent Harness & Development Guide (`src/dcode/harness/`)](HARNESS.md)**
 - **[Quantum Mechanics Engine & Qiskit SDK (`src/dcode/integrations/quantum_engine.py`)](QUANTUM.md)**
 - **[Repository Symbol Map & Sync (`docs/REPOMAP.md`)](REPOMAP.md)**
+- **[GitHub Deployment & Free-Tier Backend Guide (`docs/DEPLOYMENT.md`)](DEPLOYMENT.md)**
 
 ---
 

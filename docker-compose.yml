@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  agent-dcode:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: agent-dcode-server
+    ports:
+      - "8000:8000"
+    environment:
+      - BACKEND_HOST=0.0.0.0
+      - BACKEND_PORT=8000
+      - OLLAMA_HOST=http://host.docker.internal:11434
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/orchestrator/status"]
+      interval: 30s
+      timeout: 5s
+      retries: 3

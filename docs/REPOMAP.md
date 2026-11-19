@@ -5,7 +5,7 @@ Used by SWE agents and the Agent Harness to locate target symbols without overfl
 
 ---
 
-# Repository Symbol Map (78 files)
+# Repository Symbol Map (77 files)
 
 ## dcode/agents/autonomous.py
   - class ModelType []
@@ -322,10 +322,3 @@ Used by SWE agents and the Agent Harness to locate target symbols without overfl
   - def api_clear()
   - def health()
   - def api_status()
-
-## dcode/web/routes/cli_anything_routes.py
-  - def list_harnesses()
-  - def generate_harness()
-  - def execute_harness()
-  - def session_status()
-  - def session_undo()
