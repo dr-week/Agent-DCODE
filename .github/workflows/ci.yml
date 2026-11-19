@@ -41,6 +41,7 @@ jobs:
           python3 tests/test_framework.py -v
           python3 tests/test_tools_and_cli.py -v
           python3 tests/test_integrations.py -v
+          python3 tests/test_cli_workflows.py -v
 
       - name: Run Quantitative SWE Evaluation Suite
         run: |

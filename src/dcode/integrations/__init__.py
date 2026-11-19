@@ -1,10 +1,11 @@
 """
 Open-Source GitHub Integrations Package (`dcode.integrations`).
 Provides modular `<100-line` adapters for LiteLLM, FastMCP, Tree-Sitter RepoMap,
-Crawl4AI, Browser-Use, Mem0, and Langfuse.
+Crawl4AI, Browser-Use, Mem0, and Langfuse, plus end-to-end workflows (fix, research, qa).
 """
 
 from dcode.integrations.browser_tool import browser_verify, inspect_html_dom
+from dcode.integrations.cli_workflows import run_fix_workflow, run_qa_workflow, run_research_workflow
 from dcode.integrations.crawl4ai_tool import crawl_url, html_to_markdown
 from dcode.integrations.langfuse_tracer import LangfuseTracer
 from dcode.integrations.litellm_router import LiteLLMRouter
@@ -25,4 +26,7 @@ __all__ = [
     "get_integration_status",
     "html_to_markdown",
     "inspect_html_dom",
+    "run_fix_workflow",
+    "run_qa_workflow",
+    "run_research_workflow",
 ]

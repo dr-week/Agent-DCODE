@@ -38,6 +38,9 @@ class ToolDefinition:
                 required.append(param_name)
         return {"type": "object", "properties": properties, "required": required}
 
+    def __call__(self, *args: Any, **kwargs: Any) -> Any:
+        return self.func(*args, **kwargs)
+
     def invoke(self, **kwargs: Any) -> Any:
         return self.func(**kwargs)
 

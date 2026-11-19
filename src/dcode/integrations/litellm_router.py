@@ -54,8 +54,13 @@ class LiteLLMRouter:
                 except Exception:
                     continue
 
-        raw_text = ask_llm_structured(full_prompt)
-        return self._record(target, full_prompt, raw_text, t0, "ollama_stdlib", 0.0)
+        try:
+            raw_text = ask_llm_structured(full_prompt)
+            backend = "ollama_stdlib"
+        except Exception as exc:
+            raw_text = f"[OFFLINE] LLM host unreachable: {exc}"
+            backend = "offline_fallback"
+        return self._record(target, full_prompt, raw_text, t0, backend, 0.0)
 
     def _record(
         self, model: str, prompt: str, response: str, t0: float, backend: str, cost: float

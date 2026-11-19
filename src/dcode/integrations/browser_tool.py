@@ -40,12 +40,12 @@ def browser_verify(url: str, expected_texts: List[str] | None = None) -> Dict[st
     try:
         req = urllib.request.Request(url, headers={"User-Agent": "Agent-DCODE-BrowserQA/2.0"})
         with urllib.request.urlopen(req, timeout=10) as resp:
-            status = resp.status
+            status = getattr(resp, "status", 200)
             body = resp.read().decode("utf-8", errors="ignore")
         dom_info = inspect_html_dom(body)
         missing = [t for t in expected if t not in body]
         return {
-            "success": status == 200 and len(missing) == 0,
+            "success": status in (200, None) and len(missing) == 0,
             "status_code": status,
             "backend": "browser-use" if HAS_BROWSER_USE else "stdlib-dom-inspector",
             "dom": dom_info,
