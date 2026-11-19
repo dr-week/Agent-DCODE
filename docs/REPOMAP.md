@@ -5,7 +5,7 @@ Used by SWE agents and the Agent Harness to locate target symbols without overfl
 
 ---
 
-# Repository Symbol Map (74 files)
+# Repository Symbol Map (76 files)
 
 ## dcode/agents/autonomous.py
   - class ModelType []
@@ -65,6 +65,9 @@ Used by SWE agents and the Agent Harness to locate target symbols without overfl
 ## dcode/context/builder.py
   - def prepare_agent_context(task, selected_code, active_file, project_dir)
   - def format_context_for_llm(context)
+
+## dcode/context/compressor.py
+  - class ContextCompressor [prune_symbol_map, compress_diff]
 
 ## dcode/context/extractors.py
   - def get_file_context(file_path, max_lines)
@@ -248,6 +251,9 @@ Used by SWE agents and the Agent Harness to locate target symbols without overfl
   - def get_process_by_port(port)
   - def get_duplicate_processes(service_name)
   - def kill_duplicate_processes(service_name, log_fn)
+
+## dcode/runtime/docker_sandbox.py
+  - class DockerSandbox [__init__, is_docker_available, run, _run_docker, _run_local, _exec]
 
 ## dcode/runtime/git_checkpoint.py
   - class GitCheckpoint [__init__, snapshot, diff_since, rollback, git_status]
