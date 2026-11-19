@@ -46,6 +46,10 @@ def _dispatch_workflow(cmd: str, target: str, extra: str, args: Any) -> Any:
     if cmd == "qa":
         expects = [s.strip() for s in (args.expect or "").split(",") if s.strip()]
         return run_qa_workflow(target, expect_texts=expects)
+    if cmd == "harness":
+        from dcode.harness import AgentHarness, HarnessConfig
+        cfg = HarnessConfig(max_steps=args.max_attempts, workspace_dir=args.dir, test_command=args.test_cmd)
+        return AgentHarness(cfg).execute_swe_task(target or extra, model=args.model)
     static_cmds = {
         "status": get_session_status,
         "undo": undo_last_mutation,
