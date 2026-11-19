@@ -32,11 +32,12 @@ class RepoMap:
         for root, dirs, files in os.walk(self.root_dir):
             dirs[:] = [d for d in sorted(dirs) if d not in IGNORE_DIRS]
             for fname in sorted(files):
-                if not fname.endswith((".py", ".js", ".ts")):
+                ext = os.path.splitext(fname)[1]
+                if ext not in {".py", ".js", ".ts", ".rs", ".go", ".c", ".cpp", ".h"}:
                     continue
                 full = os.path.join(root, fname)
                 rel = os.path.relpath(full, self.root_dir)
-                symbols = self._extract_py(full) if fname.endswith(".py") else self._extract_js(full)
+                symbols = self._extract(full, ext)
                 if symbols:
                     symbol_map[rel] = symbols
                 count += 1
@@ -53,6 +54,14 @@ class RepoMap:
             for sym in syms[:25]:
                 lines.append(f"  - {sym}")
         return "\n".join(lines)
+
+    def _extract(self, path: str, ext: str) -> List[str]:
+        if ext == ".py":
+            return self._extract_py(path)
+        if ext in {".js", ".ts"}:
+            return self._extract_js(path)
+        from dcode.integrations.polyglot_extractor import extract_polyglot_symbols
+        return extract_polyglot_symbols(path, ext)
 
     def _extract_py(self, path: str) -> List[str]:
         try:

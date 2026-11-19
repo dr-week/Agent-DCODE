@@ -5,7 +5,7 @@ Used by SWE agents and the Agent Harness to locate target symbols without overfl
 
 ---
 
-# Repository Symbol Map (78 files)
+# Repository Symbol Map (79 files)
 
 ## dcode/agents/autonomous.py
   - class ModelType []
@@ -192,6 +192,9 @@ Used by SWE agents and the Agent Harness to locate target symbols without overfl
 ## dcode/integrations/mem0_store.py
   - class Mem0Store [__init__, _init_sqlite, remember, recall]
 
+## dcode/integrations/polyglot_extractor.py
+  - def extract_polyglot_symbols(file_path, ext)
+
 ## dcode/integrations/quantum_engine.py
   - class QuantumSimulator [__init__, apply_h, apply_x, apply_cnot, probabilities]
   - def simulate_quantum_circuit(num_qubits, gates)
@@ -204,7 +207,7 @@ Used by SWE agents and the Agent Harness to locate target symbols without overfl
   - def get_integration_status()
 
 ## dcode/integrations/repomap.py
-  - class RepoMap [__init__, scan, render_markdown, _extract_py, _extract_js]
+  - class RepoMap [__init__, scan, render_markdown, _extract, _extract_py, _extract_js]
   - def build_repo_map(root_dir)
 
 ## dcode/llm/colab_server.py

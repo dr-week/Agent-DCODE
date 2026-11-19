@@ -14,7 +14,7 @@
   <a href="#universal-agent-sdk--build-agents-in-10-lines"><img src="https://img.shields.io/badge/Architecture-Universal_Agent_SDK-00C853?style=for-the-badge&logo=python&logoColor=white" alt="Universal Agent SDK" /></a>
   <a href="#micro-modular-repository-map-100--100-linesfile"><img src="https://img.shields.io/badge/Modularity-100%25_%3C100_Lines%2FFile-00B0FF?style=for-the-badge&logo=codefactor&logoColor=white" alt="Modularity" /></a>
   <a href="#cli-anything-agent-native-engine"><img src="https://img.shields.io/badge/Protocol-CLI--Anything_Native-FF6D00?style=for-the-badge&logo=gnubash&logoColor=white" alt="CLI-Anything" /></a>
-  <a href="#verification--benchmark-evals"><img src="https://img.shields.io/badge/Unit_Tests-45%2F45_Passed-00C853?style=for-the-badge&logo=pytest&logoColor=white" alt="Tests" /></a>
+  <a href="#verification--benchmark-evals"><img src="https://img.shields.io/badge/Unit_Tests-51%2F51_Passed-00C853?style=for-the-badge&logo=pytest&logoColor=white" alt="Tests" /></a>
   <a href="#verification--benchmark-evals"><img src="https://img.shields.io/badge/SWE_Evals-100%25_Pass%401-AA00FF?style=for-the-badge&logo=checkmarx&logoColor=white" alt="Evals" /></a>
 </p>
 
@@ -358,8 +358,9 @@ python3 scripts/repomap_sync.py
 | **Production AI Agent Harness** | Guardian, TrajectoryRecorder, Grader, Validator, SWEBenchAdapter | 10 Test Cases | **100% (10/10)** | `< 40 ms` | Verified |
 | **Quantum Engine & QUBO** | Statevector ($H, X, CNOT$), Bell states, simulated annealing scheduler | 8 Test Cases | **100% (8/8)** | `< 2 ms` | Verified |
 | **Deployment & Worktrees** | Ephemeral Git worktrees, Docker sandbox fallback, WSGI serverless | 5 Test Cases | **100% (5/5)** | `< 50 ms` | Verified |
+| **Polyglot AST Repomap** | Multi-language AST symbol extraction (Python, Rust, Go, C/C++) | 3 Test Cases | **100% (3/3)** | `< 5 ms` | Verified |
 | **SWE Evals Benchmark Suite** | Code generation, surgical refactor, CLI generation, SWE loop, MCP | 5 Tasks | **100% (5/5)** | `< 100 ms` | Verified |
-| **Total Test Suite** | Full 48 unit tests + 5 SWE benchmark evals | **53 Checks** | **100% (53/53)** | **2.22s** | **Verified** |
+| **Total Test Suite** | Full 51 unit tests + 5 SWE benchmark evals | **56 Checks** | **100% (56/56)** | **2.30s** | **Verified** |
 
 ---
 
@@ -492,6 +493,7 @@ Full architectural specifications, developer manuals, and operational references
 - [x] AI Agent Harness with budget guardian, AST validator, and SWE-bench Lite adapter ([`src/dcode/harness/`](src/dcode/harness/))
 - [x] Quantum Mechanics Engine & QUBO Simulated Annealing Swarm Scheduler ([`src/dcode/integrations/quantum_engine.py`](src/dcode/integrations/quantum_engine.py))
 - [x] Zero-cost ($0/month) deployment via GitHub Pages and free-tier cloud backends ([`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md))
+- [x] Polyglot AST Repository Map with multi-language symbol extraction ([`src/dcode/integrations/polyglot_extractor.py`](src/dcode/integrations/polyglot_extractor.py))
 
 ---
 

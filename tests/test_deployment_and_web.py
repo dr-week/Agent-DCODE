@@ -26,6 +26,7 @@ class TestDeploymentAndWeb(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertIn(b"DCode Agent", res.data)
         self.assertIn(b"style.css", res.data)
+        res.close()
 
     def test_status_api_route(self):
         res = self.client.get("/api/status")
