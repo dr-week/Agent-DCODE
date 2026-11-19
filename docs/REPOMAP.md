@@ -5,11 +5,11 @@ Used by SWE agents and the Agent Harness to locate target symbols without overfl
 
 ---
 
-# Repository Symbol Map (77 files)
+# Repository Symbol Map (78 files)
 
 ## dcode/agents/autonomous.py
   - class ModelType []
-  - class AutonomousAgent [__init__, run, _fail_step]
+  - class AutonomousAgent [__init__, run, _fail]
   - def run_autonomous_agent(goal, project_name, max_iterations, context)
 
 ## dcode/agents/codex.py
@@ -141,6 +141,12 @@ Used by SWE agents and the Agent Harness to locate target symbols without overfl
 ## dcode/harness/linter_guard.py
   - class LinterGuard [check_code, check_file, check_workspace]
 
+## dcode/harness/patch_resolver.py
+  - class PatchResolver [apply_replacement, patch_file]
+
+## dcode/harness/regression_detector.py
+  - class RegressionDetector [parse_test_output, run_tests, check_regression]
+
 ## dcode/harness/runner.py
   - class AgentHarness [__init__, execute_swe_task]
 
@@ -190,6 +196,9 @@ Used by SWE agents and the Agent Harness to locate target symbols without overfl
   - class QuantumSimulator [__init__, apply_h, apply_x, apply_cnot, probabilities]
   - def simulate_quantum_circuit(num_qubits, gates)
   - def quantum_optimize_qubo(qubo_matrix, steps)
+
+## dcode/integrations/quantum_minimizer.py
+  - class QuantumTestMinimizer [__init__, build_qubo, minimize]
 
 ## dcode/integrations/registry.py
   - def get_integration_status()
@@ -308,17 +317,3 @@ Used by SWE agents and the Agent Harness to locate target symbols without overfl
 ## dcode/web/app.py
   - def create_app()
   - def run_server(host, port, debug)
-
-## dcode/web/routes/agent_routes.py
-  - def agent_execute()
-  - def agent_autonomous()
-  - def agent_log_endpoint()
-  - def agent_clear()
-
-## dcode/web/routes/chat_routes.py
-  - def run_single_prompt_agent(user_input)
-  - def api_ask()
-  - def api_history()
-  - def api_clear()
-  - def health()
-  - def api_status()

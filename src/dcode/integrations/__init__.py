@@ -12,6 +12,7 @@ from dcode.integrations.litellm_router import LiteLLMRouter
 from dcode.integrations.mcp_bridge import MCPBridge
 from dcode.integrations.mem0_store import Mem0Store
 from dcode.integrations.quantum_engine import QuantumSimulator, quantum_optimize_qubo, simulate_quantum_circuit
+from dcode.integrations.quantum_minimizer import QuantumTestMinimizer
 from dcode.integrations.registry import get_integration_status
 from dcode.integrations.repomap import RepoMap, build_repo_map
 
@@ -21,6 +22,7 @@ __all__ = [
     "MCPBridge",
     "Mem0Store",
     "QuantumSimulator",
+    "QuantumTestMinimizer",
     "RepoMap",
     "browser_verify",
     "build_repo_map",

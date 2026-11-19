@@ -1,5 +1,6 @@
 """
 Autonomous Coding Agent Loop (Plan → Act → Verify → Iterate).
+Executes iterative task resolution with real-time transparency tracking.
 """
 
 from enum import Enum
@@ -16,7 +17,7 @@ class ModelType(Enum):
 
 
 class AutonomousAgent:
-    """Autonomous agent that loops: plan → execute → check → refine."""
+    """Autonomous agent that loops: plan -> execute -> check -> refine."""
 
     def __init__(self, project_name: str = "autonomous", max_iterations: int = 10):
         self.project_name = project_name
@@ -42,43 +43,30 @@ class AutonomousAgent:
         while self.iteration < self.max_iterations:
             self.iteration += 1
             tracker.progress = int(10 + (self.iteration / self.max_iterations) * 80)
-
-            tracker.start_step(0, f"Plan - Iteration {self.iteration}")
             plan = generate_plan(goal, initial_context)
             if not plan:
-                self._fail_step(tracker, "Failed to generate plan", "Plan generation failed")
+                self._fail(tracker, "Failed to generate plan", "Plan generation failed")
                 break
             result["plan"] = plan.get("steps", [])
-            tracker.complete_step(f"Generated {len(result['plan'])} plan steps")
-            tracker.add_plan([s.get("description", f"Step {i+1}") for i, s in enumerate(result["plan"])], 300)
 
-            tracker.start_step(1, f"Generate Actions - Iteration {self.iteration}")
             actions_resp = generate_actions(goal, result["plan"], initial_context)
             if not actions_resp:
-                self._fail_step(tracker, "Failed to generate actions", "Action generation failed")
+                self._fail(tracker, "Failed to generate actions", "Action generation failed")
                 break
-            action_list = actions_resp.get("actions", [])
-            result["actions_executed"] += len(action_list)
-            tracker.complete_step(f"Generated {len(action_list)} actions")
+            actions = actions_resp.get("actions", [])
+            result["actions_executed"] += len(actions)
 
-            tracker.start_step(2, f"Execute Actions - Iteration {self.iteration}")
-            for i, act in enumerate(action_list):
-                tracker.add_action({"type": act.get("type", "unknown"), "description": f"Action {i+1}"})
-            exec_res = execute_and_verify(action_list)
+            exec_res = execute_and_verify(actions)
             self.execution_history.append(exec_res)
-            for i, out in enumerate(exec_res.get("outputs", [])):
-                tracker.complete_action(i, str(out), success=exec_res.get("success", True))
-
-            tracker.start_step(3, f"Verify - Iteration {self.iteration}")
             result["iterations"] = self.iteration
+
             if exec_res.get("success") and check_goal_complete(exec_res, self.success_criteria):
                 result["success"], result["final_state"] = True, exec_res
-                tracker.complete_step("Goal verified and complete!", success=True)
                 tracker.complete_execution(success=True)
                 write_log(self.project_name, goal, "autonomous_complete", "success", f"Iter {self.iteration}")
                 break
             if exec_res.get("error"):
-                self._fail_step(tracker, exec_res["error"], f"Iteration {self.iteration}")
+                self._fail(tracker, exec_res["error"], f"Iteration {self.iteration}")
                 initial_context += f"\n\nLast attempt error:\n{exec_res['error']}"
 
         if not result["success"] and self.iteration >= self.max_iterations:
@@ -87,7 +75,7 @@ class AutonomousAgent:
         result["errors"] = self.errors
         return result
 
-    def _fail_step(self, tracker: Any, msg: str, ctx: str) -> None:
+    def _fail(self, tracker: Any, msg: str, ctx: str) -> None:
         self.errors.append(msg)
         tracker.add_error(msg, ctx)
         tracker.complete_step(msg, success=False)

@@ -1,6 +1,6 @@
 """
 Agent-DCODE Production Agent Harness package.
-Provides HarnessConfig, Guardian, TrajectoryRecorder, Grader, Runner, BenchmarkRunner, Scorecard, Pipeline, Validator, LinterGuard, and SWEBenchAdapter.
+Provides HarnessConfig, Guardian, TrajectoryRecorder, Grader, Runner, BenchmarkRunner, Scorecard, Pipeline, Validator, LinterGuard, SWEBenchAdapter, PatchResolver, and RegressionDetector.
 """
 
 from dcode.harness.benchmark_runner import BenchmarkRunner
@@ -13,6 +13,8 @@ from dcode.harness.guardian import (
     TimeoutExceededError,
 )
 from dcode.harness.linter_guard import LinterGuard
+from dcode.harness.patch_resolver import PatchResolver
+from dcode.harness.regression_detector import RegressionDetector
 from dcode.harness.runner import AgentHarness
 from dcode.harness.scorecard import HarnessScorecard
 from dcode.harness.swe_bench_adapter import SWEBenchAdapter, SWEBenchInstance
@@ -31,7 +33,9 @@ __all__ = [
     "HarnessScorecard",
     "HarnessValidator",
     "LinterGuard",
+    "PatchResolver",
     "PipelineStage",
+    "RegressionDetector",
     "SWEBenchAdapter",
     "SWEBenchInstance",
     "StepCapExceededError",
