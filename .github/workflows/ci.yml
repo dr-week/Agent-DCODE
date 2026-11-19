@@ -1,0 +1,47 @@
+name: Agent-DCODE Modularity & Eval CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Enforce Strict < 100 Lines Per File Modularity Gate
+        run: |
+          python3 -c '
+          import glob, sys
+          violators = []
+          for pattern in ["src/**/*.py", "scripts/**/*.py", "tests/**/*.py", "evals/**/*.py"]:
+              for path in glob.glob(pattern, recursive=True):
+                  with open(path, "r", encoding="utf-8", errors="ignore") as f:
+                      lines = sum(1 for _ in f)
+                  if lines >= 100:
+                      violators.append((path, lines))
+          if violators:
+              for p, l in violators:
+                  print(f"MODULARITY GATE FAILED: {p} has {l} lines (limit is < 100)")
+              sys.exit(1)
+          print("MODULARITY GATE PASSED: All Python files are strictly < 100 lines.")
+          '
+
+      - name: Run Framework, Integrations, and CLI-Anything Unit Tests
+        run: |
+          python3 tests/test_framework.py -v
+          python3 tests/test_tools_and_cli.py -v
+          python3 tests/test_integrations.py -v
+
+      - name: Run Quantitative SWE Evaluation Suite
+        run: |
+          python3 evals/run_evals.py

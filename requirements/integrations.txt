@@ -1,0 +1,14 @@
+# Phase 1: Universal LLM Router & MCP Bus
+litellm>=1.40.0
+fastmcp>=0.4.0
+
+# Phase 2: Multi-Language AST RepoMap
+tree-sitter>=0.21.0
+
+# Phase 3: Live Web Research & Browser Automation
+crawl4ai>=0.4.0
+browser-use>=0.1.0
+
+# Phase 4: Persistent Memory & LLM Telemetry
+mem0ai>=0.1.0
+langfuse>=2.40.0

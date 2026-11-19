@@ -1,6 +1,6 @@
 """
 DCode Universal Agentic AI Framework SDK.
-Provides declarative AgentSpec, @tool introspection, StateGraph, ReAct, Reflexion, and MultiAgentTeam.
+Provides declarative AgentSpec, @tool introspection, StateGraph, ReAct, Reflexion, SWELoop, and MultiAgentTeam.
 """
 
 from dcode.framework.core import (
@@ -13,7 +13,7 @@ from dcode.framework.core import (
     load_agent_spec_from_file,
     tool,
 )
-from dcode.framework.loops import ReActAgent, ReflexionAgent
+from dcode.framework.loops import ReActAgent, ReflexionAgent, SWELoop
 from dcode.framework.swarm import MultiAgentTeam
 
 __all__ = [
@@ -22,6 +22,7 @@ __all__ = [
     "MultiAgentTeam",
     "ReActAgent",
     "ReflexionAgent",
+    "SWELoop",
     "StateGraph",
     "TaskSpec",
     "ToolDefinition",
