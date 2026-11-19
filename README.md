@@ -36,6 +36,7 @@
   <a href="#cli-anything-agent-native-engine"><b>CLI-Anything</b></a> •
   <a href="#micro-modular-repository-map-100--100-linesfile"><b>Repository Map</b></a> •
   <a href="#verification--benchmark-evals"><b>Benchmarks</b></a> •
+  <a href="docs/ROADMAP.md"><b>v2.0 Roadmap</b></a> •
   <a href="docs/README.md"><b>Docs Hub</b></a>
 </p>
 

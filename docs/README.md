@@ -1,6 +1,8 @@
 # Agent-DCODE Documentation Hub
 
-All project documentation is organized into **8 functional categories** according to system architecture, engineering requirements, and operational workflows.
+All project documentation is organized into **8 lean functional categories** plus the Next-Level Engineering Roadmap. Redundant build logs and duplicate quick-reference files have been removed.
+
+- **[Next-Level Engineering Roadmap (v2.0 Plan)](ROADMAP.md)**
 
 ---
 
@@ -24,15 +26,9 @@ All project documentation is organized into **8 functional categories** accordin
 - [Structured State Logging](03-agents-and-tools/logging.md)
 
 ## 04. Real-Time Transparency & File Panel (`04-transparency-and-ui/`)
-- [Transparency Architecture](04-transparency-and-ui/architecture-transparency.md)
 - [Real-Time Transparency Architecture](04-transparency-and-ui/architecture-realtime-transparency.md)
-- [Transparency Start Here](04-transparency-and-ui/transparency-start-here.md)
 - [Transparency UI Specification](04-transparency-and-ui/transparency-ui.md)
-- [Transparency Integration](04-transparency-and-ui/transparency-integration.md)
-- [Transparency Quick Reference](04-transparency-and-ui/transparency-quick-ref.md)
 - [File Panel Guide](04-transparency-and-ui/file-panel-guide.md)
-- [File Panel Visual Reference](04-transparency-and-ui/file-panel-visual.md)
-- [File Panel Quick Reference](04-transparency-and-ui/file-panel-quick-ref.md)
 
 ## 05. Service Orchestrator & Operations (`05-orchestrator-and-ops/`)
 - [Service Orchestrator Architecture](05-orchestrator-and-ops/orchestrator.md)
@@ -56,15 +52,7 @@ All project documentation is organized into **8 functional categories** accordin
 - [Real-Time Transparency Tests](07-testing-and-verification/test-realtime-transparency.md)
 - [Implementation Verification](07-testing-and-verification/implementation-verification.md)
 
-## 08. Releases & Milestone Reports (`08-releases-and-reports/`)
+## 08. Releases & History (`08-releases-and-reports/`)
 - [Release v1.2.0](08-releases-and-reports/release-v1.2.0.md)
 - [Release v0.1.0](08-releases-and-reports/release-v0.1.0.md)
 - [Project Development Log](08-releases-and-reports/project-log.md)
-- [Implementation Summary](08-releases-and-reports/implementation-summary.md)
-- [Build Transparency Complete](08-releases-and-reports/build-transparency-complete.md)
-- [Delivery Transparency Report](08-releases-and-reports/delivery-transparency.md)
-- [Summary Transparency](08-releases-and-reports/summary-transparency.md)
-- [Real-Time Transparency Summary](08-releases-and-reports/realtime-transparency-summary.md)
-- [File Panel Complete](08-releases-and-reports/file-panel-complete.md)
-- [File Panel Final Summary](08-releases-and-reports/file-panel-final-summary.md)
-- [Orchestrator Build Complete](08-releases-and-reports/orchestrator-build-complete.md)
