@@ -5,6 +5,7 @@ All project documentation is streamlined into **authoritative, single-source-of-
 - **[Next-Level Engineering Roadmap & Phased Plan (v2.0)](ROADMAP.md)**
 - **[Open-Source GitHub Integrations Guide (`src/dcode/integrations/`)](INTEGRATIONS.md)**
 - **[AI Agent Harness & Development Guide (`src/dcode/harness/`)](HARNESS.md)**
+- **[Quantum Mechanics Engine & Qiskit SDK (`src/dcode/integrations/quantum_engine.py`)](QUANTUM.md)**
 
 ---
 

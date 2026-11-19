@@ -12,3 +12,6 @@ browser-use>=0.1.0
 # Phase 4: Persistent Memory & LLM Telemetry
 mem0ai>=0.1.0
 langfuse>=2.40.0
+
+# Phase 5: Quantum Mechanics SDK
+qiskit>=1.0.0

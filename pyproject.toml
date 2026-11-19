@@ -25,6 +25,7 @@ integrations = [
     "browser-use>=0.1.0",
     "mem0ai>=0.1.0",
     "langfuse>=2.40.0",
+    "qiskit>=1.0.0",
 ]
 
 [project.scripts]

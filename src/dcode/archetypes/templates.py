@@ -56,12 +56,23 @@ def create_security_auditor_spec(name: str = "security-auditor") -> AgentSpec:
     )
 
 
+def create_quantum_engineer_spec(name: str = "quantum-engineer") -> AgentSpec:
+    return AgentSpec(
+        name=name,
+        role="Quantum Computing & Mechanics Engineer",
+        goal="Synthesize quantum circuits (Qiskit), simulate statevectors, and solve QUBO optimization",
+        loop_type="react",
+        max_iterations=5,
+    )
+
+
 ARCHETYPE_CATALOG: Dict[str, callable] = {
     "coder": create_coding_agent_spec,
     "researcher": create_research_agent_spec,
     "data_analyst": create_data_analyst_spec,
     "devops": create_devops_sre_spec,
     "security_auditor": create_security_auditor_spec,
+    "quantum": create_quantum_engineer_spec,
 }
 
 

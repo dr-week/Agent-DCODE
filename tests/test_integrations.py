@@ -88,7 +88,7 @@ class TestOpenSourceIntegrations(unittest.TestCase):
             self.assertEqual(stats["total_tokens"], 250)
 
             catalog = get_integration_status()
-            self.assertEqual(len(catalog), 8)
+            self.assertEqual(len(catalog), 9)
 
 
 if __name__ == "__main__":
