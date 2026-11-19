@@ -1,3 +1,2 @@
-print('hello')
-\nprint('world')
-print('world')
+print("hello")
+print("world")

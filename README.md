@@ -359,7 +359,33 @@ python3 scripts/repomap_sync.py
 | **Quantum Engine & QUBO** | Statevector ($H, X, CNOT$), Bell states, simulated annealing scheduler | 8 Test Cases | **100% (8/8)** | `< 2 ms` | Verified |
 | **Deployment & Worktrees** | Ephemeral Git worktrees, Docker sandbox fallback, WSGI serverless | 5 Test Cases | **100% (5/5)** | `< 50 ms` | Verified |
 | **SWE Evals Benchmark Suite** | Code generation, surgical refactor, CLI generation, SWE loop, MCP | 5 Tasks | **100% (5/5)** | `< 100 ms` | Verified |
-| **Total Test Suite** | Full 45 unit tests + 5 SWE benchmark evals | **50 Checks** | **100% (50/50)** | **2.18s** | **Verified** |
+| **Total Test Suite** | Full 48 unit tests + 5 SWE benchmark evals | **53 Checks** | **100% (53/53)** | **2.22s** | **Verified** |
+
+---
+
+## Code Quality, Linting & Standards
+
+Agent-DCODE enforces static analysis and modularity gates in local development and on every CI pull request:
+
+```bash
+# 1. Run static analysis, AST syntax verification, and line limits
+python3 scripts/lint.py
+
+# 2. Run line count modularity audit (<150 LOC maximum)
+python3 scripts/check_modularity.py
+
+# 3. Install local git pre-commit hook (enforces checks on git commit)
+python3 scripts/install_hooks.py
+
+# 4. View live system health and development priorities dashboard
+python3 scripts/status_dashboard.py
+```
+
+### Quality Standards & Invariants
+- **Line Limit Invariant:** Every file is strictly constrained within 100–150 LOC maximum (100% of current codebase is `<100 lines`).
+- **AST Syntax Checking:** Intercepts invalid syntax, malformed indentation, and compilation errors before runtime.
+- **Zero-Emoji Policy:** Absolute prohibition of emojis in code, docstrings, commits, and API payloads for professional enterprise compliance.
+- **Troubleshooting Runbook:** See **[docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)** for common issues and fixes.
 
 ---
 

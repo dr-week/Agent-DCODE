@@ -8,6 +8,7 @@ All project documentation is streamlined into **authoritative, single-source-of-
 - **[Quantum Mechanics Engine & Qiskit SDK (`src/dcode/integrations/quantum_engine.py`)](QUANTUM.md)**
 - **[Repository Symbol Map & Sync (`docs/REPOMAP.md`)](REPOMAP.md)**
 - **[GitHub Deployment & Free-Tier Backend Guide (`docs/DEPLOYMENT.md`)](DEPLOYMENT.md)**
+- **[Troubleshooting & Operational Runbook (`docs/TROUBLESHOOTING.md`)](TROUBLESHOOTING.md)**
 
 ---
 

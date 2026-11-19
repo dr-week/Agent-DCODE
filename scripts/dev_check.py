@@ -26,6 +26,7 @@ def main() -> None:
     t_start = time.time()
     stages = [
         ("Modularity Gate (<100 lines)", [sys.executable, "scripts/check_modularity.py"]),
+        ("Static Analysis & Linters", [sys.executable, "scripts/lint.py"]),
         ("Unit Tests Suite", [sys.executable, "-m", "unittest", "discover", "-s", "tests"]),
         ("SWE Evals Benchmark", [sys.executable, "evals/run_evals.py"]),
     ]

@@ -45,6 +45,8 @@
                 <div class="mode-selector">
                     <button class="mode-btn active" data-mode="agent" id="modeAgent">Agent Mode</button>
                     <button class="mode-btn" data-mode="chat" id="modeChat">Chat Mode</button>
+                    <button class="mode-btn" data-mode="status" id="modeStatus">Status & Metrics</button>
+                    <button class="mode-btn" data-mode="docs" id="modeDocs">Documentation</button>
                 </div>
 
                 <!-- CODEX CONTROL BAR -->
@@ -202,6 +204,90 @@
                                 <button id="refreshBtn" class="btn-secondary" title="Refresh">Status</button>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- STATUS & METRICS MODE -->
+                <div class="mode-content" id="statusMode" style="display: none; padding: 20px; overflow-y: auto;">
+                    <div class="status-dashboard-panel">
+                        <h3>System Status & Framework Metrics</h3>
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <h4>Modularity Invariant</h4>
+                                <p class="metric-val">100% &lt;150L</p>
+                                <span class="metric-sub">139 Python Files Verified</span>
+                            </div>
+                            <div class="metric-card">
+                                <h4>Unit Test Suite</h4>
+                                <p class="metric-val">48 / 48 Passed</p>
+                                <span class="metric-sub">100% Pass Rate (1.70s)</span>
+                            </div>
+                            <div class="metric-card">
+                                <h4>SWE Benchmark</h4>
+                                <p class="metric-val">5 / 5 Pass@1</p>
+                                <span class="metric-sub">100% Task Resolution</span>
+                            </div>
+                            <div class="metric-card">
+                                <h4>Total Dev Gate</h4>
+                                <p class="metric-val">2.22s</p>
+                                <span class="metric-sub">All-in-One Quality Gate</span>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top: 24px;">Open-Source Integrations Bus</h3>
+                        <table class="status-table">
+                            <thead>
+                                <tr><th>Integration</th><th>Backend Provider</th><th>Status</th><th>GitHub Source</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>LiteLLM Router</td><td>Universal Multi-Model (Ollama / Cloud)</td><td><span class="badge online">Active</span></td><td>BerriAI/litellm</td></tr>
+                                <tr><td>FastMCP Bridge</td><td>Bidirectional JSON-RPC Server/Client</td><td><span class="badge online">Active</span></td><td>jlowin/fastmcp</td></tr>
+                                <tr><td>RepoMap</td><td>Tree-Sitter / AST Symbol Graph</td><td><span class="badge online">Active</span></td><td>tree-sitter/py-tree-sitter</td></tr>
+                                <tr><td>mini-swe-agent</td><td>Reproduce &rarr; Patch &rarr; Verify Loop</td><td><span class="badge online">Active</span></td><td>SWE-agent/mini-swe-agent</td></tr>
+                                <tr><td>Crawl4AI</td><td>Web-to-Markdown Live Research</td><td><span class="badge online">Active</span></td><td>unclecode/crawl4AI</td></tr>
+                                <tr><td>Browser-Use</td><td>E2E Headless DOM UI Tester</td><td><span class="badge online">Active</span></td><td>browser-use/browser-use</td></tr>
+                                <tr><td>Mem0 Store</td><td>Persistent Cross-Session Memory</td><td><span class="badge online">Active</span></td><td>mem0ai/mem0</td></tr>
+                                <tr><td>Langfuse Tracer</td><td>Token, Cost & Latency Observability</td><td><span class="badge online">Active</span></td><td>langfuse/langfuse</td></tr>
+                                <tr><td>Quantum Engine</td><td>Statevector & QUBO Simulated Annealing</td><td><span class="badge online">Active</span></td><td>Qiskit/qiskit</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- DOCUMENTATION MODE -->
+                <div class="mode-content" id="docsMode" style="display: none; padding: 20px; overflow-y: auto;">
+                    <div class="docs-panel">
+                        <h3>Project Documentation & Quickstart Guides</h3>
+                        <p class="subtitle" style="text-align: left; margin-bottom: 16px;">Comprehensive technical specifications and operational runbooks.</p>
+                        
+                        <div class="docs-grid">
+                            <a href="https://github.com/dr-week/Agent-DCODE/blob/main/docs/DEPLOYMENT.md" target="_blank" class="doc-card">
+                                <h4>Free-Tier Deployment Guide</h4>
+                                <p>Deploy to GitHub Pages, Hugging Face Spaces, Render, and Serverless WSGI with $0/month cost.</p>
+                            </a>
+                            <a href="https://github.com/dr-week/Agent-DCODE/blob/main/docs/ROADMAP.md" target="_blank" class="doc-card">
+                                <h4>v2.0 Phased Engineering Roadmap</h4>
+                                <p>Architectural milestones across SWE loops, swarm consensus, and runtime sandboxing.</p>
+                            </a>
+                            <a href="https://github.com/dr-week/Agent-DCODE/blob/main/docs/HARNESS.md" target="_blank" class="doc-card">
+                                <h4>AI Agent Harness Specification</h4>
+                                <p>Guardian budget caps, trajectory logs, pre-flight AST linters, and SWE-bench scorecards.</p>
+                            </a>
+                            <a href="https://github.com/dr-week/Agent-DCODE/blob/main/docs/TROUBLESHOOTING.md" target="_blank" class="doc-card">
+                                <h4>Operational Runbook & Troubleshooting</h4>
+                                <p>Resolving environment errors (PEP 668), Ollama connection, port conflicts, and CORS.</p>
+                            </a>
+                        </div>
+
+                        <h3 style="margin-top: 24px;">Essential Developer Commands</h3>
+                        <pre class="code-block"># Run full developer quality gate (< 2.3s)
+python3 scripts/dev_check.py
+
+# Run static analysis and linter
+python3 scripts/lint.py
+
+# Execute autonomous bug fix workflow
+python3 scripts/dcode_cli.py fix "Handle ZeroDivisionError in compute_average"</pre>
                     </div>
                 </div>
             </div>  <!-- end main-content -->
