@@ -2,7 +2,8 @@
 
 All project documentation is organized into **8 lean functional categories** plus the Next-Level Engineering Roadmap. Redundant build logs and duplicate quick-reference files have been removed.
 
-- **[Next-Level Engineering Roadmap (v2.0 Plan)](ROADMAP.md)**
+- **[Next-Level Engineering Roadmap & Phased Plan (v2.0)](ROADMAP.md)**
+- **[Open-Source GitHub Integrations Guide (`src/dcode/integrations/`)](INTEGRATIONS.md)**
 
 ---
 
